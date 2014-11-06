@@ -1,0 +1,32 @@
+{
+  "bitwise": true,
+  "immed": true,
+  "newcap": true,
+  "noarg": true,
+  "noempty": true,
+  "nonew": true,
+  "trailing": true,
+  "maxlen": 200,
+  "boss": true,
+  "eqnull": true,
+  "expr": true,
+  "globalstrict": true,
+  "laxbreak": true,
+  "loopfunc": true,
+  "sub": false,
+  "undef": true,
+  "curly": true,
+  "browser": true,
+  "indent": 2,
+  "node": true,
+  "browser": true,
+  "devel": true,
+  "jasmine": true,
+  "globals": {
+    "angular": true,
+    "inject": true,
+    "browser": true,
+    "by": true,
+    "element": true
+  }
+}

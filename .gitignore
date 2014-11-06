@@ -1,0 +1,6 @@
+dist
+.tmp
+node_modules
+components
+main.css
+*-templates.js
