@@ -1,3 +1,5 @@
+// Grunt build system
+
 module.exports = function (grunt) {
   'use strict';
 

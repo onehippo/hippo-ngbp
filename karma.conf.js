@@ -1,4 +1,7 @@
 // Karma configuration
+
+var pkg = require('./package.json');
+
 module.exports = function(config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
@@ -33,7 +36,7 @@ module.exports = function(config) {
     // this might cause test failures when testing the html strings
     ngHtml2JsPreprocessor: {
       stripPrefix: 'modules/',
-      moduleName: 'app.templates'
+      moduleName: pkg.name + '.templates'
     },
 
     // test results reporter to use

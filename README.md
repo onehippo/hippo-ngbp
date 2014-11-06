@@ -1,4 +1,5 @@
-# App
+# Hippo Angular Boilerplate
+Just change the name in the package.json, bower.json and src/* files to the name of your application.
 
 ## Development environment setup
 ### Prerequisites
