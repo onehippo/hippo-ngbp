@@ -8,7 +8,10 @@
 
   main.config([
     '$stateProvider',
-    function ($stateProvider) {
+    '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
+      $urlRouterProvider.otherwise('/');
+
       $stateProvider.state('main', {
         url: '/',
         templateUrl: 'modules/main.tpl.html',
