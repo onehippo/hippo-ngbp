@@ -1,24 +1,23 @@
 (function () {
   'use strict';
 
-  describe('app: ', function () {
+  describe('Main: ', function () {
     it('should exist', function () {
-      expect(angular.module('app')).toBeDefined();
+      expect(angular.module('main')).toBeDefined();
     });
   });
 
-  describe('app.templates: ', function () {
+  describe('Main.templates: ', function () {
     it('should exist', function () {
-      expect(angular.module('app.templates')).toBeDefined();
+      expect(angular.module('main.templates')).toBeDefined();
     });
 
     it('should set some template in the template cache', function () {
-      module('app');
+      module('main');
 
       inject(function ($templateCache) {
-        var tpl = $templateCache.get('app.tpl.html');
+        var tpl = $templateCache.get('main.tpl.html');
         expect(tpl).toBeDefined();
-        expect(tpl).toBe('<h1>App</h1>');
       });
     });
   });

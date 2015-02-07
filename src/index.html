@@ -14,12 +14,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 -->
-<html ng-app="app" id="app" xmlns:ng="http://angularjs.org">
+<html ng-app="main" id="main" xmlns:ng="http://angularjs.org">
 <head>
   <!-- Meta -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>App</title>
+  <title>Main</title>
 
   <!-- build:css assets/main.min.css -->
   <link rel="stylesheet" href="assets/main.css">
@@ -27,13 +27,19 @@
 </head>
 
 <body>
+<div ui-view></div>
+
 <!-- build:js assets/scripts.min.js -->
 <!--Required external libraries-->
 <script src="components/angular/angular.js"></script>
+<script src="components/angular-ui-router/release/angular-ui-router.js"></script>
 
 <!-- App scripts -->
-<script src="modules/app-templates.js"></script>
-<script src="modules/app.js"></script>
+<script src="modules/main.js"></script>
+<script src="modules/main-templates.js"></script>
+<script src="modules/sub/sub.js"></script>
+<script src="modules/sub/subsub/subsub.js"></script>
+<script src="modules/sub/subsub2/subsub2.js"></script>
 <!-- endbuild -->
 
 <!-- External scripts -->
