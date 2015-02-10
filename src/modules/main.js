@@ -28,4 +28,14 @@
       main.message = 'Main';
     }
   ]);
+
+  main.factory('MainService', [
+    function () {
+      var mainService = {
+        message: 'Awesome Mainservice message'
+      };
+
+      return mainService;
+    }
+  ]);
 })();

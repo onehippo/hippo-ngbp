@@ -18,10 +18,11 @@
   ]);
 
   subsub2.controller('SubSub2Ctrl', [
-    function () {
+    'MainService',
+    function (MainService) {
       var subsub2 = this;
 
-      subsub2.message = 'Awesome subsub2 module';
+      subsub2.message = MainService.message;
     }
   ]);
 })();
