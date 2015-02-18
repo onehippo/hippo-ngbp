@@ -77,9 +77,9 @@ module.exports = function (grunt) {
       */
       jssrc: {
         files: [
-          '<%= buildConfig.app_files.js %>',
-          '!<%= buildConfig.app_files.unit %>',
-          '!<%= buildConfig.app_files.e2e %>'
+          '<%= buildConfig.js %>',
+          '!<%= buildConfig.unit %>',
+          '!<%= buildConfig.e2e %>'
         ],
         tasks: ['jshint:src', 'karma:unit:run']
       },
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
         options: {
           livereload: false
         },
-        files: ['<%= buildConfig.app_files.unit %>'],
+        files: ['<%= buildConfig.unit %>'],
         tasks: ['jshint:unit', 'karma:unit:run']
       },
 
@@ -104,7 +104,7 @@ module.exports = function (grunt) {
         options: {
           livereload: false
         },
-        files: ['<%= buildConfig.app_files.e2e %>'],
+        files: ['<%= buildConfig.e2e %>'],
         tasks: ['jshint:e2e', 'protractor']
       },
 
@@ -113,7 +113,7 @@ module.exports = function (grunt) {
       * but we want to do a live reload.
       */
       assets: {
-        files: ['<%= buildConfig.app_files.assets %>']
+        files: ['<%= buildConfig.assets %>']
       },
 
       /*
@@ -123,7 +123,7 @@ module.exports = function (grunt) {
         options: {
           livereload: false
         },
-        files: ['<%= buildConfig.app_files.less %>'],
+        files: ['<%= buildConfig.less %>'],
         tasks: ['less:src' ]
       },
 
@@ -138,12 +138,12 @@ module.exports = function (grunt) {
       * When our templates change, we only rewrite the template cache.
       */
       tpls: {
-        files: ['<%= buildConfig.app_files.tpl %>'],
+        files: ['<%= buildConfig.tpl %>'],
         tasks: ['html2js']
       },
 
       index: {
-        files: ['<%= buildConfig.app_files.index %>']
+        files: ['<%= buildConfig.index %>']
       }
     },
 
@@ -157,9 +157,9 @@ module.exports = function (grunt) {
         jshintrc: '.jshintrc'
       },
       gruntfile: ['Gruntfile.js'],
-      src: ['<%= buildConfig.app_files.js %>'],
-      unit: ['<%= buildConfig.app_files.unit %>'],
-      e2e: ['<%= buildConfig.app_files.e2e %>']
+      src: ['<%= buildConfig.js %>'],
+      unit: ['<%= buildConfig.unit %>'],
+      e2e: ['<%= buildConfig.e2e %>']
     },
 
     /*
@@ -197,7 +197,7 @@ module.exports = function (grunt) {
     less: {
       src: {
         files: {
-          '<%= buildConfig.src_dir %>/assets/main.css': '<%= buildConfig.app_files.mainless %>'
+          '<%= buildConfig.src_dir %>/assets/main.css': '<%= buildConfig.mainless %>'
         }
       }
     },
@@ -210,7 +210,7 @@ module.exports = function (grunt) {
     html2js: {
       src: {
         options: {
-          module: '<%= buildConfig.jstplName %>',
+          module: '<%= buildConfig.jstplModule %>',
           base: '<%= buildConfig.src_dir %>/modules',
           useStrict: true,
           htmlmin: {
@@ -218,8 +218,8 @@ module.exports = function (grunt) {
             collapseBooleanAttributes: true
           }
         },
-        src: [ '<%= buildConfig.app_files.tpl %>' ],
-        dest: '<%= buildConfig.app_files.jstpl %>'
+        src: [ '<%= buildConfig.tpl %>' ],
+        dest: '<%= buildConfig.jstpl %>'
       }
     },
 
@@ -230,7 +230,7 @@ module.exports = function (grunt) {
       dist: '<%= buildConfig.dist_dir %>',
       src: [
         '<%= buildConfig.src_dir %>/assets/main.css',
-        '<%= buildConfig.app_files.jstpl %>'
+        '<%= buildConfig.jstpl %>'
       ],
       tmp: '<%= buildConfig.tmp_dir %>'
     },
@@ -283,7 +283,7 @@ module.exports = function (grunt) {
         dest: '<%= buildConfig.dist_dir %>',
         staging: '<%= buildConfig.tmp_dir %>'
       },
-      html: '<%= buildConfig.app_files.index %>'
+      html: '<%= buildConfig.index %>'
     },
 
     /*
