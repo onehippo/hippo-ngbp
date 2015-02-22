@@ -3,8 +3,14 @@
 
   var sub = angular.module('sub', [
     'ui.router',
-    'subsub',
-    'subsub2'
+    {
+      name: 'subsub',
+      files: ['modules/sub/subsub/subsub.js']
+    },
+    {
+      name: 'subsub2',
+      files: ['modules/sub/subsub2/subsub2.js']
+    }
   ]);
 
   sub.config([

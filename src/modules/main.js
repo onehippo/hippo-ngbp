@@ -2,8 +2,9 @@
   'use strict';
 
   var main = angular.module('main', [
-    'main.templates',
-    'sub'
+    'oc.lazyLoad',
+    'ui.router',
+    'main.templates'
   ]);
 
   main.config([
@@ -15,6 +16,14 @@
       $stateProvider.state('main', {
         url: '/',
         templateUrl: 'modules/main.tpl.html',
+        resolve: {
+          loadModule: ['$ocLazyLoad', function($ocLazyLoad) {
+            return $ocLazyLoad.load({
+              name: 'sub',
+              files: ['modules/sub/sub.js']
+            });
+          }]
+        },
         controller: 'MainCtrl',
         controllerAs: 'main'
       });
