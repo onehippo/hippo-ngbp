@@ -5,7 +5,7 @@ var pkg = require('./package.json');
 module.exports = function(config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: 'src/',
+    basePath: '.',
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
@@ -13,32 +13,17 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'components/angular/angular.js',
-      'components/angular-mocks/angular-mocks.js',
-      'components/angular-ui-router/release/angular-ui-router.js',
-      'modules/**/*.js',
-      'modules/**/*.tpl.html',
-      'modules/**/*.spec.js'
+      'bower_components/angular/angular.js',
+      'bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angular-ui-router/release/angular-ui-router.js',
+      'src/modules/**/*.js',
+      'src/modules/**/*.spec.js'
     ],
 
     // list of files to exclude
     exclude: [
-      'modules/**/*.e2e.js'
+      'src/modules/**/*.e2e.js'
     ],
-
-    // preprocess matching files before serving them to the browser
-    // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
-    preprocessors: {
-      'modules/**/*.tpl.html': ['ng-html2js']
-    },
-
-    // config for the karma-ng-html2js-preprocessor
-    // note that the preprocessor takes the *exact* html file including end of file line breaks.
-    // this might cause test failures when testing the html strings
-    ngHtml2JsPreprocessor: {
-      stripPrefix: 'modules/',
-      moduleName: pkg.name + '.templates'
-    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

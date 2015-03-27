@@ -10,7 +10,6 @@
   "boss": true,
   "eqnull": true,
   "expr": true,
-  "globalstrict": true,
   "laxbreak": true,
   "loopfunc": true,
   "sub": false,
@@ -22,11 +21,8 @@
   "browser": true,
   "devel": true,
   "jasmine": true,
+  "esnext": true,
   "globals": {
-    "angular": true,
-    "inject": true,
-    "browser": true,
-    "by": true,
-    "element": true
+    "angular": true
   }
 }

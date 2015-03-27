@@ -12,7 +12,7 @@ module.exports = {
   */
   src_dir: 'src',
   dist_dir: 'dist',
-  tmp_dir: '.tmp',
+  compiled_dir: 'compiled',
 
   /*
   * This is a collection of file patterns that refer to our source files.
@@ -29,7 +29,7 @@ module.exports = {
   tpl: 'src/modules/**/*.tpl.html',
   less: 'src/less/**/*.less',
   mainless: 'src/less/main.less',
-  jstpl: 'src/modules/' + pkg.name + '-templates.js',
-  jstplModule: pkg.name + '.templates',
+  jstpl: 'src/modules/main-templates.js',
+  jstplModule: 'main.templates',
   index: 'src/index.html'
 };

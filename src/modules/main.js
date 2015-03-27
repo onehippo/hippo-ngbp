@@ -1,50 +1,45 @@
-(function () {
-  'use strict';
+import angular from 'angular';
+import 'angular-ui-router';
+import sub from 'sub/sub';
+import templates from 'main-templates';
 
-  var main = angular.module('main', [
-    'oc.lazyLoad',
-    'ui.router',
-    'main.templates'
-  ]);
+var main = angular.module('main', [
+  'ui.router',
+  sub.name,
+  templates.name
+]);
 
-  main.config([
-    '$stateProvider',
-    '$urlRouterProvider',
-    function ($stateProvider, $urlRouterProvider) {
-      $urlRouterProvider.otherwise('/');
+main.config([
+  '$stateProvider',
+  '$urlRouterProvider',
+  function ($stateProvider, $urlRouterProvider) {
+    $urlRouterProvider.otherwise('/');
 
-      $stateProvider.state('main', {
-        url: '/',
-        templateUrl: 'modules/main.tpl.html',
-        resolve: {
-          loadModule: ['$ocLazyLoad', function($ocLazyLoad) {
-            return $ocLazyLoad.load({
-              name: 'sub',
-              files: ['modules/sub/sub.js']
-            });
-          }]
-        },
-        controller: 'MainCtrl',
-        controllerAs: 'main'
-      });
-    }
-  ]);
+    $stateProvider.state('main', {
+      url: '/',
+      templateUrl: 'modules/main.tpl.html',
+      controller: 'MainCtrl',
+      controllerAs: 'main'
+    });
+  }
+]);
 
-  main.controller('MainCtrl', [
-    function () {
-      var main = this;
+class MainCtrl {
+  constructor() {
+    this.message = 'Main';
+  }
+}
 
-      main.message = 'Main';
-    }
-  ]);
+main.controller('MainCtrl', MainCtrl);
 
-  main.factory('MainService', [
-    function () {
-      var mainService = {
-        message: 'Awesome Mainservice message'
-      };
+main.factory('MainService', [
+  function () {
+    var mainService = {
+      message: 'Awesome Mainservice message'
+    };
 
-      return mainService;
-    }
-  ]);
-})();
+    return mainService;
+  }
+]);
+
+export default main;

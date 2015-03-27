@@ -1,6 +1,3 @@
 dist
-.tmp
-node_modules
-components
-main.css
+compiled
 *-templates.js
