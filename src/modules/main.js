@@ -1,7 +1,7 @@
 import angular from 'angular';
 import 'angular-ui-router';
-import sub from 'sub/sub';
-import templates from 'main-templates';
+import sub from './sub/sub';
+import templates from './main-templates';
 
 var main = angular.module('main', [
   'ui.router',
