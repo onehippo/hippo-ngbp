@@ -23,6 +23,7 @@
   "jasmine": true,
   "esnext": true,
   "globals": {
-    "angular": true
+    "angular": true,
+    "System": true
   }
 }

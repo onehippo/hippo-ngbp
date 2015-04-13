@@ -42,4 +42,10 @@ main.factory('MainService', [
   }
 ]);
 
+angular.element(document).ready(function () {
+  angular.bootstrap(document.body, ['main'], {
+    strictDi: true
+  });
+});
+
 export default main;

@@ -1,38 +1,31 @@
 // Grunt build system
 
-module.exports = function (grunt) {
-  'use strict';
+'use strict';
 
+module.exports = function (grunt) {
   /*
-  * Load grunt tasks that are in the package.json
-  */
+   * Load grunt tasks that are in the package.json
+   */
   require('load-grunt-tasks')(grunt);
 
   /*
-  * Log execution time of grunt tasks
-  */
+   * Log execution time of grunt tasks
+   */
   require('time-grunt')(grunt);
 
   /*
-  * Initiate grunt config
-  */
+   * Initiate grunt config
+   */
   grunt.initConfig({
     /*
-    * Load in our build configuration file.
-    */
-    buildConfig: require('./build.config.js'),
+     * Load in our build configuration file.
+     */
+    cfg: require('./build.config.js'),
 
     watch: {
-      /*
-      * By default, we want the Live Reload to work for all tasks; this is
-      * overridden in some tasks (like this file) where browser resources are
-      * unaffected. It runs by default on port 35729, which your browser
-      * plugin should auto-detect.
-      */
       options: {
-        livereload: true,
-        livereloadOnError: false,
-        interrupt: true
+        spawn: false,
+        livereloadOnError: false
       },
 
       /*
@@ -40,60 +33,44 @@ module.exports = function (grunt) {
        * In fact, when your Gruntfile changes, it will automatically be reloaded!
        */
       jshintrc: {
-        options: {
-          livereload: false
-        },
         files: ['.jshintrc'],
         tasks: ['jshint']
       },
 
       karmaConf: {
-        options: {
-          livereload: false
-        },
         files: ['karma.conf.js'],
-        tasks: ['karma:unit:run']
+        tasks: ['karma:continuous:run']
       },
 
       protractorConf: {
-        options: {
-          livereload: false
-        },
         files: ['protractor.conf.js'],
         tasks: ['protractor']
       },
 
       gruntfile: {
         options: {
-          livereload: false
+          reload: true
         },
         files: ['Gruntfile.js', 'build.config.js'],
         tasks: ['jshint:gruntfile']
       },
 
       /*
-      * When our JavaScript source files change, we want to lint them and
-      * run our unit tests.
-      */
+       * When our JavaScript source files change, we want to lint them and
+       * run our unit tests.
+       */
       jssrc: {
-        files: [
-          '<%= buildConfig.js %>',
-          '!<%= buildConfig.unit %>',
-          '!<%= buildConfig.e2e %>'
-        ],
-        tasks: ['jshint:src', 'babel', 'systemjs']
+        files: ['<%= cfg.jssrc %>'],
+        tasks: ['jshint:src']
       },
 
       /*
-      * When a JavaScript unit test file changes, we only want to lint it and
-      * run the unit tests. We don't want to do any live reloading.
-      */
+       * When a JavaScript unit test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
       jsunit: {
-        options: {
-          livereload: false
-        },
-        files: ['<%= buildConfig.unit %>'],
-        tasks: ['jshint:unit', 'karma:unit:run']
+        files: ['<%= cfg.src_dir %>/<%= cfg.unit %>'],
+        tasks: ['jshint:unit', 'karma:continuous:run']
       },
 
       /*
@@ -101,78 +78,75 @@ module.exports = function (grunt) {
        * run the tests. We don't want to do any live reloading.
        */
       jse2e: {
-        options: {
-          livereload: false
-        },
-        files: ['<%= buildConfig.e2e %>'],
+        files: ['<%= cfg.src_dir %>/<%= cfg.e2e %>'],
         tasks: ['jshint:e2e', 'protractor']
       },
 
       /*
-      * When an asset changes, we dont need to run any tasks,
-      * but we want to do a live reload.
-      */
-      assets: {
-        files: ['<%= buildConfig.assets %>']
+       * When images are changes optimize them.
+       */
+      images: {
+        files: ['<%= cfg.src_dir %>/<%=cfg.images %>'],
+        tasks: ['imagemin']
       },
 
       /*
-      * When the LESS files change, we need to compile them, but not live reload.
-      */
+       * When the LESS files change, we need to compile them, but not live reload.
+       */
       less: {
-        options: {
-          livereload: false
-        },
-        files: ['<%= buildConfig.less %>'],
-        tasks: ['less:src' ]
+        files: ['<%= cfg.src_dir %>/<%= cfg.less %>'],
+        tasks: ['lesslint', 'less:src', 'autoprefixer']
       },
 
       /*
-      * When the CSS files change, we just want to live reload.
-      */
-      css: {
-        files: ['<%= buildConfig.src_dir %>/assets/main.css']
-      },
-
-      /*
-      * When our templates change, we only rewrite the template cache.
-      */
+       * When our templates change, we only rewrite the template cache.
+       */
       tpls: {
-        files: ['<%= buildConfig.tpl %>'],
-        tasks: ['html2js']
+        files: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
+        tasks: ['html2js', 'concat:js', 'uglify']
       },
 
-      index: {
-        files: ['<%= buildConfig.index %>']
+      livereload: {
+        options: {
+          livereload: true
+        },
+        files: [
+          '<%= cfg.compiled_dir %>/**',
+          '!<%= cfg.compiled_dir %>/**/*.*.map',
+          '<%= cfg.jssrc %>',
+          '<%= cfg.src_dir %>/index.html'
+        ]
       }
     },
 
     /*
-    * `jshint` defines the rules of our linter as well as which files we
-    * should check. This file, all javascript sources, and all our unit tests
-    * are linted based on the policies listed in `.jshintrc`.
-    */
+     * `jshint` defines the rules of our linter as well as which files we
+     * should check. This file, all javascript sources, and all our unit tests
+     * are linted based on the policies listed in `.jshintrc`.
+     */
     jshint: {
       options: {
-        jshintrc: '.jshintrc'
+        jshintrc: '.jshintrc',
+        reporter: require('jshint-stylish')
       },
       gruntfile: ['Gruntfile.js'],
-      src: ['<%= buildConfig.js %>']
-      // unit: ['<%= buildConfig.unit %>'],
-      // e2e: ['<%= buildConfig.e2e %>']
+      src: ['<%= cfg.jssrc %>'],
+      unit: ['<%= cfg.src_dir %>/<%= cfg.unit %>'],
+      e2e: ['<%= cfg.src_dir %>/<%= cfg.e2e %>']
     },
 
     /*
-    * The Karma configurations
-    */
+     * The Karma configurations
+     */
     karma: {
-      unit: {
-        configFile: 'karma.config.js',
+      options: {
+        configFile: 'karma.config.js'
+      },
+      continuous: {
         singleRun: false,
         background: true
       },
       single: {
-        configFile: 'karma.config.js',
         singleRun: true
       }
     },
@@ -190,29 +164,97 @@ module.exports = function (grunt) {
     },
 
     /*
-    * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-    * Only our `main.less` file is included in compilation; all other files
-    * must be imported from this file.
-    */
+     * LESSlint helps discover faulty or unwanted css constructions based on
+     * policies listed in csslintrc.json. The options in csslintrc
+     * are configured based on the values:
+     *   - false, throws no errors for this option
+     *   - 1, throws warnings for this option, doesnt fail the build
+     *   - 2, throws error for this options, fails the build
+     */
+    lesslint: {
+      options: {
+        imports: '<%= cfg.src_dir %>/<%= cfg.less %>',
+        csslint: require('./csslintrc.json')
+      },
+      src: ['<%= cfg.src_dir %>/<%= cfg.mainless %>']
+    },
+
+    /*
+     * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
+     * Only our `main.less` file is included in compilation; all other files
+     * must be imported from this file.
+     */
     less: {
-      src: {
+      main: {
+        options: {
+          sourceMap: true,
+          sourceMapFilename: '<%= cfg.compiled_dir %>/css/main.css.map',
+          sourceMapURL: 'main.css.map',
+          outputSourceFiles: true
+        },
         files: {
-          '<%= buildConfig.compiled_dir %>/css/main.css': '<%= buildConfig.mainless %>'
+          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainless %>'
         }
       }
     },
 
     /*
-    * HTML2JS is a Grunt plugin that takes all of your template files and
-    * places them into JavaScript files as strings that are added to
-    * AngularJS's template cache.
-    */
+     * Autoprefixer scans the css for rules that need vendor specific prefixes
+     * like -moz-, -webkit-, -ms- or -o-. These are needed for some css features
+     * to work in older browsers. The supported browsers are listed in the browsers option.
+     */
+    autoprefixer: {
+      options: {
+        browsers: ['last 1 version'],
+        map: true
+      },
+      compiled: {
+        src: '<%= cfg.compiled_dir %>/css/main.css',
+        dest: '<%= cfg.compiled_dir %>/css/main.css'
+      }
+    },
+
+    /*
+     * CSSmin minifies the provided css files.
+     */
+    cssmin: {
+      compiled: {
+        files: {
+          '<%= cfg.compiled_dir %>/css/main.min.css': ['<%= cfg.compiled_dir %>/css/main.css']
+        }
+      }
+    },
+
+    /*
+     * Imagemin optimizes png, jpg and gif image files.
+     * As this configuration shows, we optimize the images in the source dir
+     * so we will have optimized files in versioning, and will not need to run
+     * the optimization in every build.
+     */
+    imagemin: {
+      src: {
+        files: [
+          {
+            expand: true,
+            cwd: '<%= cfg.image_dir %>',
+            src: ['<%= cfg.images %>'],
+            dest: '<%= cfg.image_dir %>'
+          }
+        ]
+      }
+    },
+
+    /*
+     * HTML2JS is a Grunt plugin that takes all of your template files and
+     * places them into JavaScript files as strings that are added to
+     * AngularJS's template cache.
+     */
     html2js: {
       src: {
         options: {
-          module: '<%= buildConfig.jstplModule %>',
+          module: '<%= cfg.jstplModule %>',
           singleModule: true,
-          base: '<%= buildConfig.src_dir %>',
+          base: '<%= cfg.src_dir %>',
           useStrict: true,
           fileHeaderString: 'import angular from "angular"; \n export default',
           htmlmin: {
@@ -220,40 +262,61 @@ module.exports = function (grunt) {
             collapseBooleanAttributes: true
           }
         },
-        src: [ '<%= buildConfig.tpl %>' ],
-        dest: '<%= buildConfig.jstpl %>'
+        src: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
+        dest: '<%= cfg.src_dir %>/<%= cfg.jstpl %>'
       }
     },
 
     /*
-    * The directories/files to delete when `grunt clean` is executed.
-    */
-    clean: {
-      dist: '<%= buildConfig.dist_dir %>',
-      src: [
-        '<%= buildConfig.src_dir %>/assets/main.css',
-        '<%= buildConfig.jstpl %>'
-      ],
-      compiled: '<%= buildConfig.compiled_dir %>'
+     * Uglify minifies the provides js files.
+     */
+    uglify: {
+      compiled: {
+        files: {
+          '<%= cfg.compiled_dir %>/js/main.min.js': ['<%= cfg.compiled_dir %>/js/main.js']
+        }
+      }
     },
 
     /*
-    * Directly copy files/folders to destinations.
-    */
+     * The directories/files to delete when `grunt clean` is executed.
+     */
+    clean: {
+      compiled: '<%= cfg.compiled_dir %>',
+      tmp: '<%= cfg.tmp_dir %>',
+      dist: '<%= cfg.dist_dir %>',
+      docs: '<%= cfg.docs_dir %>'
+    },
+
+    /*
+     * Directly copy files/folders to destinations.
+     */
     copy: {
       dist: {
         files: [
           {
-            src: '<%= buildConfig.src_dir %>/index.html',
-            dest: '<%= buildConfig.dist_dir %>/index.html'
+            expand: true,
+            cwd: '<%= cfg.image_dir %>',
+            src: '<%= cfg.images %>',
+            dest: '<%= cfg.dist_dir %>/images/'
+          },
+          {
+            src: '<%= cfg.src_dir %>/index.html',
+            dest: '<%= cfg.dist_dir %>/index.html'
+          },
+          {
+            expand: true,
+            cwd: '<%= cfg.compiled_dir %>',
+            src: '**/*.min.{css,js}',
+            dest: '<%= cfg.dist_dir %>'
           }
         ]
       }
     },
 
     /*
-    * Minify html files
-    */
+     * Minify html files
+     */
     htmlmin: {
       dist: {
         options: {
@@ -261,92 +324,60 @@ module.exports = function (grunt) {
           collapseWhitespace: true
         },
         files: {
-          '<%= buildConfig.dist_dir %>/index.html': '<%= buildConfig.dist_dir %>/index.html'
+          '<%= cfg.dist_dir %>/index.html': '<%= cfg.dist_dir %>/index.html'
         }
       }
     },
 
     /*
-    * CSSmin configuration to be picked up by cssmin configuration
-    * generated by useminPrepare
-    */
-    // cssmin: {
-    //   options: {
-    //     keepSpecialComments: 0
-    //   }
-    // },
-
-    /*
-    * useminPrepare will look through the build comments in the source html
-    * and then generate the grunt configuration based on those comments.
-    */
+     * useminPrepare will look through the build comments in the source html
+     * and then generate the grunt configuration based on those comments.
+     */
     useminPrepare: {
       options: {
-        dest: '<%= buildConfig.dist_dir %>',
-        staging: '<%= buildConfig.compiled_dir %>'
+        dest: '<%= cfg.dist_dir %>',
+        staging: '<%= cfg.tmp_dir %>'
       },
-      html: '<%= buildConfig.index %>'
+      html: '<%= cfg.dist_dir %>/index.html'
     },
 
     /*
-    * filerev will set revision numbers on the specified files.
-    */
+     * filerev will set revision numbers on the specified files.
+     */
     filerev: {
-      assets: {
-        src: ['<%= buildConfig.dist_dir %>/assets/**/*.{css,js}']
+      dist: {
+        src: '<%= cfg.dist_dir %>/**/*.min.{css,js}'
+        //files: [
+        //  {
+        //    expand: true,
+        //    cwd: '<%= cfg.compiled_dir %>',
+        //    src: [
+        //      '**/*.min.css',
+        //      '**/*.min.js'
+        //    ],
+        //    dest: '<%= cfg.dist_dir %>'
+        //  }
+        //]
       }
     },
 
     /*
-    * Usemin will rewrite src references to files based on
-    * the generated configuration by useminPrepare and filerev
-    * in order to use the optimized and revved files.
-    */
+     * Usemin will rewrite src references to files based on
+     * the generated configuration by useminPrepare and filerev
+     * in order to use the optimized and revved files.
+     */
     usemin: {
       options: {
-        assetsDirs: ['<%= buildConfig.dist_dir %>']
+        assetsDirs: ['<%= cfg.dist_dir %>']
       },
-      html: ['<%= buildConfig.dist_dir %>/index.html']
+      html: ['<%= cfg.dist_dir %>/index.html']
     },
 
     /*
-    * BabelJS transpiles ES6 code to ES5 code
-    */
-    babel: {
-      options: {
-        modules: 'system',
-        sourceRoot: 'systemjs/'
-      },
-      src: {
-        files: [{
-          expand: true,
-          cwd: '<%= buildConfig.src_dir %>/modules',
-          src: ['**/*.js', '!**/*.spec.js'],
-          dest: '<%= buildConfig.compiled_dir %>/babel'
-        }]
-      }
-    },
-
-    /*
-    * Systemjs loads the compiled ES5 modules into the browser
-    */
-    systemjs: {
-      options: {
-        config: require('./system.config.js')
-      },
-      dist: {
-        files: {
-          '<%= buildConfig.compiled_dir %>/systemjs/main.js': ['<%= buildConfig.compiled_dir %>/babel/main.js']
-        }
-      }
-    },
-
-
-    /*
-    * Connect sets up a server to view the application in.
-    * This can be used to develop the application or
-    * to view the distribution version of the application.
-    */
+     * Connect sets up a server to view the application in.
+     * This can be used to develop the application or
+     * to view the distribution version of the application.
+     */
     connect: {
       options: {
         port: 9000,
@@ -355,46 +386,46 @@ module.exports = function (grunt) {
       dev: {
         options: {
           livereload: true,
-          base: ['<%= buildConfig.src_dir %>', '.']
+          base: ['<%= cfg.src_dir %>', '.']
         }
       },
       dist: {
         options: {
           keepalive: true,
-          base: '<%= buildConfig.dist_dir %>'
+          base: ['<%= cfg.dist_dir %>']
         }
       }
     }
   });
 
   /*
-  * Register extra grunt tasks.
-  */
-  grunt.registerTask('build:src', 'Build for development', [
+   * Register extra grunt tasks.
+   */
+  grunt.registerTask('build', 'Build for development', [
     'clean',
-    'less',
     'html2js',
     'jshint',
-    'babel',
-    'systemjs'
+    'lesslint',
+    'less',
+    'autoprefixer',
+    'imagemin',
+    'jspm:sfx'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
-    'build:src',
-    'copy:dist',
+    'build',
+    'cssmin',
+    'uglify',
+    'copy',
     'useminPrepare',
-    'concat:generated',
-    'cssmin:generated',
-    'uglify:generated',
     'filerev',
-    'usemin',
-    'htmlmin'
+    'usemin'
   ]);
 
   grunt.registerTask('server', 'Setup environment for development', [
-    'build:src',
+    'build',
     'connect:dev',
-    // 'karma:unit:start',
+    // 'karma:continuous:start',
     'watch'
   ]);
 
@@ -405,23 +436,10 @@ module.exports = function (grunt) {
     // 'protractor:run'
   ]);
 
-  grunt.registerMultiTask('systemjs', 'Build self executing functions using systemjs', function () {
-    var done = this.async();
-    var Builder = require('systemjs-builder');
-    var builder = new Builder();
-    var options = this.options();
-    var src = this.files[0].src[0];
-    var dest = this.files[0].dest;
-    var baseURL = options.config.baseURL || '';
-     // src minus baseURL and minus .js extention
-    var moduleName = src.slice(baseURL.length).slice(0, -3);
+  grunt.registerTask('jspm', 'Create self-executing systemjs bundle', function () {
+    var cfg = require('./build.config.js');
+    var shelljs = require('shelljs');
 
-    builder.buildSFX(moduleName, dest, options).then(function () {
-      grunt.log.writeln('SystemJS bundle build!');
-      done();
-    }, function (message) {
-      grunt.log.error(message);
-      done(false);
-    });
+    shelljs.exec('jspm bundle-sfx modules/main ' + cfg.compiled_dir + '/js/main.js');
   });
 };

@@ -1,3 +1,4 @@
 dist
 compiled
+tmp
 *-templates.js
