@@ -61,7 +61,7 @@ module.exports = function (grunt) {
        */
       jssrc: {
         files: ['<%= cfg.jssrc %>'],
-        tasks: ['jshint:src']
+        tasks: ['jshint:src', 'jspm']
       },
 
       /*
@@ -409,7 +409,7 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'imagemin',
-    'jspm:sfx'
+    'jspm'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
