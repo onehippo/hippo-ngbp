@@ -1,6 +1,3 @@
-import angular from 'angular';
-import 'angular-ui-router';
-
 var sub = angular.module('sub', [
   'ui.router'
 ]);
@@ -24,5 +21,3 @@ sub.controller('SubCtrl', [
     sub.message = 'Awesome sub module';
   }
 ]);
-
-export default sub;

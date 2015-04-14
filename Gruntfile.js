@@ -61,7 +61,7 @@ module.exports = function (grunt) {
        */
       jssrc: {
         files: ['<%= cfg.jssrc %>'],
-        tasks: ['jshint:src', 'jspm']
+        tasks: ['jshint:src', 'concat:js']
       },
 
       /*
@@ -256,7 +256,6 @@ module.exports = function (grunt) {
           singleModule: true,
           base: '<%= cfg.src_dir %>',
           useStrict: true,
-          fileHeaderString: 'import angular from "angular"; \n export default',
           htmlmin: {
             collapseWhitespace: true,
             collapseBooleanAttributes: true
@@ -264,6 +263,24 @@ module.exports = function (grunt) {
         },
         src: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
         dest: '<%= cfg.src_dir %>/<%= cfg.jstpl %>'
+      }
+    },
+
+    /*
+     * The concat task concatenates the source files in the given order
+     * (or alphabetically if its a glob pattern) to the provided destination file.
+     */
+    concat: {
+      js: {
+        options: {
+          sourceMap: true
+        },
+        src: [
+          '<%= cfg.mainjs %>',
+          '<%= cfg.jstpl %>',
+          '<%= cfg.jssrc %>'
+        ],
+        dest: '<%= cfg.compiled_dir %>/js/main.js'
       }
     },
 
@@ -409,7 +426,7 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'imagemin',
-    'jspm'
+    'concat:js'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
@@ -418,6 +435,9 @@ module.exports = function (grunt) {
     'uglify',
     'copy',
     'useminPrepare',
+    'concat:generated',
+    'cssmin:generated',
+    'uglify:generated',
     'filerev',
     'usemin'
   ]);
@@ -435,11 +455,4 @@ module.exports = function (grunt) {
     'connect:dist'
     // 'protractor:run'
   ]);
-
-  grunt.registerTask('jspm', 'Create self-executing systemjs bundle', function () {
-    var cfg = require('./build.config.js');
-    var shelljs = require('shelljs');
-
-    shelljs.exec('jspm bundle-sfx modules/main ' + cfg.compiled_dir + '/js/main.js');
-  });
 };

@@ -1,12 +1,7 @@
-import angular from 'angular';
-import 'angular-ui-router';
-import sub from './sub/sub';
-import templates from './main-templates';
-
 var main = angular.module('main', [
   'ui.router',
-  sub.name,
-  templates.name
+  'sub',
+  'main.templates'
 ]);
 
 main.config([
@@ -24,13 +19,13 @@ main.config([
   }
 ]);
 
-class MainCtrl {
-  constructor() {
-    this.message = 'Main';
-  }
-}
+main.controller('MainCtrl', [
+  function () {
+    var main = this;
 
-main.controller('MainCtrl', MainCtrl);
+    main.message = 'Main';
+  }
+]);
 
 main.factory('MainService', [
   function () {
@@ -47,5 +42,3 @@ angular.element(document).ready(function () {
     strictDi: true
   });
 });
-
-export default main;
