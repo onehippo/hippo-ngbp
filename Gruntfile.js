@@ -61,7 +61,7 @@ module.exports = function (grunt) {
        */
       jssrc: {
         files: ['<%= cfg.jssrc %>'],
-        tasks: ['jshint:src']
+        tasks: ['jshint:src', 'systemjs']
       },
 
       /*
@@ -440,7 +440,7 @@ module.exports = function (grunt) {
     var cfg = require('./build.config.js');
     var Builder = require('systemjs-builder');
     var builder = new Builder();
-    var moduleName = 'src/modules/main';
+    var moduleName = 'modules/main';
     var dest = cfg.compiled_dir + '/js/main.js';
     var options = {
       config: require('./system.config.js')
