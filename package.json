@@ -1,9 +1,8 @@
 {
   "private": true,
-  "scripts": {
-    "install": "node node_modules/grunt-protractor-runner/node_modules/protractor/bin/webdriver-manager update"
-  },
   "devDependencies": {
+    "babel-core": "5.1.8",
+    "babel-runtime": "5.1.8",
     "grunt": "0.4.5",
     "grunt-autoprefixer": "3.0.0",
     "grunt-contrib-clean": "0.6.0",
@@ -31,7 +30,7 @@
     "karma-jasmine": "0.3.5",
     "karma-ng-html2js-preprocessor": "0.1.2",
     "load-grunt-tasks": "3.1.0",
-    "shelljs": "^0.4.0",
+    "shelljs": "0.4.0",
     "systemjs-builder": "0.10.4",
     "time-grunt": "1.1.0"
   },
@@ -43,8 +42,9 @@
       "angular-ui-router": "github:angular-ui/ui-router@^0.2.13"
     },
     "devDependencies": {
-      "traceur": "github:jmcriffey/bower-traceur@0.0.87",
-      "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.87"
+      "babel": "npm:babel-core@^5.0.12",
+      "babel-runtime": "npm:babel-runtime@^5.0.12",
+      "core-js": "npm:core-js@^0.8.1"
     }
   }
 }
