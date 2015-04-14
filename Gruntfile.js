@@ -320,12 +320,6 @@ module.exports = function (grunt) {
           {
             src: '<%= cfg.src_dir %>/index.html',
             dest: '<%= cfg.dist_dir %>/index.html'
-          },
-          {
-            expand: true,
-            cwd: '<%= cfg.compiled_dir %>',
-            src: '**/*.min.{css,js}',
-            dest: '<%= cfg.dist_dir %>'
           }
         ]
       }
@@ -364,17 +358,6 @@ module.exports = function (grunt) {
     filerev: {
       dist: {
         src: '<%= cfg.dist_dir %>/**/*.min.{css,js}'
-        //files: [
-        //  {
-        //    expand: true,
-        //    cwd: '<%= cfg.compiled_dir %>',
-        //    src: [
-        //      '**/*.min.css',
-        //      '**/*.min.js'
-        //    ],
-        //    dest: '<%= cfg.dist_dir %>'
-        //  }
-        //]
       }
     },
 
@@ -431,13 +414,11 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:dist', 'Build for production', [
     'build',
-    'cssmin',
-    'uglify',
     'copy',
     'useminPrepare',
-    'concat:generated',
-    'cssmin:generated',
-    'uglify:generated',
+    'concat',
+    'cssmin',
+    'uglify',
     'filerev',
     'usemin'
   ]);
