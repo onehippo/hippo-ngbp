@@ -409,7 +409,7 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'imagemin',
-    'jspm:sfx'
+    'systemjs'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
@@ -436,10 +436,22 @@ module.exports = function (grunt) {
     // 'protractor:run'
   ]);
 
-  grunt.registerTask('jspm', 'Create self-executing systemjs bundle', function () {
+  grunt.registerTask('systemjs', 'Build self executing functions using systemjs', function () {
     var cfg = require('./build.config.js');
-    var shelljs = require('shelljs');
+    var Builder = require('systemjs-builder');
+    var builder = new Builder();
+    var moduleName = 'src/modules/main';
+    var dest = cfg.compiled_dir + '/js/main.js';
+    var options = {
+      config: require('./system.config.js')
+    };
+    var done = this.async();
 
-    shelljs.exec('jspm bundle-sfx modules/main ' + cfg.compiled_dir + '/js/main.js');
+    builder.buildSFX(moduleName, dest, options).then(function () {
+      done();
+    }, function (message) {
+      grunt.log.error(message);
+      done(false);
+    });
   });
 };
