@@ -303,12 +303,6 @@ module.exports = function (grunt) {
           {
             src: '<%= cfg.src_dir %>/index.html',
             dest: '<%= cfg.dist_dir %>/index.html'
-          },
-          {
-            expand: true,
-            cwd: '<%= cfg.compiled_dir %>',
-            src: '**/*.min.{css,js}',
-            dest: '<%= cfg.dist_dir %>'
           }
         ]
       }
@@ -418,6 +412,9 @@ module.exports = function (grunt) {
     'uglify',
     'copy',
     'useminPrepare',
+    'concat:generated',
+    'cssmin:generated',
+    'uglify:generated',
     'filerev',
     'usemin'
   ]);
