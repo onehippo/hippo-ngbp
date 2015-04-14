@@ -1,11 +1,13 @@
 'use strict';
 
-var cfg = require('./build.config.js');
-
 module.exports = {
-  "baseURL": "",
+  "transpiler": "babel",
+  "babelOptions": {
+    "optional": [
+      "runtime"
+    ]
+  },
   "paths": {
-    "*": "src/*.js",
     "npm:*": "node_modules/*.js",
     "bower:*": "bower_components/*.js"
   },

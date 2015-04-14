@@ -424,7 +424,7 @@ module.exports = function (grunt) {
     var cfg = require('./build.config.js');
     var Builder = require('systemjs-builder');
     var builder = new Builder();
-    var moduleName = 'modules/main';
+    var moduleName = cfg.src_dir + '/modules/main';
     var dest = cfg.compiled_dir + '/js/main.js';
     var options = {
       config: require('./system.config.js')
