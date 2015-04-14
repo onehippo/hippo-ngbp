@@ -1,44 +1,48 @@
-var main = angular.module('main', [
-  'ui.router',
-  'sub',
-  'main.templates'
-]);
+(function () {
+  'use strict';
 
-main.config([
-  '$stateProvider',
-  '$urlRouterProvider',
-  function ($stateProvider, $urlRouterProvider) {
-    $urlRouterProvider.otherwise('/');
+  var main = angular.module('main', [
+    'ui.router',
+    'sub',
+    'main.templates'
+  ]);
 
-    $stateProvider.state('main', {
-      url: '/',
-      templateUrl: 'modules/main.tpl.html',
-      controller: 'MainCtrl',
-      controllerAs: 'main'
+  main.config([
+    '$stateProvider',
+    '$urlRouterProvider',
+    function ($stateProvider, $urlRouterProvider) {
+      $urlRouterProvider.otherwise('/');
+
+      $stateProvider.state('main', {
+        url: '/',
+        templateUrl: 'modules/main.tpl.html',
+        controller: 'MainCtrl',
+        controllerAs: 'main'
+      });
+    }
+  ]);
+
+  main.controller('MainCtrl', [
+    function () {
+      var main = this;
+
+      main.message = 'Main';
+    }
+  ]);
+
+  main.factory('MainService', [
+    function () {
+      var mainService = {
+        message: 'Awesome Mainservice message'
+      };
+
+      return mainService;
+    }
+  ]);
+
+  angular.element(document).ready(function () {
+    angular.bootstrap(document.body, ['main'], {
+      strictDi: true
     });
-  }
-]);
-
-main.controller('MainCtrl', [
-  function () {
-    var main = this;
-
-    main.message = 'Main';
-  }
-]);
-
-main.factory('MainService', [
-  function () {
-    var mainService = {
-      message: 'Awesome Mainservice message'
-    };
-
-    return mainService;
-  }
-]);
-
-angular.element(document).ready(function () {
-  angular.bootstrap(document.body, ['main'], {
-    strictDi: true
   });
-});
+})();

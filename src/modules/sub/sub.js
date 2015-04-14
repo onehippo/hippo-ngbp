@@ -1,23 +1,27 @@
-var sub = angular.module('sub', [
-  'ui.router'
-]);
+(function () {
+  'use strict';
 
-sub.config([
-  '$stateProvider',
-  function ($stateProvider) {
-    $stateProvider.state('main.sub', {
-      url: 'sub/',
-      templateUrl: 'modules/sub/sub.tpl.html',
-      controller: 'SubCtrl',
-      controllerAs: 'sub'
-    });
-  }
-]);
+  var sub = angular.module('sub', [
+    'ui.router'
+  ]);
 
-sub.controller('SubCtrl', [
-  function () {
-    var sub = this;
+  sub.config([
+    '$stateProvider',
+    function ($stateProvider) {
+      $stateProvider.state('main.sub', {
+        url: 'sub/',
+        templateUrl: 'modules/sub/sub.tpl.html',
+        controller: 'SubCtrl',
+        controllerAs: 'sub'
+      });
+    }
+  ]);
 
-    sub.message = 'Awesome sub module';
-  }
-]);
+  sub.controller('SubCtrl', [
+    function () {
+      var sub = this;
+
+      sub.message = 'Awesome sub module';
+    }
+  ]);
+})();
