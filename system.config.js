@@ -8,6 +8,7 @@ module.exports = {
     ]
   },
   "paths": {
+    "*": "*.js",
     "npm:*": "node_modules/*.js",
     "bower:*": "bower_components/*.js"
   },
