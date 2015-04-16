@@ -60,7 +60,7 @@ module.exports = function (grunt) {
        * run our unit tests.
        */
       jssrc: {
-        files: ['<%= cfg.jssrc %>'],
+        files: ['<%= cfg.jssrc %>', 'system.config.js'],
         tasks: ['jshint:src', 'systemjs']
       },
 
@@ -427,6 +427,7 @@ module.exports = function (grunt) {
     var moduleName = cfg.src_dir + '/modules/main';
     var dest = cfg.compiled_dir + '/js/main.js';
     var options = {
+      sourceMaps: true,
       config: require('./system.config.js')
     };
     var done = this.async();
