@@ -25,6 +25,7 @@ module.exports = function (grunt) {
     watch: {
       options: {
         spawn: false,
+        interrupt: true,
         livereloadOnError: false
       },
 
@@ -48,9 +49,6 @@ module.exports = function (grunt) {
       },
 
       gruntfile: {
-        options: {
-          reload: true
-        },
         files: ['Gruntfile.js', 'build.config.js'],
         tasks: ['jshint:gruntfile']
       },
@@ -113,7 +111,6 @@ module.exports = function (grunt) {
         files: [
           '<%= cfg.compiled_dir %>/**',
           '!<%= cfg.compiled_dir %>/**/*.*.map',
-          '<%= cfg.jssrc %>',
           '<%= cfg.src_dir %>/index.html'
         ]
       }
