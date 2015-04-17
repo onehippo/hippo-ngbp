@@ -1,28 +1,17 @@
 import angular from 'angular';
 import 'angular-ui-router';
+import SubCtrl from './controllers/sub.controller';
 
-var sub = angular.module('sub', [
-  'ui.router'
-]);
+function config ($stateProvider) {
+  $stateProvider.state('main.sub', {
+    url: 'sub/',
+    templateUrl: 'modules/sub/sub.tpl.html',
+    controller: 'SubCtrl',
+    controllerAs: 'sub'
+  });
+}
 
-sub.config([
-  '$stateProvider',
-  function ($stateProvider) {
-    $stateProvider.state('main.sub', {
-      url: 'sub/',
-      templateUrl: 'modules/sub/sub.tpl.html',
-      controller: 'SubCtrl',
-      controllerAs: 'sub'
-    });
-  }
-]);
-
-sub.controller('SubCtrl', [
-  function () {
-    var sub = this;
-
-    sub.message = 'Awesome sub module';
-  }
-]);
-
-export default sub;
+export default angular
+  .module('sub', ['ui.router'])
+  .config(config)
+  .controller('SubCtrl', SubCtrl);

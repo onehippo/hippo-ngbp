@@ -4,28 +4,23 @@
 
 var pkg = require('./package.json');
 
-module.exports = {
+var cfg = {
   /*
-   * The `tmp_dir` folder is where we can store temporary files during compilation
-   * by for example grunt-usemin. The `dist_dir` is where our src files are output
-   * as concatenated, minified and otherwise optimized files.
+   * This is a collection of patterns.
+   * These paths are used in the configuration of
+   * build tasks.
    */
+
+  // Folder paths.
   src_dir: 'src',
-  dist_dir: 'dist',
   compiled_dir: 'compiled',
+  dist_dir: 'dist',
   tmp_dir: 'tmp',
   image_dir: 'src/images',
   docs_dir: 'docs',
-  components_dir: 'bower_components',
+  bower_dir: 'bower_components',
 
-  /*
-   * This is a collection of file patterns that refer to our source files.
-   * These file paths are used in the configuration of
-   * build tasks. `js` is all project javascript, less tests. `tpl` contains
-   * our template HTML files, while `html` is just our main HTML file,
-   * `less` are our styles with `mainless` being the main stylesheet to compile,
-   * and `unit` contains our app's unit tests.
-   */
+  // File patterns that refer to our source files.
   images: '**/*.{png,jpg,gif}',
   svg: '**/*.svg',
   js: '**/*.js',
@@ -34,15 +29,16 @@ module.exports = {
     '!src/**/*.spec.js',
     '!src/**/*.e2e.js'
   ],
-  mainjs: 'main.js',
   unit: '**/*.spec.js',
   e2e: '**/*.e2e.js',
-  tpl: '**/*.tpl.html',
-  less: [
-    'less/**/*.less',
-    '**/*.less'
-  ],
-  mainless: 'less/main.less',
-  jstplModule: 'main.templates',
-  jstpl: 'modules/main-templates.js'
+  tpl: '**/*.html',
+  styles: '**/*.less',
+
+  // Single file names
+  mainStyles: 'modules/' + pkg.name + '.less',
+  indexjs: 'modules/' +pkg.name + '.js',
+  jstplModule: pkg.name + '.templates',
+  jstplFile: 'modules/' + pkg.name + '.tpls.js'
 };
+
+module.exports = cfg;

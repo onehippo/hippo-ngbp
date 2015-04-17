@@ -1,4 +1,4 @@
 dist
 compiled
 tmp
-*-templates.js
+*.tpls.js

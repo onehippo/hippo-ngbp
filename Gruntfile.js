@@ -25,6 +25,7 @@ module.exports = function (grunt) {
     watch: {
       options: {
         spawn: false,
+        interrupt: true,
         livereloadOnError: false
       },
 
@@ -48,9 +49,6 @@ module.exports = function (grunt) {
       },
 
       gruntfile: {
-        options: {
-          reload: true
-        },
         files: ['Gruntfile.js', 'build.config.js'],
         tasks: ['jshint:gruntfile']
       },
@@ -61,7 +59,7 @@ module.exports = function (grunt) {
        */
       jssrc: {
         files: ['<%= cfg.jssrc %>', 'system.config.js'],
-        tasks: ['jshint:src', 'systemjs']
+        tasks: ['jshint:src', 'karma:continuous:run', 'systemjs', 'ngAnnotate']
       },
 
       /*
@@ -94,7 +92,7 @@ module.exports = function (grunt) {
        * When the LESS files change, we need to compile them, but not live reload.
        */
       less: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.less %>'],
+        files: ['<%= cfg.src_dir %>/<%= cfg.styles %>'],
         tasks: ['lesslint', 'less:src', 'autoprefixer']
       },
 
@@ -103,7 +101,7 @@ module.exports = function (grunt) {
        */
       tpls: {
         files: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        tasks: ['html2js', 'concat:js', 'uglify']
+        tasks: ['html2js', 'systemjs', 'ngAnnotate']
       },
 
       livereload: {
@@ -113,7 +111,6 @@ module.exports = function (grunt) {
         files: [
           '<%= cfg.compiled_dir %>/**',
           '!<%= cfg.compiled_dir %>/**/*.*.map',
-          '<%= cfg.jssrc %>',
           '<%= cfg.src_dir %>/index.html'
         ]
       }
@@ -148,6 +145,10 @@ module.exports = function (grunt) {
       },
       single: {
         singleRun: true
+      },
+      debug: {
+        singleRun: false,
+        browsers: ['Chrome']
       }
     },
 
@@ -157,10 +158,11 @@ module.exports = function (grunt) {
      * and then run the *.e2e.js test files.
      */
     protractor: {
-      options: {
-        configFile: 'protractor.config.js'
-      },
-      run: {}
+      run: {
+        options: {
+          configFile: 'protractor.config.js'
+        }
+      }
     },
 
     /*
@@ -173,10 +175,10 @@ module.exports = function (grunt) {
      */
     lesslint: {
       options: {
-        imports: '<%= cfg.src_dir %>/<%= cfg.less %>',
+        imports: '<%= cfg.src_dir %>/<%= cfg.styles %>',
         csslint: require('./csslintrc.json')
       },
-      src: ['<%= cfg.src_dir %>/<%= cfg.mainless %>']
+      src: ['<%= cfg.src_dir %>/<%= cfg.mainStyles %>']
     },
 
     /*
@@ -193,7 +195,7 @@ module.exports = function (grunt) {
           outputSourceFiles: true
         },
         files: {
-          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainless %>'
+          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainStyles %>'
         }
       }
     },
@@ -263,7 +265,17 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        dest: '<%= cfg.src_dir %>/<%= cfg.jstpl %>'
+        dest: '<%= cfg.src_dir %>/<%= cfg.jstplFile %>'
+      }
+    },
+
+    ngAnnotate: {
+      compiled: {
+        options: {
+          singleQuotes: true
+        },
+        src: ['<%= cfg.compiled_dir %>/js/main.js'],
+        dest: '<%= cfg.compiled_dir %>/js/main.js'
       }
     },
 
@@ -364,7 +376,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        open: 'http://localhost:9000/#/'
+        open: 'http://localhost:9000/'
       },
       dev: {
         options: {
@@ -392,16 +404,17 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'imagemin',
-    'systemjs'
+    'systemjs',
+    'ngAnnotate'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
     'build',
     'copy',
     'useminPrepare',
-    'concat',
-    'cssmin',
-    'uglify',
+    'concat:generated',
+    'cssmin:generated',
+    'uglify:generated',
     'filerev',
     'usemin'
   ]);
@@ -409,22 +422,23 @@ module.exports = function (grunt) {
   grunt.registerTask('server', 'Setup environment for development', [
     'build',
     'connect:dev',
-    // 'karma:continuous:start',
+    'karma:continuous:start',
     'watch'
   ]);
 
   grunt.registerTask('server:dist', 'View the application as on production', [
-    // 'karma:single',
+    'karma:single',
     'build:dist',
     'connect:dist'
     // 'protractor:run'
   ]);
 
   grunt.registerTask('systemjs', 'Build self executing functions using systemjs', function () {
+    var pkg = require('./package.json');
     var cfg = require('./build.config.js');
     var Builder = require('systemjs-builder');
     var builder = new Builder();
-    var moduleName = cfg.src_dir + '/modules/main';
+    var moduleName = cfg.src_dir + '/modules/' + pkg.name;
     var dest = cfg.compiled_dir + '/js/main.js';
     var options = {
       sourceMaps: true,
