@@ -38,7 +38,7 @@ var cfg = {
   mainStyles: 'modules/' + pkg.name + '.less',
   indexjs: 'modules/' +pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: 'modules/' + pkg.name + '-templates.js'
+  jstplFile: 'modules/' + pkg.name + '.tpls.js'
 };
 
 module.exports = cfg;
