@@ -22,7 +22,7 @@ module.exports = function (grunt) {
      */
     cfg: require('./build.config.js'),
 
-    watch: {
+  watch: {
       options: {
         spawn: false,
         interrupt: true,
@@ -92,7 +92,7 @@ module.exports = function (grunt) {
        * When the LESS files change, we need to compile them, but not live reload.
        */
       less: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.less %>'],
+        files: ['<%= cfg.src_dir %>/<%= cfg.styles %>'],
         tasks: ['lesslint', 'less:src', 'autoprefixer']
       },
 
@@ -170,10 +170,10 @@ module.exports = function (grunt) {
      */
     lesslint: {
       options: {
-        imports: '<%= cfg.src_dir %>/<%= cfg.less %>',
+        imports: '<%= cfg.src_dir %>/<%= cfg.styles %>',
         csslint: require('./csslintrc.json')
       },
-      src: ['<%= cfg.src_dir %>/<%= cfg.mainless %>']
+      src: ['<%= cfg.src_dir %>/<%= cfg.mainStyles %>']
     },
 
     /*
@@ -190,7 +190,7 @@ module.exports = function (grunt) {
           outputSourceFiles: true
         },
         files: {
-          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainless %>'
+          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainStyles %>'
         }
       }
     },
@@ -259,7 +259,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        dest: '<%= cfg.src_dir %>/<%= cfg.jstpl %>'
+        dest: '<%= cfg.src_dir %>/<%= cfg.jstplFile %>'
       }
     },
 
@@ -273,8 +273,8 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         src: [
-          '<%= cfg.mainjs %>',
-          '<%= cfg.jstpl %>',
+          '<%= cfg.src_dir %>/<%= cfg.indexjs %>',
+          '<%= cfg.src_dir %>/<%= cfg.jstplFile %>',
           '<%= cfg.jssrc %>'
         ],
         dest: '<%= cfg.compiled_dir %>/js/main.js'
