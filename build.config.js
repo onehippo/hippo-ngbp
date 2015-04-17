@@ -18,7 +18,7 @@ var cfg = {
   tmp_dir: 'tmp',
   image_dir: 'src/images',
   docs_dir: 'docs',
-  components_dir: 'bower_components',
+  bower_dir: 'bower_components',
 
   // File patterns that refer to our source files.
   images: '**/*.{png,jpg,gif}',
@@ -31,7 +31,7 @@ var cfg = {
   ],
   unit: '**/*.spec.js',
   e2e: '**/*.e2e.js',
-  tpl: '**/*.tpl.html',
+  tpl: '**/*.html',
   styles: '**/*.less',
 
   // Single file names

@@ -12,18 +12,20 @@
 
   angular.element(document).ready(function () {
     angular.bootstrap(document.documentElement, ['hippo.ngbp'], {
-      //strictDi: true
+      strictDi: true
     });
   });
 
-  function config ($stateProvider, $urlRouterProvider) {
+  function config ($stateProvider, $urlRouterProvider, $locationProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('main', {
       url: '/',
-      templateUrl: 'modules/hippo.ngbp.tpl.html',
+      templateUrl: 'modules/hippo.ngbp.html',
       controller: 'MainCtrl',
       controllerAs: 'main'
     });
+
+    $locationProvider.html5Mode(true);
   }
 })();

@@ -1,6 +1,6 @@
 // Karma configuration
 
-var pkg = require('./package.json');
+var cfg = require('./build.config.js');
 
 module.exports = function(config) {
   config.set({
@@ -13,16 +13,15 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/angular-ui-router/release/angular-ui-router.js',
-      'src/modules/**/*.js',
-      'src/modules/**/*.spec.js'
+      cfg.bower_dir + '/angular/angular.js',
+      cfg.bower_dir + '/angular-mocks/angular-mocks.js',
+      cfg.bower_dir + '/angular-ui-router/release/angular-ui-router.js',
+      cfg.src_dir + '/' + cfg.jssrc,
+      cfg.src_dir + '/' + cfg.unit
     ],
 
     // list of files to exclude
     exclude: [
-      'src/modules/**/*.e2e.js'
     ],
 
     // test results reporter to use
@@ -45,7 +44,7 @@ module.exports = function(config) {
 
     // start these browsers
     // available browser launchers: https://npmjs.org/browse/keyword/karma-launcher
-    browsers: ['Chrome'],
+    browsers: ['PhantomJS'],
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits

@@ -1,7 +1,10 @@
 // Protractor config
 // the seleniumAddress option is deliberatly left out to allow
 // the grunt task 'protractor' to fire it up itself.
-exports.config = {
-  specs: ['src/modules/**/*.e2e.js'],
+
+var cfg = require('./build.config.js');
+
+module.exports.config = {
+  specs: [cfg.src_dir + '/' + cfg.e2e],
   baseUrl: 'http://localhost:9001/#/'
-}
+};

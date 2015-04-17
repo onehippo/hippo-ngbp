@@ -22,7 +22,7 @@ module.exports = function (grunt) {
      */
     cfg: require('./build.config.js'),
 
-  watch: {
+    watch: {
       options: {
         spawn: false,
         interrupt: true,
@@ -59,7 +59,7 @@ module.exports = function (grunt) {
        */
       jssrc: {
         files: ['<%= cfg.jssrc %>'],
-        tasks: ['jshint:src', 'concat:js']
+        tasks: ['jshint:src', 'karma:continuous:run', 'concat:js', 'ngAnnotate']
       },
 
       /*
@@ -101,7 +101,7 @@ module.exports = function (grunt) {
        */
       tpls: {
         files: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        tasks: ['html2js', 'concat:js', 'uglify']
+        tasks: ['html2js', 'concat:js', 'ngAnnotate']
       },
 
       livereload: {
@@ -145,6 +145,10 @@ module.exports = function (grunt) {
       },
       single: {
         singleRun: true
+      },
+      debug: {
+        singleRun: false,
+        browsers: ['Chrome']
       }
     },
 
@@ -154,10 +158,11 @@ module.exports = function (grunt) {
      * and then run the *.e2e.js test files.
      */
     protractor: {
-      options: {
-        configFile: 'protractor.config.js'
-      },
-      run: {}
+      run: {
+        options: {
+          configFile: 'protractor.config.js'
+        }
+      }
     },
 
     /*
@@ -281,6 +286,16 @@ module.exports = function (grunt) {
       }
     },
 
+    ngAnnotate: {
+      compiled: {
+        options: {
+          singleQuotes: true
+        },
+        src: ['<%= cfg.compiled_dir %>/js/main.js'],
+        dest: '<%= cfg.compiled_dir %>/js/main.js'
+      }
+    },
+
     /*
      * Uglify minifies the provides js files.
      */
@@ -378,7 +393,7 @@ module.exports = function (grunt) {
     connect: {
       options: {
         port: 9000,
-        open: 'http://localhost:9000/#/'
+        open: 'http://localhost:9000/'
       },
       dev: {
         options: {
@@ -406,16 +421,17 @@ module.exports = function (grunt) {
     'less',
     'autoprefixer',
     'imagemin',
-    'concat:js'
+    'concat:js',
+    'ngAnnotate'
   ]);
 
   grunt.registerTask('build:dist', 'Build for production', [
     'build',
     'copy',
     'useminPrepare',
-    'concat',
-    'cssmin',
-    'uglify',
+    'concat:generated',
+    'cssmin:generated',
+    'uglify:generated',
     'filerev',
     'usemin'
   ]);
@@ -423,14 +439,13 @@ module.exports = function (grunt) {
   grunt.registerTask('server', 'Setup environment for development', [
     'build',
     'connect:dev',
-    // 'karma:continuous:start',
+    'karma:continuous:start',
     'watch'
   ]);
 
   grunt.registerTask('server:dist', 'View the application as on production', [
-    // 'karma:single',
+    'karma:single',
     'build:dist',
     'connect:dist'
-    // 'protractor:run'
   ]);
 };

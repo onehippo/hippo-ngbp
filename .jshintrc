@@ -6,13 +6,11 @@
   "noempty": true,
   "nonew": true,
   "trailing": true,
-  "maxlen": false,
   "boss": true,
   "eqnull": true,
   "expr": true,
   "laxbreak": true,
   "loopfunc": true,
-  "sub": false,
   "undef": true,
   "curly": true,
   "browser": true,
@@ -24,6 +22,7 @@
   "esnext": true,
   "globals": {
     "angular": true,
-    "System": true
+    "System": true,
+    "browser": true
   }
 }

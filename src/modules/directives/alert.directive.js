@@ -8,12 +8,9 @@
   function alertDirective () {
     return {
       restrict: 'E',
-      templateUrl: 'components/directives/alert.directive.tpl.html',
+      templateUrl: 'modules/directives/alert.directive.html',
       scope: {
         message: '='
-      },
-      link: function (scope, element) {
-        element[0].innerHTML = scope.message;
       }
     };
   }
