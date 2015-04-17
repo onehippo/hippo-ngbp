@@ -11,34 +11,46 @@ var cfg = {
    * build tasks.
    */
 
-  // Folder paths.
-  src_dir: 'src',
-  compiled_dir: 'compiled',
-  dist_dir: 'dist',
-  tmp_dir: 'tmp',
-  image_dir: 'src/images',
-  docs_dir: 'docs',
-  bower_dir: 'bower_components',
-
-  // File patterns that refer to our source files.
+  tmp: 'tmp/',
+  bower: 'bower_components/',
+  docs: 'docs/',
   images: '**/*.{png,jpg,gif}',
-  svg: '**/*.svg',
-  js: '**/*.js',
-  jssrc: [
-    'src/**/*.js',
-    '!src/**/*.spec.js',
-    '!src/**/*.e2e.js'
-  ],
-  unit: '**/*.spec.js',
-  e2e: '**/*.e2e.js',
-  tpl: '**/*.html',
-  styles: '**/*.less',
+  protractor: 'protractor.config.js',
+  karma: 'karma.config.js',
+  cssSourceMap: 'main.css.map',
+  jstplModule: pkg.name + '.templates'
+};
 
-  // Single file names
-  mainStyles: 'modules/' + pkg.name + '.less',
-  indexjs: 'modules/' +pkg.name + '.js',
-  jstplModule: pkg.name + '.templates',
-  jstplFile: 'modules/' + pkg.name + '.tpls.js'
+cfg.src = {
+  dir: 'src/',
+  images: 'src/**/*.{png,jpg,gif}',
+  js: 'src/**/*!(.spec|.e2e).js',
+  unit: 'src/**/*.spec.js',
+  e2e: 'src/**/*.e2e.js',
+  tpl: 'src/**/*.html',
+  styles: 'src/**/*.less',
+  entryModule: 'src/modules/' + pkg.name,
+  indexHtml: 'src/index.html',
+  mainStyles: 'src/modules/' + pkg.name + '.less',
+  indexjs: 'src/modules/' + pkg.name + '.js',
+  jstplFile: 'src/modules/' + pkg.name + '.tpls.js'
+};
+
+cfg.compiled = {
+  dir: 'compiled/',
+  js: 'compiled/js/main.js',
+  jsmin: 'compiled/js/main.min.js',
+  jsSourceMap: 'compiled/js/' + cfg.jsSourceMap,
+  css: 'compiled/css/main.css',
+  cssmin: 'compiled/css/main.min.css',
+  cssSourceMap: 'compiled/css/' + cfg.cssSourceMap
+};
+
+cfg.dist = {
+  dir: 'dist/',
+  indexHtml: 'dist/index.html',
+  js: 'dist/js/main.js',
+  css: 'dist/css/main.css'
 };
 
 module.exports = cfg;
