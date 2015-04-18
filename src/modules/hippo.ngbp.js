@@ -1,6 +1,19 @@
 (function () {
   'use strict';
 
+  function config ($stateProvider, $urlRouterProvider, $locationProvider) {
+    $urlRouterProvider.otherwise('/');
+
+    $stateProvider.state('main', {
+      url: '/',
+      templateUrl: 'modules/hippo.ngbp.html',
+      controller: 'MainCtrl',
+      controllerAs: 'main'
+    });
+
+    $locationProvider.html5Mode(true);
+  }
+
   angular
     .module('hippo.ngbp', [
       'hippo.ngbp.templates',
@@ -15,17 +28,4 @@
       strictDi: true
     });
   });
-
-  function config ($stateProvider, $urlRouterProvider, $locationProvider) {
-    $urlRouterProvider.otherwise('/');
-
-    $stateProvider.state('main', {
-      url: '/',
-      templateUrl: 'modules/hippo.ngbp.html',
-      controller: 'MainCtrl',
-      controllerAs: 'main'
-    });
-
-    $locationProvider.html5Mode(true);
-  }
 })();

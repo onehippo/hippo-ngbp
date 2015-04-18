@@ -13,11 +13,13 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      cfg.bower_dir + '/angular/angular.js',
-      cfg.bower_dir + '/angular-mocks/angular-mocks.js',
-      cfg.bower_dir + '/angular-ui-router/release/angular-ui-router.js',
-      cfg.src_dir + '/' + cfg.jssrc,
-      cfg.src_dir + '/' + cfg.unit
+      cfg.bower + 'angular/angular.js',
+      cfg.bower + 'angular-mocks/angular-mocks.js',
+      cfg.bower + 'angular-ui-router/release/angular-ui-router.js',
+      cfg.src.indexjs,
+      cfg.src.jstplFile,
+      cfg.src.js,
+      cfg.src.unit
     ],
 
     // list of files to exclude

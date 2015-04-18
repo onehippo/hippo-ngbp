@@ -39,17 +39,20 @@ module.exports = function (grunt) {
       },
 
       karmaConf: {
-        files: ['karma.conf.js'],
+        files: ['<%= cfg.karma %>'],
         tasks: ['karma:continuous:run']
       },
 
       protractorConf: {
-        files: ['protractor.conf.js'],
+        files: ['<%= cfg.protractor %>'],
         tasks: ['protractor']
       },
 
       gruntfile: {
-        files: ['Gruntfile.js', 'build.config.js'],
+        files: [
+          'Gruntfile.js',
+          'build.config.js'
+        ],
         tasks: ['jshint:gruntfile']
       },
 
@@ -58,8 +61,17 @@ module.exports = function (grunt) {
        * run our unit tests.
        */
       jssrc: {
-        files: ['<%= cfg.jssrc %>'],
-        tasks: ['jshint:src', 'karma:continuous:run', 'concat:js', 'ngAnnotate']
+        options: {livereload: true},
+        files: [
+          '<%= cfg.src.js %>',
+          'system.config.js'
+        ],
+        tasks: [
+          'jshint:src',
+          'karma:continuous:run',
+          'concat:js',
+          'ngAnnotate'
+        ]
       },
 
       /*
@@ -67,8 +79,11 @@ module.exports = function (grunt) {
        * run the unit tests. We don't want to do any live reloading.
        */
       jsunit: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.unit %>'],
-        tasks: ['jshint:unit', 'karma:continuous:run']
+        files: ['<%= cfg.src.unit %>'],
+        tasks: [
+          'jshint:unit',
+          'karma:continuous:run'
+        ]
       },
 
       /*
@@ -76,15 +91,18 @@ module.exports = function (grunt) {
        * run the tests. We don't want to do any live reloading.
        */
       jse2e: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.e2e %>'],
-        tasks: ['jshint:e2e', 'protractor']
+        files: ['<%= cfg.src.e2e %>'],
+        tasks: [
+          'jshint:e2e',
+          'protractor'
+        ]
       },
 
       /*
        * When images are changes optimize them.
        */
       images: {
-        files: ['<%= cfg.src_dir %>/<%=cfg.images %>'],
+        files: ['<%= cfg.src.images %>'],
         tasks: ['imagemin']
       },
 
@@ -92,27 +110,37 @@ module.exports = function (grunt) {
        * When the LESS files change, we need to compile them, but not live reload.
        */
       less: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.styles %>'],
-        tasks: ['lesslint', 'less:src', 'autoprefixer']
+        options: {livereload: true},
+        files: ['<%= cfg.src.styles %>'],
+        tasks: [
+          'lesslint',
+          'less',
+          'autoprefixer'
+        ]
       },
 
       /*
        * When our templates change, we only rewrite the template cache.
        */
       tpls: {
-        files: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        tasks: ['html2js', 'concat:js', 'ngAnnotate']
+        options: {livereload: true},
+        files: [
+          '<%= cfg.src.tpl %>',
+          '!<%= cfg.src.indexHtml %>'
+        ],
+        tasks: [
+          'html2js',
+          'concat:js',
+          'ngAnnotate'
+        ]
       },
 
+      /*
+       * Other files that should trigger a livereload
+       */
       livereload: {
-        options: {
-          livereload: true
-        },
-        files: [
-          '<%= cfg.compiled_dir %>/**',
-          '!<%= cfg.compiled_dir %>/**/*.*.map',
-          '<%= cfg.src_dir %>/index.html'
-        ]
+        options: {livereload: true},
+        files: ['<%= cfg.src.indexHtml %>']
       }
     },
 
@@ -127,13 +155,15 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       gruntfile: ['Gruntfile.js'],
-      src: ['<%= cfg.jssrc %>'],
-      unit: ['<%= cfg.src_dir %>/<%= cfg.unit %>'],
-      e2e: ['<%= cfg.src_dir %>/<%= cfg.e2e %>']
+      src: [ '<%= cfg.src.js %>'],
+      unit: ['<%= cfg.src.unit %>'],
+      e2e: ['<%= cfg.src.e2e %>']
     },
 
     /*
-     * The Karma configurations
+     * The Karma configurations for unit tests. Debug can be used to
+     * fire up a chrome browser and inspect the exact application karma
+     * starts up.
      */
     karma: {
       options: {
@@ -160,7 +190,7 @@ module.exports = function (grunt) {
     protractor: {
       run: {
         options: {
-          configFile: 'protractor.config.js'
+          configFile: '<%= cfg.protractor %>'
         }
       }
     },
@@ -175,10 +205,10 @@ module.exports = function (grunt) {
      */
     lesslint: {
       options: {
-        imports: '<%= cfg.src_dir %>/<%= cfg.styles %>',
+        imports: '<%= cfg.src.styles %>',
         csslint: require('./csslintrc.json')
       },
-      src: ['<%= cfg.src_dir %>/<%= cfg.mainStyles %>']
+      src: ['<%= cfg.src.mainStyles %>']
     },
 
     /*
@@ -190,12 +220,12 @@ module.exports = function (grunt) {
       main: {
         options: {
           sourceMap: true,
-          sourceMapFilename: '<%= cfg.compiled_dir %>/css/main.css.map',
-          sourceMapURL: 'main.css.map',
+          sourceMapFilename: '<%= cfg.compiled.cssSourceMap %>',
+          sourceMapURL: '<%= cfg.cssSourceMap %>',
           outputSourceFiles: true
         },
         files: {
-          '<%= cfg.compiled_dir %>/css/main.css': '<%= cfg.src_dir %>/<%= cfg.mainStyles %>'
+          '<%= cfg.compiled.css %>': '<%= cfg.src.mainStyles %>'
         }
       }
     },
@@ -211,8 +241,8 @@ module.exports = function (grunt) {
         map: true
       },
       compiled: {
-        src: '<%= cfg.compiled_dir %>/css/main.css',
-        dest: '<%= cfg.compiled_dir %>/css/main.css'
+        src: '<%= cfg.compiled.css %>',
+        dest: '<%= cfg.compiled.css %>'
       }
     },
 
@@ -222,7 +252,7 @@ module.exports = function (grunt) {
     cssmin: {
       compiled: {
         files: {
-          '<%= cfg.compiled_dir %>/css/main.min.css': ['<%= cfg.compiled_dir %>/css/main.css']
+          '<%= cfg.compiled.cssmin %>': ['<%= cfg.compiled.css %>']
         }
       }
     },
@@ -238,9 +268,9 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= cfg.image_dir %>',
+            cwd: '<%= cfg.src.dir %>',
             src: ['<%= cfg.images %>'],
-            dest: '<%= cfg.image_dir %>'
+            dest: '<%= cfg.src.dir %>'
           }
         ]
       }
@@ -256,15 +286,15 @@ module.exports = function (grunt) {
         options: {
           module: '<%= cfg.jstplModule %>',
           singleModule: true,
-          base: '<%= cfg.src_dir %>',
+          base: '<%= cfg.src.dir %>',
           useStrict: true,
           htmlmin: {
             collapseWhitespace: true,
             collapseBooleanAttributes: true
           }
         },
-        src: ['<%= cfg.src_dir %>/<%= cfg.tpl %>'],
-        dest: '<%= cfg.src_dir %>/<%= cfg.jstplFile %>'
+        src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
+        dest: '<%= cfg.src.jstplFile %>'
       }
     },
 
@@ -278,21 +308,36 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         src: [
-          '<%= cfg.src_dir %>/<%= cfg.indexjs %>',
-          '<%= cfg.src_dir %>/<%= cfg.jstplFile %>',
-          '<%= cfg.jssrc %>'
+          '<%= cfg.src.indexjs %>',
+          '<%= cfg.src.jstplFile %>',
+          '<%= cfg.src.js %>'
         ],
-        dest: '<%= cfg.compiled_dir %>/js/main.js'
+        dest: '<%= cfg.compiled.js %>'
       }
     },
 
+    /*
+     * ngAnnotate will transform provided javascript files to add
+     * angular annotations for injection.
+     */
     ngAnnotate: {
       compiled: {
         options: {
           singleQuotes: true
         },
-        src: ['<%= cfg.compiled_dir %>/js/main.js'],
-        dest: '<%= cfg.compiled_dir %>/js/main.js'
+        src: ['<%= cfg.compiled.js %>'],
+        dest: '<%= cfg.compiled.js %>'
+      }
+    },
+
+    /*
+    * Babel task compiles es6 code to es5 code
+    */
+    babel: {
+      src: {
+        files: {
+          '<%= cfg.compiled_dir %>/js/main.js': '<%= cfg.compiled_dir %>/js/main.js'
+        }
       }
     },
 
@@ -302,7 +347,7 @@ module.exports = function (grunt) {
     uglify: {
       compiled: {
         files: {
-          '<%= cfg.compiled_dir %>/js/main.min.js': ['<%= cfg.compiled_dir %>/js/main.js']
+          '<%= cfg.compiled.jsmin %>': ['<%= cfg.compiled.js %>']
         }
       }
     },
@@ -311,10 +356,10 @@ module.exports = function (grunt) {
      * The directories/files to delete when `grunt clean` is executed.
      */
     clean: {
-      compiled: '<%= cfg.compiled_dir %>',
-      tmp: '<%= cfg.tmp_dir %>',
-      dist: '<%= cfg.dist_dir %>',
-      docs: '<%= cfg.docs_dir %>'
+      compiled: '<%= cfg.compiled.dir %>',
+      tmp: '<%= cfg.tmp.dir %>',
+      dist: '<%= cfg.dist.dir %>',
+      docs: '<%= cfg.docs %>'
     },
 
     /*
@@ -325,13 +370,13 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= cfg.image_dir %>',
+            cwd: '<%= cfg.src.dir %>',
             src: '<%= cfg.images %>',
-            dest: '<%= cfg.dist_dir %>/images/'
+            dest: '<%= cfg.dist.dir %>'
           },
           {
-            src: '<%= cfg.src_dir %>/index.html',
-            dest: '<%= cfg.dist_dir %>/index.html'
+            src: '<%= cfg.src.indexHtml %>',
+            dest: '<%= cfg.dist.indexHtml %>'
           }
         ]
       }
@@ -347,7 +392,7 @@ module.exports = function (grunt) {
           collapseWhitespace: true
         },
         files: {
-          '<%= cfg.dist_dir %>/index.html': '<%= cfg.dist_dir %>/index.html'
+          '<%= cfg.dist.indexHtml %>': '<%= cfg.dist.indexHtml %>'
         }
       }
     },
@@ -358,10 +403,10 @@ module.exports = function (grunt) {
      */
     useminPrepare: {
       options: {
-        dest: '<%= cfg.dist_dir %>',
-        staging: '<%= cfg.tmp_dir %>'
+        dest: '<%= cfg.dist.dir %>',
+        staging: '<%= cfg.tmp %>'
       },
-      html: '<%= cfg.dist_dir %>/index.html'
+      html: '<%= cfg.dist.indexHtml %>'
     },
 
     /*
@@ -369,7 +414,10 @@ module.exports = function (grunt) {
      */
     filerev: {
       dist: {
-        src: '<%= cfg.dist_dir %>/**/*.min.{css,js}'
+        src: [
+          '<%= cfg.dist.css %>',
+          '<%= cfg.dist.js %>'
+        ]
       }
     },
 
@@ -380,9 +428,9 @@ module.exports = function (grunt) {
      */
     usemin: {
       options: {
-        assetsDirs: ['<%= cfg.dist_dir %>']
+        assetsDirs: ['<%= cfg.dist.dir %>']
       },
-      html: ['<%= cfg.dist_dir %>/index.html']
+      html: ['<%= cfg.dist.indexHtml %>']
     },
 
     /*
@@ -398,13 +446,13 @@ module.exports = function (grunt) {
       dev: {
         options: {
           livereload: true,
-          base: ['<%= cfg.src_dir %>', '.']
+          base: ['<%= cfg.src.dir %>', '.']
         }
       },
       dist: {
         options: {
           keepalive: true,
-          base: ['<%= cfg.dist_dir %>']
+          base: ['<%= cfg.dist.dir %>']
         }
       }
     }

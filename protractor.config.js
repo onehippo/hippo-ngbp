@@ -5,6 +5,6 @@
 var cfg = require('./build.config.js');
 
 module.exports.config = {
-  specs: [cfg.src_dir + '/' + cfg.e2e],
-  baseUrl: 'http://localhost:9001/#/'
+  specs: [cfg.src.e2e],
+  baseUrl: 'http://localhost:9001/'
 };
