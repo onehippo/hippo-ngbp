@@ -1,6 +1,7 @@
 'use strict';
 
 module.exports = {
+  "baseURL": "./",
   "transpiler": "babel",
   "babelOptions": {
     "optional": [

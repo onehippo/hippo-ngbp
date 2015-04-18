@@ -447,7 +447,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build:dist', 'Build for production', [
     'build',
-    //'karma:single',
+    'karma:single',
     'copy',
     'useminPrepare',
     'concat:generated',

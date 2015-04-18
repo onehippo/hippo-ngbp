@@ -9,22 +9,28 @@ module.exports = function(config) {
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['jasmine'],
+    frameworks: ['systemjs', 'jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
-      cfg.bower + 'angular/angular.js',
-      cfg.bower + 'angular-mocks/angular-mocks.js',
-      cfg.bower + 'angular-ui-router/release/angular-ui-router.js',
-      cfg.src.indexjs,
-      cfg.src.jstplFile,
-      cfg.src.js,
-      cfg.src.unit
     ],
 
     // list of files to exclude
     exclude: [
     ],
+
+    systemjs: {
+      config: require('./system.config.js'),
+      files: [
+        cfg.bower + 'angular/angular.js',
+        cfg.bower + 'angular-mocks/angular-mocks.js',
+        cfg.bower + 'angular-ui-router/release/angular-ui-router.js',
+        cfg.src.indexjs,
+        cfg.src.jstplFile,
+        cfg.src.js,
+        cfg.src.unit
+      ]
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
