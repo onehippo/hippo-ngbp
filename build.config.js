@@ -24,7 +24,7 @@ var cfg = {
 cfg.src = {
   dir: 'src/',
   images: 'src/**/*.{png,jpg,gif}',
-  js: 'src/**/*!(.spec|.e2e).js',
+  js: 'src/**/!(*.spec.js|*.e2e.js)*.js',
   unit: 'src/**/*.spec.js',
   e2e: 'src/**/*.e2e.js',
   tpl: 'src/**/*.html',
