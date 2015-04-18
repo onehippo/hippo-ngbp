@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-ui-router';
-import sub from './sub/sub';
+import sub from './components/sub/sub';
 import templates from './hippo.ngbp.tpls';
 import MainCtrl from './controllers/main.controller';
 import MainService from './services/main.service';
