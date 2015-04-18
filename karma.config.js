@@ -16,7 +16,10 @@ module.exports = function(config) {
       cfg.bower + 'angular/angular.js',
       cfg.bower + 'angular-mocks/angular-mocks.js',
       cfg.bower + 'angular-ui-router/release/angular-ui-router.js',
-      cfg.src.js
+      cfg.src.indexjs,
+      cfg.src.jstplFile,
+      cfg.src.js,
+      cfg.src.unit
     ],
 
     // list of files to exclude
