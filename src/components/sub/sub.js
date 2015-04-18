@@ -5,7 +5,7 @@ import SubCtrl from './controllers/sub.controller';
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {
     url: 'sub/',
-    templateUrl: 'modules/sub/sub.tpl.html',
+    templateUrl: 'components/sub/sub.tpl.html',
     controller: 'SubCtrl',
     controllerAs: 'sub'
   });

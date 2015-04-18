@@ -12,7 +12,7 @@ function config ($stateProvider, $urlRouterProvider, $locationProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    templateUrl: 'modules/hippo.ngbp.html',
+    templateUrl: 'components/hippo.ngbp.html',
     controller: 'MainCtrl',
     controllerAs: 'main'
   });

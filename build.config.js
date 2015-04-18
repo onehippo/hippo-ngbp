@@ -29,11 +29,11 @@ cfg.src = {
   e2e: 'src/**/*.e2e.js',
   tpl: 'src/**/*.html',
   styles: 'src/**/*.less',
-  entryModule: 'src/modules/' + pkg.name,
+  entryModule: 'src/components/' + pkg.name,
   indexHtml: 'src/index.html',
-  mainStyles: 'src/modules/' + pkg.name + '.less',
-  indexjs: 'src/modules/' + pkg.name + '.js',
-  jstplFile: 'src/modules/' + pkg.name + '.tpls.js'
+  mainStyles: 'src/components/' + pkg.name + '.less',
+  indexjs: 'src/components/' + pkg.name + '.js',
+  jstplFile: 'src/components/' + pkg.name + '.tpls.js'
 };
 
 cfg.compiled = {
