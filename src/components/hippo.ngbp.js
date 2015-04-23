@@ -4,7 +4,7 @@ import sub from './components/sub/sub';
 import templates from './hippo.ngbp.tpls';
 import MainCtrl from './controllers/main.controller';
 import MainService from './services/main.service';
-import alertDirective from './directives/alert.directive';
+import alertDirective from './directives/alert/alert.directive';
 import reverseFilter from './filters/reverse.filter';
 
 function config ($stateProvider, $urlRouterProvider, $locationProvider) {
