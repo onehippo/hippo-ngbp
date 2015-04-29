@@ -220,12 +220,12 @@ module.exports = function (grunt) {
       main: {
         options: {
           sourceMap: true,
-          sourceMapFilename: '<%= cfg.compiled.cssSourceMap %>',
+          sourceMapFilename: '<%= cfg.tmp.cssSourceMap %>',
           sourceMapURL: '<%= cfg.cssSourceMap %>',
           outputSourceFiles: true
         },
         files: {
-          '<%= cfg.compiled.css %>': '<%= cfg.src.mainStyles %>'
+          '<%= cfg.tmp.css %>': '<%= cfg.src.mainStyles %>'
         }
       }
     },
@@ -241,8 +241,8 @@ module.exports = function (grunt) {
         map: true
       },
       compiled: {
-        src: '<%= cfg.compiled.css %>',
-        dest: '<%= cfg.compiled.css %>'
+        src: '<%= cfg.tmp.css %>',
+        dest: '<%= cfg.tmp.css %>'
       }
     },
 
@@ -252,7 +252,7 @@ module.exports = function (grunt) {
     cssmin: {
       compiled: {
         files: {
-          '<%= cfg.compiled.cssmin %>': ['<%= cfg.compiled.css %>']
+          '<%= cfg.tmp.cssmin %>': ['<%= cfg.tmp.css %>']
         }
       }
     },
@@ -268,9 +268,9 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= cfg.src.dir %>',
+            cwd: '<%= cfg.src_dir %>',
             src: ['<%= cfg.images %>'],
-            dest: '<%= cfg.src.dir %>'
+            dest: '<%= cfg.src_dir %>'
           }
         ]
       }
@@ -286,7 +286,7 @@ module.exports = function (grunt) {
         options: {
           module: '<%= cfg.jstplModule %>',
           singleModule: true,
-          base: '<%= cfg.src.dir %>',
+          base: '<%= cfg.src_dir %>',
           useStrict: true,
           fileHeaderString: 'import angular from "angular"; \n export default',
           htmlmin: {
@@ -308,8 +308,8 @@ module.exports = function (grunt) {
         options: {
           singleQuotes: true
         },
-        src: ['<%= cfg.compiled.js %>'],
-        dest: '<%= cfg.compiled.js %>'
+        src: ['<%= cfg.tmp.js %>'],
+        dest: '<%= cfg.tmp.js %>'
       }
     },
 
@@ -319,7 +319,7 @@ module.exports = function (grunt) {
     uglify: {
       compiled: {
         files: {
-          '<%= cfg.compiled.jsmin %>': ['<%= cfg.compiled.js %>']
+          '<%= cfg.tmp.jsmin %>': ['<%= cfg.tmp.js %>']
         }
       }
     },
@@ -328,10 +328,10 @@ module.exports = function (grunt) {
      * The directories/files to delete when `grunt clean` is executed.
      */
     clean: {
-      compiled: '<%= cfg.compiled.dir %>',
-      tmp: '<%= cfg.tmp.dir %>',
-      dist: '<%= cfg.dist.dir %>',
-      docs: '<%= cfg.docs %>'
+      compiled: '<%= cfg.tmp_dir %>',
+      tmp: '<%= cfg.tmp_dir %>',
+      dist: '<%= cfg.dist_dir %>',
+      docs: '<%= cfg.docs_dir %>'
     },
 
     /*
@@ -342,9 +342,9 @@ module.exports = function (grunt) {
         files: [
           {
             expand: true,
-            cwd: '<%= cfg.src.dir %>',
+            cwd: '<%= cfg.src_dir %>',
             src: '<%= cfg.images %>',
-            dest: '<%= cfg.dist.dir %>'
+            dest: '<%= cfg.dist_dir %>'
           },
           {
             src: '<%= cfg.src.indexHtml %>',
@@ -375,10 +375,10 @@ module.exports = function (grunt) {
      */
     useminPrepare: {
       options: {
-        dest: '<%= cfg.dist.dir %>',
-        staging: '<%= cfg.tmp %>'
+        dest: '<%= cfg.dist_dir %>',
+        staging: '<%= cfg.tmp_dir %>'
       },
-      html: '<%= cfg.dist.indexHtml %>'
+      html: '<%= cfg.src.indexHtml %>'
     },
 
     /*
@@ -400,7 +400,7 @@ module.exports = function (grunt) {
      */
     usemin: {
       options: {
-        assetsDirs: ['<%= cfg.dist.dir %>']
+        assetsDirs: ['<%= cfg.dist_dir %>']
       },
       html: ['<%= cfg.dist.indexHtml %>']
     },
@@ -412,19 +412,18 @@ module.exports = function (grunt) {
      */
     connect: {
       options: {
-        port: 9000,
-        open: 'http://localhost:9000/'
+        port: 9000
       },
       dev: {
         options: {
           livereload: true,
-          base: ['<%= cfg.src.dir %>', '.']
+          base: ['<%= cfg.src_dir %>', '.']
         }
       },
       dist: {
         options: {
           keepalive: true,
-          base: ['<%= cfg.dist.dir %>']
+          base: ['<%= cfg.dist_dir %>']
         }
       }
     }
@@ -474,7 +473,7 @@ module.exports = function (grunt) {
     var Builder = require('systemjs-builder');
     var builder = new Builder();
     var moduleName = cfg.src.entryModule;
-    var dest = cfg.compiled.js;
+    var dest = cfg.tmp.js;
     var options = {
       sourceMaps: true,
       config: require('./system.config.js')
