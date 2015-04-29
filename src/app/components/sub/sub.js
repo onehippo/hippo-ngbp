@@ -4,7 +4,7 @@
   function config ($stateProvider) {
     $stateProvider.state('main.sub', {
       url: 'sub/',
-      templateUrl: 'components/components/sub/sub.tpl.html',
+      templateUrl: 'app/components/sub/sub.tpl.html',
       controller: 'SubCtrl',
       controllerAs: 'sub'
     });

@@ -6,7 +6,7 @@
 
     $stateProvider.state('main', {
       url: '/',
-      templateUrl: 'components/hippo.ngbp.html',
+      templateUrl: 'app/hippo.ngbp.html',
       controller: 'MainCtrl',
       controllerAs: 'main'
     });
