@@ -14,27 +14,27 @@ var cfg = {};
 cfg.tmp_dir = 'target/tmp/';
 cfg.bower_dir = 'bower_components/';
 cfg.docs_dir = 'docs/';
-cfg.src_dir = 'src/';
+cfg.src_dir = 'src/angularjs/';
 cfg.dist_dir = 'target/classes/angular/' + pkg.name;
 cfg.api_dir = cfg.src_dir + ''
-cfg.images = '**/*.{png,jpg,gif}';
+cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
 cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
 cfg.jstplModule = pkg.name + '.templates';
 
 cfg.src = {
-  images: cfg.src_dir + '**/*.{png,jpg,gif}',
+  images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',
   js: cfg.src_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   unit: cfg.src_dir + '**/*.spec.js',
   e2e: cfg.src_dir + '**/*.e2e.js',
   tpl: cfg.src_dir + '**/*.html',
   styles: cfg.src_dir + '**/*.less',
-  entryModule: cfg.src_dir + 'app/' + pkg.name,
+  entryModule: cfg.src_dir + 'components/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
-  indexjs: cfg.src_dir + 'app/' + pkg.name + '.js',
-  jstplFile: cfg.src_dir + 'app/' + pkg.name + '.tpls.js'
+  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
+  jstplFile: cfg.src_dir + 'components/' + pkg.name + '.tpls.js'
 };
 
 cfg.tmp = {
