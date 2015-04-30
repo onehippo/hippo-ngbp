@@ -5,8 +5,8 @@
     .module('hippo.ngbp')
     .controller('MainCtrl', MainCtrl);
 
-  function MainCtrl () {
+  function MainCtrl (MainService) {
     var main = this;
-    main.message = 'My Angular App';
+    main.message = MainService.message;
   }
 })();
