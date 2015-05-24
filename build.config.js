@@ -11,19 +11,20 @@ var pkg = require('./package.json');
  */
 var cfg = {};
 
-cfg.tmp_dir = 'target/tmp/';
 cfg.bower_dir = 'bower_components/';
 cfg.docs_dir = 'docs/';
+cfg.tmp_dir = 'target/tmp/';
 cfg.src_dir = 'src/angularjs/';
-cfg.dist_dir = 'target/classes/angular/' + pkg.name;
-cfg.api_dir = cfg.src_dir + ''
+cfg.dist_dir = 'target/classes/angularjs/';
+cfg.apisrc_dir = cfg.src_dir + 'components/components/api/';
+cfg.apidist_dir = 'target/api/';
 cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
 cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
-cfg.jstplModule = pkg.name + '.templates';
 
 cfg.src = {
+  jstplModule: pkg.name + '.templates',
   images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',
   js: cfg.src_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   unit: cfg.src_dir + '**/*.spec.js',
@@ -33,8 +34,7 @@ cfg.src = {
   entryModule: cfg.src_dir + 'components/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
-  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
-  jstplFile: cfg.src_dir + 'components/' + pkg.name + '.tpls.js'
+  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js'
 };
 
 cfg.tmp = {
@@ -43,13 +43,34 @@ cfg.tmp = {
   jsSourceMap: cfg.tmp_dir + 'js/' + cfg.jsSourceMap,
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
-  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap
+  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
+  jstplFile: cfg.tmp_dir + 'js/main.tpls.js',
+  apiJstplFile: cfg.tmp_dir + 'api/main.tpls.js'
 };
 
 cfg.dist = {
   indexHtml: cfg.dist_dir + '/index.html',
   js: cfg.dist_dir + '/js/main.min.js',
   css: cfg.dist_dir + '/css/main.min.css'
+};
+
+cfg.apisrc = {
+  jstplModule: pkg.name + '.api.templates',
+  js: cfg.apisrc_dir + '**/!(*.spec.js|*.e2e.js)*.js',
+  tpl: cfg.apisrc_dir + '**/*.html',
+  styles: cfg.apisrc_dir + '**/*.less',
+  entryModule: cfg.apisrc_dir + 'api',
+  mainStyles: cfg.apisrc_dir + 'api.less',
+  indexjs: cfg.apisrc_dir + 'api.js'
+};
+
+cfg.apidist = {
+  js: cfg.apidist_dir + 'js/main.js',
+  jsmin: cfg.apidist_dir + 'js/main.min.js',
+  jsSourceMap: cfg.apidist_dir + 'js/' + cfg.jsSourceMap,
+  css: cfg.apidist_dir + 'css/main.css',
+  cssmin: cfg.apidist_dir + 'css/main.min.css',
+  cssSourceMap: cfg.apidist_dir + 'css/' + cfg.cssSourceMap
 };
 
 module.exports = cfg;
