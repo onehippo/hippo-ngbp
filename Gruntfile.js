@@ -204,11 +204,20 @@ module.exports = function (grunt) {
      *   - 2, throws error for this options, fails the build
      */
     lesslint: {
-      options: {
-        imports: '<%= cfg.src.styles %>',
-        csslint: require('./csslintrc.json')
+      src: {
+        options: {
+          imports: '<%= cfg.src.styles %>',
+          csslint: require('./csslintrc.json')
+        },
+        src: ['<%= cfg.src.mainStyles %>']
       },
-      src: ['<%= cfg.src.mainStyles %>']
+      api: {
+        options: {
+          imports: '<%= cfg.apisrc.styles %>',
+          csslint: require('./csslintrc.json')
+        },
+        src: ['<%= cfg.apisrc.mainStyles %>']
+      }
     },
 
     /*
@@ -227,6 +236,17 @@ module.exports = function (grunt) {
         files: {
           '<%= cfg.tmp.css %>': '<%= cfg.src.mainStyles %>'
         }
+      },
+      api: {
+        options: {
+          sourceMap: true,
+          sourceMapFilename: '<%= cfg.apidist.cssSourceMap %>',
+          sourceMapURL: '<%= cfg.cssSourceMap %>',
+          outputSourceFiles: true
+        },
+        files: {
+          '<%= cfg.apidist.css %>': '<%= cfg.apisrc.mainStyles %>'
+        }
       }
     },
 
@@ -240,9 +260,13 @@ module.exports = function (grunt) {
         browsers: ['last 1 version'],
         map: true
       },
-      compiled: {
+      main: {
         src: '<%= cfg.tmp.css %>',
         dest: '<%= cfg.tmp.css %>'
+      },
+      api: {
+        src: '<%= cfg.apidist.css %>',
+        dest: '<%= cfg.apidist.css %>'
       }
     },
 
@@ -250,9 +274,9 @@ module.exports = function (grunt) {
      * CSSmin minifies the provided css files.
      */
     cssmin: {
-      compiled: {
+      api: {
         files: {
-          '<%= cfg.tmp.cssmin %>': ['<%= cfg.tmp.css %>']
+          '<%= cfg.apidist.cssmin %>': ['<%= cfg.apidist.css %>']
         }
       }
     },
@@ -284,7 +308,7 @@ module.exports = function (grunt) {
     html2js: {
       src: {
         options: {
-          module: '<%= cfg.jstplModule %>',
+          module: '<%= cfg.src.jstplModule %>',
           singleModule: true,
           base: '<%= cfg.src_dir %>',
           useStrict: true,
@@ -295,7 +319,22 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
-        dest: '<%= cfg.src.jstplFile %>'
+        dest: '<%= cfg.tmp.jstplFile %>'
+      },
+      api: {
+        options: {
+          module: '<%= cfg.apisrc.jstplModule %>',
+          singleModule: true,
+          base: '<%= cfg.apisrc_dir %>',
+          useStrict: true,
+          fileHeaderString: 'import angular from "angular"; \n export default',
+          htmlmin: {
+            collapseWhitespace: true,
+            collapseBooleanAttributes: true
+          }
+        },
+        src: ['<%= cfg.apisrc.tpl %>'],
+        dest: '<%= cfg.tmp.apiJstplFile %>'
       }
     },
 
@@ -304,12 +343,19 @@ module.exports = function (grunt) {
      * angular annotations for injection.
      */
     ngAnnotate: {
-      compiled: {
+      main: {
         options: {
           singleQuotes: true
         },
         src: ['<%= cfg.tmp.js %>'],
         dest: '<%= cfg.tmp.js %>'
+      },
+      api: {
+        options: {
+          singleQuotes: true
+        },
+        src: ['<%= cfg.apidist.js %>'],
+        dest: '<%= cfg.apidist.js %>'
       }
     },
 
@@ -317,9 +363,9 @@ module.exports = function (grunt) {
      * Uglify minifies the provides js files.
      */
     uglify: {
-      compiled: {
+      api: {
         files: {
-          '<%= cfg.tmp.jsmin %>': ['<%= cfg.tmp.js %>']
+          '<%= cfg.apidist.jsmin %>': ['<%= cfg.apidist.js %>']
         }
       }
     },
@@ -328,7 +374,7 @@ module.exports = function (grunt) {
      * The directories/files to delete when `grunt clean` is executed.
      */
     clean: {
-      compiled: '<%= cfg.tmp_dir %>',
+      api: '<%= cfg.apidist_dir %>',
       tmp: '<%= cfg.tmp_dir %>',
       dist: '<%= cfg.dist_dir %>',
       docs: '<%= cfg.docs_dir %>'
@@ -450,10 +496,11 @@ module.exports = function (grunt) {
     'copy',
     'useminPrepare',
     'concat:generated',
-    'cssmin:generated',
-    'uglify:generated',
+    'cssmin',
+    'uglify',
     'filerev',
-    'usemin'
+    'usemin',
+    'clean:tmp'
   ]);
 
   grunt.registerTask('server', 'Setup environment for development', [
