@@ -1,10 +1,6 @@
 (function () {
   'use strict';
 
-  angular
-    .module('hippo.ngbp')
-    .filter("reverse", reverseFilter);
-
   function reverseFilter () {
     return function (input) {
       var result = '';
@@ -17,4 +13,8 @@
       return result;
     };
   }
+
+  angular
+    .module('hippo.ngbp')
+    .filter("reverse", reverseFilter);
 })();
