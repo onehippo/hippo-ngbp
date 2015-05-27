@@ -1,17 +1,15 @@
 (function () {
   'use strict';
 
-  function config ($stateProvider, $urlRouterProvider, $locationProvider) {
+  function config ($stateProvider, $urlRouterProvider) {
     $urlRouterProvider.otherwise('/');
 
     $stateProvider.state('main', {
       url: '/',
-      templateUrl: 'components/hippo.ngbp.html',
+      templateUrl: 'angularjs/hippo.ngbp.html',
       controller: 'MainCtrl',
       controllerAs: 'main'
     });
-
-    $locationProvider.html5Mode(true);
   }
 
   angular
