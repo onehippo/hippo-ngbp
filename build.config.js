@@ -35,7 +35,7 @@ cfg.src = {
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
   indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: cfg.src_dir + 'components/hippo.ngbp.tpls.js'
+  jstplFile: cfg.src_dir + 'components/' + pkg.name + '.tpls.js'
 };
 
 cfg.tmp = {
