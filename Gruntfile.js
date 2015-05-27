@@ -237,6 +237,9 @@ module.exports = function (grunt) {
       }
     },
 
+    /* The SystemJS task creates a self-executing systemjs bundle, allowing us
+     * to write ES6 code and use it in production.
+     */
     systemjs: {
       options: {
         sourceMaps: true,
@@ -371,6 +374,9 @@ module.exports = function (grunt) {
       }
     },
 
+    /*
+     * Watch files and run tasks on changes
+     */
     watch: {
       options: {
         spawn: false,
