@@ -7,17 +7,15 @@ import MainService from './services/main.service';
 import alertDirective from './directives/alert/alert.directive';
 import reverseFilter from './filters/reverse.filter';
 
-function config ($stateProvider, $urlRouterProvider, $locationProvider) {
+function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('main', {
     url: '/',
-    templateUrl: 'components/hippo.ngbp.html',
+    templateUrl: 'angularjs/hippo.ngbp.html',
     controller: 'MainCtrl',
     controllerAs: 'main'
   });
-
-  $locationProvider.html5Mode(true);
 }
 
 export default angular

@@ -14,9 +14,9 @@ var cfg = {};
 cfg.bower_dir = 'bower_components/';
 cfg.docs_dir = 'docs/';
 cfg.tmp_dir = 'target/tmp/';
-cfg.src_dir = 'src/angularjs/';
-cfg.dist_dir = 'target/classes/angularjs/';
-cfg.apisrc_dir = cfg.src_dir + 'components/components/api/';
+cfg.src_dir = 'src/webapp/';
+cfg.dist_dir = 'target/classes/webapp/';
+cfg.apisrc_dir = cfg.src_dir + 'angularjs/components/api/';
 cfg.apidist_dir = 'target/api/';
 cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
@@ -30,12 +30,12 @@ cfg.src = {
   e2e: cfg.src_dir + '**/*.e2e.js',
   tpl: cfg.src_dir + '**/*.html',
   styles: cfg.src_dir + '**/*.less',
-  entryModule: cfg.src_dir + 'components/' + pkg.name,
+  entryModule: cfg.src_dir + 'angularjs/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
-  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
+  indexjs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: cfg.src_dir + 'components/' + pkg.name + '.tpls.js'
+  jstplFile: cfg.src_dir + 'angularjs/' + pkg.name + '.tpls.js'
 };
 
 cfg.tmp = {

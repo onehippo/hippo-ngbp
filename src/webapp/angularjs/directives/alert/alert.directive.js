@@ -3,7 +3,7 @@
 export default function alertDirective () {
   return {
     restrict: 'E',
-    templateUrl: 'components/directives/alert/alert.directive.html',
+    templateUrl: 'angularjs/directives/alert/alert.directive.html',
     scope: {
       message: '='
     }
