@@ -35,7 +35,7 @@ cfg.src = {
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
   indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: cfg.src_dir + 'components/hippo.ngbp.tpls.js'
+  jstplFile: cfg.src_dir + 'components/' + pkg.name + '.tpls.js'
 };
 
 cfg.tmp = {
@@ -44,7 +44,7 @@ cfg.tmp = {
   jsSourceMap: cfg.tmp_dir + 'js/' + cfg.jsSourceMap,
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
-  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
+  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap
 };
 
 cfg.dist = {
