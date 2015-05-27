@@ -2,3 +2,4 @@ dist
 compiled
 tmp
 target
+*.tpls.js

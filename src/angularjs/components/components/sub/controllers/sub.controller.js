@@ -1,9 +1,8 @@
 (function () {
   'use strict';
 
-  function SubCtrl (apiService) {
-    var sub = this;
-    sub.message = apiService.message;
+  function SubCtrl () {
+    this.message = 'Awesome sub module';
   }
 
   angular

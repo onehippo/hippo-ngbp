@@ -22,128 +22,6 @@ module.exports = function (grunt) {
      */
     cfg: require('./build.config.js'),
 
-    watch: {
-      options: {
-        spawn: false,
-        interrupt: true,
-        livereloadOnError: false
-      },
-
-      /*
-       * When these config/build files change, we want to run related tasks but not reload.
-       * In fact, when your Gruntfile changes, it will automatically be reloaded!
-       */
-      jshintrc: {
-        files: ['.jshintrc'],
-        tasks: ['jshint']
-      },
-
-      karmaConf: {
-        files: ['<%= cfg.karma %>'],
-        tasks: ['karma:continuous:run']
-      },
-
-      protractorConf: {
-        files: ['<%= cfg.protractor %>'],
-        tasks: ['protractor']
-      },
-
-      gruntfile: {
-        files: [
-          'Gruntfile.js',
-          'build.config.js'
-        ],
-        tasks: ['jshint:gruntfile']
-      },
-
-      /*
-       * When our JavaScript source files change, we want to lint them and
-       * run our unit tests.
-       */
-      jssrc: {
-        options: {livereload: true},
-        files: [
-          '<%= cfg.src.js %>',
-          'system.config.js'
-        ],
-        tasks: [
-          'jshint:src',
-          'karma:continuous:run',
-          'concat',
-          'ngAnnotate'
-        ]
-      },
-
-      /*
-       * When a JavaScript unit test file changes, we only want to lint it and
-       * run the unit tests. We don't want to do any live reloading.
-       */
-      jsunit: {
-        files: ['<%= cfg.src.unit %>'],
-        tasks: [
-          'jshint:unit',
-          'karma:continuous:run'
-        ]
-      },
-
-      /*
-       * When a JavaScript e2e test file changes, we only want to lint it and
-       * run the tests. We don't want to do any live reloading.
-       */
-      jse2e: {
-        files: ['<%= cfg.src.e2e %>'],
-        tasks: [
-          'jshint:e2e',
-          'protractor'
-        ]
-      },
-
-      /*
-       * When images are changes optimize them.
-       */
-      images: {
-        files: ['<%= cfg.src.images %>'],
-        tasks: ['imagemin']
-      },
-
-      /*
-       * When the LESS files change, we need to compile them, but not live reload.
-       */
-      less: {
-        options: {livereload: true},
-        files: ['<%= cfg.src.styles %>'],
-        tasks: [
-          'lesslint',
-          'less',
-          'autoprefixer'
-        ]
-      },
-
-      /*
-       * When our templates change, we only rewrite the template cache.
-       */
-      tpls: {
-        options: {livereload: true},
-        files: [
-          '<%= cfg.src.tpl %>',
-          '!<%= cfg.src.indexHtml %>'
-        ],
-        tasks: [
-          'html2js',
-          'concat',
-          'ngAnnotate'
-        ]
-      },
-
-      /*
-       * Other files that should trigger a livereload
-       */
-      livereload: {
-        options: {livereload: true},
-        files: ['<%= cfg.src.indexHtml %>']
-      }
-    },
-
     /*
      * `jshint` defines the rules of our linter as well as which files we
      * should check. This file, all javascript sources, and all our unit tests
@@ -155,7 +33,7 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       gruntfile: ['Gruntfile.js'],
-      src: [ '<%= cfg.src.js %>'],
+      src: ['<%= cfg.src.js %>'],
       unit: ['<%= cfg.src.unit %>'],
       e2e: ['<%= cfg.src.e2e %>']
     },
@@ -204,7 +82,7 @@ module.exports = function (grunt) {
      *   - 2, throws error for this options, fails the build
      */
     lesslint: {
-      src: {
+      main: {
         options: {
           imports: '<%= cfg.src.styles %>',
           csslint: require('./csslintrc.json')
@@ -288,7 +166,7 @@ module.exports = function (grunt) {
      * the optimization in every build.
      */
     imagemin: {
-      src: {
+      main: {
         files: [
           {
             expand: true,
@@ -306,7 +184,7 @@ module.exports = function (grunt) {
      * AngularJS's template cache.
      */
     html2js: {
-      src: {
+      main: {
         options: {
           module: '<%= cfg.src.jstplModule %>',
           singleModule: true,
@@ -318,7 +196,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
-        dest: '<%= cfg.tmp.jstplFile %>'
+        dest: '<%= cfg.src.jstplFile %>'
       },
       api: {
         options: {
@@ -332,7 +210,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.apisrc.tpl %>'],
-        dest: '<%= cfg.tmp.apiJstplFile %>'
+        dest: '<%= cfg.apisrc.jstplFile %>'
       }
     },
 
@@ -347,7 +225,7 @@ module.exports = function (grunt) {
         },
         src: [
           '<%= cfg.src.indexjs %>',
-          '<%= cfg.tmp.jstplFile %>',
+          '<%= cfg.src.jstplFile %>',
           '<%= cfg.src.js %>'
         ],
         dest: '<%= cfg.tmp.js %>'
@@ -358,7 +236,7 @@ module.exports = function (grunt) {
         },
         src: [
           '<%= cfg.apisrc.indexjs %>',
-          '<%= cfg.tmp.apiJstplFile %>',
+          '<%= cfg.apisrc.jstplFile %>',
           '<%= cfg.apisrc.js %>'
         ],
         dest: '<%= cfg.apidist.js %>'
@@ -411,7 +289,7 @@ module.exports = function (grunt) {
      * Directly copy files/folders to destinations.
      */
     copy: {
-      dist: {
+      main: {
         files: [
           {
             expand: true,
@@ -431,7 +309,7 @@ module.exports = function (grunt) {
      * Minify html files
      */
     htmlmin: {
-      dist: {
+      main: {
         options: {
           removeComments: true,
           collapseWhitespace: true
@@ -458,7 +336,7 @@ module.exports = function (grunt) {
      * filerev will set revision numbers on the specified files.
      */
     filerev: {
-      dist: {
+      main: {
         src: [
           '<%= cfg.dist.css %>',
           '<%= cfg.dist.js %>'
@@ -499,6 +377,127 @@ module.exports = function (grunt) {
           base: ['<%= cfg.dist_dir %>']
         }
       }
+    },
+
+    watch: {
+      options: {
+        spawn: false,
+        interrupt: true,
+        livereloadOnError: false
+      },
+
+      /*
+       * When these config/build files change, we want to run related tasks but not reload.
+       * In fact, when your Gruntfile changes, it will automatically be reloaded!
+       */
+      jshintrc: {
+        files: ['.jshintrc'],
+        tasks: ['jshint']
+      },
+
+      karmaConf: {
+        files: ['<%= cfg.karma %>'],
+        tasks: ['karma:continuous:run']
+      },
+
+      protractorConf: {
+        files: ['<%= cfg.protractor %>'],
+        tasks: ['protractor']
+      },
+
+      gruntfile: {
+        files: [
+          'Gruntfile.js',
+          'build.config.js'
+        ],
+        tasks: ['jshint:gruntfile']
+      },
+
+      /*
+       * When our JavaScript source files change, we want to lint them and
+       * run our unit tests.
+       */
+      jssrc: {
+        options: {livereload: true},
+        files: [
+          '<%= cfg.src.js %>'
+        ],
+        tasks: [
+          'jshint:src',
+          'karma:continuous:run',
+          'concat:main',
+          'ngAnnotate:main'
+        ]
+      },
+
+      /*
+       * When a JavaScript unit test file changes, we only want to lint it and
+       * run the unit tests. We don't want to do any live reloading.
+       */
+      jsunit: {
+        files: ['<%= cfg.src.unit %>'],
+        tasks: [
+          'jshint:unit',
+          'karma:continuous:run'
+        ]
+      },
+
+      /*
+       * When a JavaScript e2e test file changes, we only want to lint it and
+       * run the tests. We don't want to do any live reloading.
+       */
+      jse2e: {
+        files: ['<%= cfg.src.e2e %>'],
+        tasks: [
+          'jshint:e2e',
+          'protractor'
+        ]
+      },
+
+      /*
+       * When images are changes optimize them.
+       */
+      images: {
+        files: ['<%= cfg.src.images %>'],
+        tasks: ['imagemin']
+      },
+
+      /*
+       * When the LESS files change, we need to compile them, but not live reload.
+       */
+      less: {
+        options: {livereload: true},
+        files: ['<%= cfg.src.styles %>'],
+        tasks: [
+          'lesslint:main',
+          'less:main',
+          'autoprefixer:main'
+        ]
+      },
+
+      /*
+       * When our templates change, we only rewrite the template cache.
+       */
+      tpls: {
+        options: {livereload: true},
+        files: [
+          '<%= cfg.src.tpl %>',
+          '!<%= cfg.src.indexHtml %>'
+        ],
+        tasks: [
+          'html2js:main',
+          'concat:main',
+          'ngAnnotate:main'
+        ]
+      },
+
+      /*
+       * Other files that should trigger a livereload
+       */
+      livereload: {
+        options: {livereload: true},
+        files: ['<%= cfg.src.indexHtml %>']
+      }
     }
   });
 
@@ -507,6 +506,18 @@ module.exports = function (grunt) {
    */
   grunt.registerTask('build', 'Build for development', [
     'clean',
+    'html2js:main',
+    'jshint',
+    'lesslint:main',
+    'less:main',
+    'autoprefixer:main',
+    'imagemin',
+    'concat:main',
+    'ngAnnotate:main'
+  ]);
+
+  grunt.registerTask('build:dist', 'Build for production', [
+    'clean',
     'html2js',
     'jshint',
     'lesslint',
@@ -514,12 +525,7 @@ module.exports = function (grunt) {
     'autoprefixer',
     'imagemin',
     'concat',
-    'ngAnnotate'
-  ]);
-
-  grunt.registerTask('build:dist', 'Build for production', [
-    'build',
-    'karma:single',
+    'ngAnnotate',
     'copy',
     'useminPrepare',
     'concat:generated',
@@ -527,6 +533,7 @@ module.exports = function (grunt) {
     'uglify',
     'filerev',
     'usemin',
+    'htmlmin',
     'clean:tmp'
   ]);
 

@@ -24,7 +24,6 @@ cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
 
 cfg.src = {
-  jstplModule: pkg.name + '.templates',
   images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',
   js: cfg.src_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   unit: cfg.src_dir + '**/*.spec.js',
@@ -34,7 +33,9 @@ cfg.src = {
   entryModule: cfg.src_dir + 'components/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.less',
-  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js'
+  indexjs: cfg.src_dir + 'components/' + pkg.name + '.js',
+  jstplModule: pkg.name + '.templates',
+  jstplFile: cfg.src_dir + 'components/hippo.ngbp.tpls.js'
 };
 
 cfg.tmp = {
@@ -44,8 +45,6 @@ cfg.tmp = {
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
   cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
-  jstplFile: cfg.tmp_dir + 'js/main.tpls.js',
-  apiJstplFile: cfg.tmp_dir + 'api/main.tpls.js'
 };
 
 cfg.dist = {
@@ -55,13 +54,14 @@ cfg.dist = {
 };
 
 cfg.apisrc = {
-  jstplModule: pkg.name + '.api.templates',
   js: cfg.apisrc_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   tpl: cfg.apisrc_dir + '**/*.html',
   styles: cfg.apisrc_dir + '**/*.less',
   entryModule: cfg.apisrc_dir + 'api',
   mainStyles: cfg.apisrc_dir + 'api.less',
-  indexjs: cfg.apisrc_dir + 'api.js'
+  indexjs: cfg.apisrc_dir + 'api.js',
+  jstplModule: pkg.name + '.api.templates',
+  jstplFile: cfg.apisrc_dir + 'api.tpls.js'
 };
 
 cfg.apidist = {

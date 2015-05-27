@@ -17,7 +17,7 @@ module.exports = function(config) {
       cfg.bower_dir + 'angular-mocks/angular-mocks.js',
       cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
       cfg.src.indexjs,
-      cfg.tmp.jstplFile,
+      cfg.src.jstplFile,
       cfg.src.js,
       cfg.src.unit
     ],
