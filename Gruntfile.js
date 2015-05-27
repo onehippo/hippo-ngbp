@@ -379,6 +379,9 @@ module.exports = function (grunt) {
       }
     },
 
+    /*
+     * Watch files and run tasks on changes
+     */
     watch: {
       options: {
         spawn: false,
