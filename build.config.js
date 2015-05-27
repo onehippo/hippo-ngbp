@@ -44,7 +44,7 @@ cfg.tmp = {
   jsSourceMap: cfg.tmp_dir + 'js/' + cfg.jsSourceMap,
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
-  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
+  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap
 };
 
 cfg.dist = {
