@@ -155,7 +155,7 @@ module.exports = function (grunt) {
         reporter: require('jshint-stylish')
       },
       gruntfile: ['Gruntfile.js'],
-      src: [ '<%= cfg.src.js %>'],
+      src: ['<%= cfg.src.js %>'],
       unit: ['<%= cfg.src.unit %>'],
       e2e: ['<%= cfg.src.e2e %>']
     },
@@ -319,7 +319,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
-        dest: '<%= cfg.tmp.jstplFile %>'
+        dest: '<%= cfg.src.jstplFile %>'
       },
       api: {
         options: {
@@ -334,7 +334,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.apisrc.tpl %>'],
-        dest: '<%= cfg.tmp.apiJstplFile %>'
+        dest: '<%= cfg.apisrc.jstplFile %>'
       }
     },
 
@@ -356,6 +356,25 @@ module.exports = function (grunt) {
         },
         src: ['<%= cfg.apidist.js %>'],
         dest: '<%= cfg.apidist.js %>'
+      }
+    },
+
+    systemjs: {
+      options: {
+        sourceMaps: true,
+        config: require('./system.config.js')
+      },
+      main: {
+        options: {
+          moduleName: '<%= cfg.src.entryModule %>',
+          dest: '<%= cfg.tmp.js %>'
+        }
+      },
+      api: {
+        options: {
+          moduleName: '<%= cfg.apisrc.entryModule %>',
+          dest: '<%= cfg.apidist.js %>'
+        }
       }
     },
 
@@ -515,19 +534,13 @@ module.exports = function (grunt) {
     'connect:dist'
   ]);
 
-  grunt.registerTask('systemjs', 'Build self executing functions using systemjs', function () {
-    var cfg = require('./build.config.js');
+  grunt.registerMultiTask('systemjs', 'Build self executing functions using systemjs', function () {
     var Builder = require('systemjs-builder');
     var builder = new Builder();
-    var moduleName = cfg.src.entryModule;
-    var dest = cfg.tmp.js;
-    var options = {
-      sourceMaps: true,
-      config: require('./system.config.js')
-    };
     var done = this.async();
+    var options = this.options();
 
-    builder.buildSFX(moduleName, dest, options).then(function () {
+    builder.buildSFX(options.moduleName, options.dest, options).then(function () {
       done();
     }, function (message) {
       grunt.log.error(message);

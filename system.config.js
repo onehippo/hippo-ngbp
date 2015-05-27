@@ -16,5 +16,5 @@ module.exports = {
   "map": {
     "angular": "bower:angular/index",
     "angular-ui-router": "bower:angular-ui-router/release/angular-ui-router"
-  }
+    }
 };
