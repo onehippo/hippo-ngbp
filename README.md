@@ -28,9 +28,21 @@ Run the commands below in the project root directory.
 ### Run end-to-end tests on a running application
     $ grunt protractor
 
-### Build optimized application for production
-    $ grunt build:dist
+### Build application for development
+    $ grunt build
 
 ### Setup development server
     $ grunt server
 
+### Build optimized application for production
+    $ grunt build:dist
+
+### Setup production server
+    $ grunt server:dist
+
+### Install maven module in to local repository
+    $ mvn clean install
+
+
+## Explanation of structure
+See hippo-ngbp.txt in the root.
