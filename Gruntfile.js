@@ -74,42 +74,37 @@ module.exports = function (grunt) {
     },
 
     /*
-     * LESSlint helps discover faulty or unwanted css constructions based on
+     * CSSLint helps discover faulty or unwanted css constructions based on
      * policies listed in csslintrc.json. The options in csslintrc
      * are configured based on the values:
      *   - false, throws no errors for this option
      *   - 1, throws warnings for this option, doesnt fail the build
      *   - 2, throws error for this options, fails the build
      */
-    lesslint: {
+    csslint: {
       main: {
         options: {
-          imports: '<%= cfg.src.styles %>',
-          csslint: require('./csslintrc.json')
+          csslintrc: './.csslintrc'
         },
-        src: ['<%= cfg.src.mainStyles %>']
+        src: ['<%= cfg.tmp.css %>']
       },
       api: {
         options: {
-          imports: '<%= cfg.apisrc.styles %>',
-          csslint: require('./csslintrc.json')
+          csslintrc: './.csslintrc'
         },
-        src: ['<%= cfg.apisrc.mainStyles %>']
+        src: ['<%= cfg.apidist.css %>']
       }
     },
 
     /*
-     * `grunt-contrib-less` handles our LESS compilation and uglification automatically.
-     * Only our `main.less` file is included in compilation; all other files
+     * `grunt-sass` handles our Sass compilation and uglification automatically.
+     * Only our `main.scss` file is included in compilation; all other files
      * must be imported from this file.
      */
-    less: {
+    sass: {
       main: {
         options: {
           sourceMap: true,
-          sourceMapFilename: '<%= cfg.tmp.cssSourceMap %>',
-          sourceMapURL: '<%= cfg.cssSourceMap %>',
-          outputSourceFiles: true
         },
         files: {
           '<%= cfg.tmp.css %>': '<%= cfg.src.mainStyles %>'
@@ -118,9 +113,6 @@ module.exports = function (grunt) {
       api: {
         options: {
           sourceMap: true,
-          sourceMapFilename: '<%= cfg.apidist.cssSourceMap %>',
-          sourceMapURL: '<%= cfg.cssSourceMap %>',
-          outputSourceFiles: true
         },
         files: {
           '<%= cfg.apidist.css %>': '<%= cfg.apisrc.mainStyles %>'
@@ -462,14 +454,17 @@ module.exports = function (grunt) {
       },
 
       /*
-       * When the LESS files change, we need to compile them, but not live reload.
+       * When the Sass files change, we need to compile them, but not live reload.
        */
-      less: {
-        options: {livereload: true},
+      sass: {
+        options: {
+          livereload: true,
+          outputStyle: 'expanded'
+        },
         files: ['<%= cfg.src.styles %>'],
         tasks: [
-          'lesslint:main',
-          'less:main',
+          'sass:main',
+          'csslint:main',
           'autoprefixer:main'
         ]
       },
@@ -507,8 +502,8 @@ module.exports = function (grunt) {
     'clean',
     'html2js:main',
     'jshint',
-    'lesslint:main',
-    'less:main',
+    'sass:main',
+    'csslint:main',
     'autoprefixer:main',
     'imagemin',
     'systemjs:main',
@@ -519,8 +514,8 @@ module.exports = function (grunt) {
     'clean',
     'html2js',
     'jshint',
-    'lesslint',
-    'less',
+    'sass',
+    'csslint',
     'autoprefixer',
     'imagemin',
     'systemjs',
