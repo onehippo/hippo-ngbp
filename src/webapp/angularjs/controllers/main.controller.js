@@ -1,6 +1,4 @@
-'use strict';
-
-export default class MainCtrl {
+export class MainCtrl {
   constructor (MainService) {
     this.message = MainService.message;
   }

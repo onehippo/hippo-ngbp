@@ -11,7 +11,7 @@ function config ($stateProvider) {
   });
 }
 
-export default angular
+export let sub = angular
   .module('sub', ['ui.router'])
   .config(config)
   .controller('SubCtrl', SubCtrl);

@@ -1,4 +1,4 @@
 import angular from 'angular';
 
 // this is an API module that is build separately and can be used by other projects
-angular.module('hippo.ngbp.api', []);
+export let api = angular.module('hippo.ngbp.api', []);

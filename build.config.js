@@ -17,6 +17,7 @@ cfg.tmp_dir = 'target/tmp/';
 cfg.src_dir = 'src/webapp/';
 cfg.dist_dir = 'target/classes/webapp/';
 cfg.apisrc_dir = cfg.src_dir + 'angularjs/components/api/';
+cfg.apitmp_dir = 'target/tmp/api';
 cfg.apidist_dir = 'target/api/';
 cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
@@ -35,7 +36,6 @@ cfg.src = {
   mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
   indexjs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: cfg.src_dir + 'angularjs/' + pkg.name + '.tpls.js'
 };
 
 cfg.tmp = {
@@ -44,7 +44,8 @@ cfg.tmp = {
   jsSourceMap: cfg.tmp_dir + 'js/' + cfg.jsSourceMap,
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
-  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap
+  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
+  jstplFile: cfg.tmp_dir + 'angularjs/' + pkg.name + '.tpls.js'
 };
 
 cfg.dist = {
@@ -61,7 +62,10 @@ cfg.apisrc = {
   mainStyles: cfg.apisrc_dir + 'api.scss',
   indexjs: cfg.apisrc_dir + 'api.js',
   jstplModule: pkg.name + '.api.templates',
-  jstplFile: cfg.apisrc_dir + 'api.tpls.js'
+};
+
+cfg.apitmp = {
+  jstplFile: cfg.apitmp_dir + 'api.tpls.js'
 };
 
 cfg.apidist = {

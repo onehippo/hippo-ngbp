@@ -189,7 +189,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
-        dest: '<%= cfg.src.jstplFile %>'
+        dest: '<%= cfg.tmp.jstplFile %>'
       },
       api: {
         options: {
@@ -204,7 +204,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.apisrc.tpl %>'],
-        dest: '<%= cfg.apisrc.jstplFile %>'
+        dest: '<%= cfg.apitmp.jstplFile %>'
       }
     },
 
