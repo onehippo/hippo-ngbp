@@ -31,9 +31,8 @@ cfg.src = {
   e2e: cfg.src_dir + '**/*.e2e.js',
   tpl: cfg.src_dir + '**/*.html',
   styles: cfg.src_dir + '**/*.scss',
-  entryModule: cfg.src_dir + 'angularjs/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
-  mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
+  indexStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
   indexjs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
 };
@@ -58,8 +57,7 @@ cfg.apisrc = {
   js: cfg.apisrc_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   tpl: cfg.apisrc_dir + '**/*.html',
   styles: cfg.apisrc_dir + '**/*.scss',
-  entryModule: cfg.apisrc_dir + 'api',
-  mainStyles: cfg.apisrc_dir + 'api.scss',
+  indexStyles: cfg.apisrc_dir + 'api.scss',
   indexjs: cfg.apisrc_dir + 'api.js',
   jstplModule: pkg.name + '.api.templates',
 };

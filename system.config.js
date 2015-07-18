@@ -1,21 +1,14 @@
-'use strict';
-
-module.exports = {
-  "baseURL": "./",
+System.config({
   "transpiler": "babel",
-  "babelOptions": {
-    "optional": [
-      "runtime"
-    ]
-  },
-  "paths": {
-    "*": "*.js",
-    "npm:*": "node_modules/*.js",
-    "bower:*": "bower_components/*.js"
-  },
   "map": {
-    "hippo.ngbp.tpls": "target/tmp/angularjs/hippo.ngbp.tpls",
-    "angular": "bower:angular/index",
-    "angular-ui-router": "bower:angular-ui-router/release/angular-ui-router"
+    "hippo.ngbp.tpls": "target/tmp/angularjs/hippo.ngbp.tpls.js",
+    "angular": "bower_components/angular/angular.js",
+    "angular-ui-router": "bower_components/angular-ui-router/release/angular-ui-router.js"
+  },
+"meta": {
+  "angular": {
+    "format": 'global',
+    "exports": 'angular'
   }
-};
+}
+});

@@ -107,7 +107,7 @@ module.exports = function (grunt) {
           sourceMap: true,
         },
         files: {
-          '<%= cfg.tmp.css %>': '<%= cfg.src.mainStyles %>'
+          '<%= cfg.tmp.css %>': '<%= cfg.src.indexStyles %>'
         }
       },
       api: {
@@ -115,7 +115,7 @@ module.exports = function (grunt) {
           sourceMap: true,
         },
         files: {
-          '<%= cfg.apidist.css %>': '<%= cfg.apisrc.mainStyles %>'
+          '<%= cfg.apidist.css %>': '<%= cfg.apisrc.indexStyles %>'
         }
       }
     },
@@ -235,17 +235,17 @@ module.exports = function (grunt) {
     systemjs: {
       options: {
         sourceMaps: true,
-        config: require('./system.config.js')
+        config: './system.config.js'
       },
       main: {
         options: {
-          entryModule: '<%= cfg.src.entryModule %>',
+          indexjs: '<%= cfg.src.indexjs %>',
           outputFile: '<%= cfg.tmp.js %>'
         }
       },
       api: {
         options: {
-          entryModule: '<%= cfg.apisrc.entryModule %>',
+          indexjs: '<%= cfg.apisrc.indexjs %>',
           outputFile: '<%= cfg.apidist.js %>'
         }
       }
@@ -549,7 +549,12 @@ module.exports = function (grunt) {
     var done = this.async();
     var options = this.options();
 
-    builder.buildSFX(options.entryModule, options.outputFile, options).then(function () {
+    builder.loadConfig(options.config).then(function() {
+      return builder.buildSFX(options.indexjs, options.outputFile, options);
+    }, function (message) {
+      grunt.log.error(message);
+      done(false);
+    }).then(function () {
       done();
     }, function (message) {
       grunt.log.error(message);

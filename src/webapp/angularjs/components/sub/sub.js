@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-ui-router';
-import SubCtrl from './controllers/sub.controller';
+import SubCtrl from './controllers/sub.controller.js';
 
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {

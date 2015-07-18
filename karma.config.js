@@ -20,7 +20,7 @@ module.exports = function(config) {
     ],
 
     systemjs: {
-      config: require('./system.config.js'),
+      configFile: './system.config.js',
       files: [
         cfg.bower_dir + 'angular/angular.js',
         cfg.bower_dir + 'angular-mocks/angular-mocks.js',

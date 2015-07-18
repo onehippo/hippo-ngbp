@@ -1,14 +1,12 @@
 import angular from 'angular';
 import 'angular-ui-router';
-
 import templates from 'hippo.ngbp.tpls';
-import { MainCtrl } from './controllers/main.controller';
-import { MainService } from './services/main.service';
-import { alertDirective } from './directives/alert/alert.directive';
-import { reverseFilter } from './filters/reverse.filter';
-
-import { sub } from './components/sub/sub';
-import { api } from './components/api/api';
+import { MainService } from './services/main.service.js';
+import { MainCtrl } from './controllers/main.controller.js';
+import { alertDirective } from './directives/alert/alert.directive.js';
+import { reverseFilter } from './filters/reverse.filter.js';
+import { sub } from './components/sub/sub.js';
+import { api } from './components/api/api.js';
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
