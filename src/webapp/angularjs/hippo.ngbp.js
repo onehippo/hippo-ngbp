@@ -1,12 +1,12 @@
 import angular from 'angular';
 import 'angular-ui-router';
-import templates from 'hippo.ngbp.tpls';
+import templatesModule from 'hippo.ngbp.tpls';
 import { MainService } from './services/main.service.js';
 import { MainCtrl } from './controllers/main.controller.js';
 import { alertDirective } from './directives/alert/alert.directive.js';
 import { reverseFilter } from './filters/reverse.filter.js';
-import { sub } from './components/sub/sub.js';
-import { api } from './components/api/api.js';
+import { subModule } from './components/sub/sub.js';
+import { apiModule } from './components/api/api.js';
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -19,11 +19,12 @@ function config ($stateProvider, $urlRouterProvider) {
   });
 }
 
-export let hippoNgbp = angular
+export let hippoNgbpModule = angular
   .module('hippo.ngbp', [
     'ui.router',
-    sub.name,
-    templates.name
+    apiModule.name,
+    subModule.name,
+    templatesModule.name
   ])
   .config(config)
   .controller('MainCtrl', MainCtrl)

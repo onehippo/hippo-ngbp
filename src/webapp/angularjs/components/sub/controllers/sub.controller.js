@@ -1,6 +1,7 @@
 'use strict';
 
-export default class SubCtrl {
+export class SubCtrl {
+  //@ngInject
   constructor () {
     this.message = 'Awesome sub module';
   }

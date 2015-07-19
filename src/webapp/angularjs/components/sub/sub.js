@@ -1,6 +1,6 @@
 import angular from 'angular';
 import 'angular-ui-router';
-import SubCtrl from './controllers/sub.controller.js';
+import { SubCtrl } from './controllers/sub.controller.js';
 
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {
@@ -11,7 +11,7 @@ function config ($stateProvider) {
   });
 }
 
-export let sub = angular
+export let subModule = angular
   .module('sub', ['ui.router'])
   .config(config)
   .controller('SubCtrl', SubCtrl);
