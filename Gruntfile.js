@@ -55,6 +55,7 @@ module.exports = function (grunt) {
         singleRun: true
       },
       debug: {
+        autoWatch: true,
         singleRun: false,
         browsers: ['Chrome']
       }
@@ -159,14 +160,12 @@ module.exports = function (grunt) {
      */
     imagemin: {
       main: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= cfg.src_dir %>',
-            src: ['<%= cfg.images %>'],
-            dest: '<%= cfg.src_dir %>'
-          }
-        ]
+        files: [{
+          expand: true,
+          cwd: '<%= cfg.src_dir %>',
+          src: ['<%= cfg.images %>'],
+          dest: '<%= cfg.src_dir %>'
+        }]
       }
     },
 
@@ -215,7 +214,8 @@ module.exports = function (grunt) {
     ngAnnotate: {
       main: {
         options: {
-          singleQuotes: true
+          singleQuotes: true,
+          sourceMap: true
         },
         src: ['<%= cfg.tmp.js %>'],
         dest: '<%= cfg.tmp.js %>'
@@ -234,18 +234,18 @@ module.exports = function (grunt) {
      */
     systemjs: {
       options: {
-        sourceMaps: true,
         config: './system.config.js'
       },
       main: {
         options: {
-          indexjs: '<%= cfg.src.indexjs %>',
+          sourceMaps: 'inline',
+          indexJs: '<%= cfg.src.indexJs %>',
           outputFile: '<%= cfg.tmp.js %>'
         }
       },
       api: {
         options: {
-          indexjs: '<%= cfg.apisrc.indexjs %>',
+          indexJs: '<%= cfg.apisrc.indexJs %>',
           outputFile: '<%= cfg.apidist.js %>'
         }
       }
@@ -277,18 +277,15 @@ module.exports = function (grunt) {
      */
     copy: {
       main: {
-        files: [
-          {
-            expand: true,
-            cwd: '<%= cfg.src_dir %>',
-            src: '<%= cfg.images %>',
-            dest: '<%= cfg.dist_dir %>'
-          },
-          {
-            src: '<%= cfg.src.indexHtml %>',
-            dest: '<%= cfg.dist.indexHtml %>'
-          }
-        ]
+        files: [{
+          expand: true,
+          cwd: '<%= cfg.src_dir %>',
+          src: '<%= cfg.images %>',
+          dest: '<%= cfg.dist_dir %>'
+        }, {
+          src: '<%= cfg.src.indexHtml %>',
+          dest: '<%= cfg.dist.indexHtml %>'
+        }]
       }
     },
 
@@ -361,7 +358,14 @@ module.exports = function (grunt) {
       dist: {
         options: {
           keepalive: true,
-          base: ['<%= cfg.dist_dir %>']
+          base: ['<%= cfg.dist_dir %>'],
+          middleware: function (connect, options, middlewares) {
+            //Enable gzip compression
+            var compression = require('compression');
+
+            middlewares.unshift(compression());
+            return middlewares;
+          }
         }
       }
     },
@@ -408,16 +412,18 @@ module.exports = function (grunt) {
        * run our unit tests.
        */
       jssrc: {
-        options: {livereload: true},
+        options: {
+          livereload: true
+        },
         files: [
           '<%= cfg.src.js %>',
           'system.config.js'
         ],
         tasks: [
           'jshint:src',
-          'karma:continuous:run',
           'systemjs:main',
-          'ngAnnotate:main'
+          'ngAnnotate:main',
+          'karma:continuous:run'
         ]
       },
 
@@ -473,7 +479,9 @@ module.exports = function (grunt) {
        * When our templates change, we only rewrite the template cache.
        */
       tpls: {
-        options: {livereload: true},
+        options: {
+          livereload: true
+        },
         files: [
           '<%= cfg.src.tpl %>',
           '!<%= cfg.src.indexHtml %>'
@@ -489,7 +497,9 @@ module.exports = function (grunt) {
        * Other files that should trigger a livereload
        */
       livereload: {
-        options: {livereload: true},
+        options: {
+          livereload: true
+        },
         files: ['<%= cfg.src.indexHtml %>']
       }
     }
@@ -549,8 +559,8 @@ module.exports = function (grunt) {
     var done = this.async();
     var options = this.options();
 
-    builder.loadConfig(options.config).then(function() {
-      return builder.buildSFX(options.indexjs, options.outputFile, options);
+    builder.loadConfig(options.config).then(function () {
+      return builder.buildSFX(options.indexJs, options.outputFile, options);
     }, function (message) {
       grunt.log.error(message);
       done(false);
@@ -562,3 +572,4 @@ module.exports = function (grunt) {
     });
   });
 };
+

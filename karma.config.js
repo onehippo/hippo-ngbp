@@ -2,35 +2,20 @@
 
 var cfg = require('./build.config.js');
 
-module.exports = function(config) {
+module.exports = function (config) {
   config.set({
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '.',
 
-    // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['systemjs', 'jasmine'],
+    frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
+      cfg.tmp.js,
+      cfg.bower_dir + 'angular-mocks/angular-mocks.js',
+      cfg.src.unit
     ],
-
-    // list of files to exclude
-    exclude: [
-    ],
-
-    systemjs: {
-      configFile: './system.config.js',
-      files: [
-        cfg.bower_dir + 'angular/angular.js',
-        cfg.bower_dir + 'angular-mocks/angular-mocks.js',
-        cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
-        cfg.src.indexjs,
-        cfg.src.jstplFile,
-        cfg.src.js,
-        cfg.src.unit
-      ]
-    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -59,3 +44,4 @@ module.exports = function(config) {
     singleRun: false
   });
 };
+
