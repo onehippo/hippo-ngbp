@@ -33,7 +33,7 @@ cfg.src = {
   styles: cfg.src_dir + '**/*.scss',
   indexHtml: cfg.src_dir + 'index.html',
   indexStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
-  indexjs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
+  indexJs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
 };
 
@@ -58,7 +58,7 @@ cfg.apisrc = {
   tpl: cfg.apisrc_dir + '**/*.html',
   styles: cfg.apisrc_dir + '**/*.scss',
   indexStyles: cfg.apisrc_dir + 'api.scss',
-  indexjs: cfg.apisrc_dir + 'api.js',
+  indexJs: cfg.apisrc_dir + 'api.js',
   jstplModule: pkg.name + '.api.templates',
 };
 

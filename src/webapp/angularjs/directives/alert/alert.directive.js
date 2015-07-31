@@ -4,6 +4,7 @@ export function alertDirective () {
     templateUrl: 'angularjs/directives/alert/alert.directive.html',
     scope: {
       message: '='
-    }
+    },
+    link: function () {}
   };
 }

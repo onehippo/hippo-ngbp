@@ -1,6 +1,6 @@
 export class MainCtrl {
-  //@ngInject
   constructor (MainService) {
+    "ngInject";
     this.message = MainService.message;
   }
 }
