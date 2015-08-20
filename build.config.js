@@ -23,6 +23,7 @@ cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
 cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
+cfg.proxies = [];
 
 cfg.src = {
   images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',

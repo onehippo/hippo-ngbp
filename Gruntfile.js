@@ -349,10 +349,16 @@ module.exports = function (grunt) {
       options: {
         port: 9000
       },
+      proxies: '<%= cfg.proxies %>',
       dev: {
         options: {
           livereload: true,
-          base: ['<%= cfg.src_dir %>', '.']
+          base: ['<%= cfg.src_dir %>', '.'],
+          middleware: function (connect, options, middlewares) {
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+            middlewares.unshift(proxy);
+            return middlewares;
+          }
         }
       },
       dist: {
@@ -360,10 +366,10 @@ module.exports = function (grunt) {
           keepalive: true,
           base: ['<%= cfg.dist_dir %>'],
           middleware: function (connect, options, middlewares) {
-            //Enable gzip compression
             var compression = require('compression');
-
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
             middlewares.unshift(compression());
+            middlewares.unshift(proxy);
             return middlewares;
           }
         }
@@ -543,6 +549,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', 'Setup environment for development', [
     'build',
+    'configureProxies:dev',
     'connect:dev',
     'karma:continuous:start',
     'watch'
@@ -550,6 +557,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server:dist', 'View the application as on production', [
     'build:dist',
+    'configureProxies:dist',
     'connect:dist'
   ]);
 
