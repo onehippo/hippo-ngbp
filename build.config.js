@@ -24,8 +24,11 @@ cfg.protractor = 'protractor.config.js';
 cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
 cfg.proxies = [];
+cfg.replacePatterns = [];
+cfg.bower_reload_dependencies = [];
 
 cfg.src = {
+  imageDir: cfg.src_dir + 'images/',
   images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',
   js: cfg.src_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   unit: cfg.src_dir + '**/*.spec.js',
@@ -36,6 +39,8 @@ cfg.src = {
   indexStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
   indexJs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
+  bower_fonts: [],
+  bower_images: []
 };
 
 cfg.tmp = {
@@ -49,9 +54,11 @@ cfg.tmp = {
 };
 
 cfg.dist = {
-  indexHtml: cfg.dist_dir + '/index.html',
-  js: cfg.dist_dir + '/js/main.min.js',
-  css: cfg.dist_dir + '/css/main.min.css'
+  indexHtml: cfg.dist_dir + 'index.html',
+  js: cfg.dist_dir + 'js/main.min.js',
+  css: cfg.dist_dir + 'css/main.min.css',
+  fonts: cfg.dist_dir + 'fonts/',
+  images: cfg.dist_dir + 'images/'
 };
 
 cfg.apisrc = {

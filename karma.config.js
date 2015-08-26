@@ -12,8 +12,10 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
-      cfg.tmp.js,
+      cfg.bower_dir + 'angular/angular.js',
+      cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
       cfg.bower_dir + 'angular-mocks/angular-mocks.js',
+      cfg.tmp.js,
       cfg.src.unit
     ],
 
@@ -44,4 +46,3 @@ module.exports = function (config) {
     singleRun: false
   });
 };
-

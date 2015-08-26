@@ -1,6 +1,4 @@
-import angular from 'angular';
-import 'angular-ui-router';
-import templatesModule from 'hippo.ngbp.tpls';
+import { templatesModule } from 'hippo.ngbp.tpls';
 import { MainService } from './services/main.service.js';
 import { MainCtrl } from './controllers/main.controller.js';
 import { alertDirective } from './directives/alert/alert.directive.js';

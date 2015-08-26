@@ -162,9 +162,9 @@ module.exports = function (grunt) {
       main: {
         files: [{
           expand: true,
-          cwd: '<%= cfg.src_dir %>',
+          cwd: '<%= cfg.src.imageDir %>',
           src: ['<%= cfg.images %>'],
-          dest: '<%= cfg.src_dir %>'
+          dest: '<%= cfg.src.imageDir %>'
         }]
       }
     },
@@ -181,7 +181,7 @@ module.exports = function (grunt) {
           singleModule: true,
           base: '<%= cfg.src_dir %>',
           useStrict: true,
-          fileHeaderString: 'import angular from "angular"; \n export default',
+          fileHeaderString: 'export const templatesModule = ',
           htmlmin: {
             collapseWhitespace: true,
             collapseBooleanAttributes: true
@@ -196,7 +196,7 @@ module.exports = function (grunt) {
           singleModule: true,
           base: '<%= cfg.apisrc_dir %>',
           useStrict: true,
-          fileHeaderString: 'import angular from "angular"; \n export default',
+          fileHeaderString: 'export const apiTemplateModule = ',
           htmlmin: {
             collapseWhitespace: true,
             collapseBooleanAttributes: true
@@ -234,11 +234,11 @@ module.exports = function (grunt) {
      */
     systemjs: {
       options: {
+        sourceMaps: 'inline',
         config: './system.config.js'
       },
       main: {
         options: {
-          sourceMaps: 'inline',
           indexJs: '<%= cfg.src.indexJs %>',
           outputFile: '<%= cfg.tmp.js %>'
         }
@@ -276,13 +276,44 @@ module.exports = function (grunt) {
      * Directly copy files/folders to destinations.
      */
     copy: {
+      bower_images: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: '<%= cfg.bower_dir %>',
+          src: '<%= cfg.src.bower_images %>',
+          dest: '<%= cfg.dist.images %>'
+        }]
+      },
+      bower_fonts: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: '<%= cfg.bower_dir %>',
+          src: '<%= cfg.src.bower_fonts %>',
+          dest: '<%= cfg.dist.fonts %>'
+        }]
+      },
       main: {
         files: [{
           expand: true,
           cwd: '<%= cfg.src_dir %>',
           src: '<%= cfg.images %>',
           dest: '<%= cfg.dist_dir %>'
-        }, {
+        }]
+      }
+    },
+
+    /*
+     * Replaces patterns in the given files
+     */
+    replace: {
+      main: {
+        options: {
+          patterns: '<%= cfg.replacePatterns %>',
+          usePrefix: false
+        },
+        files: [{
           src: '<%= cfg.src.indexHtml %>',
           dest: '<%= cfg.dist.indexHtml %>'
         }]
@@ -382,7 +413,6 @@ module.exports = function (grunt) {
     watch: {
       options: {
         spawn: false,
-        interrupt: true,
         livereloadOnError: false
       },
 
@@ -441,6 +471,9 @@ module.exports = function (grunt) {
         files: ['<%= cfg.src.unit %>'],
         tasks: [
           'jshint:unit',
+          'jshint:src',
+          'systemjs:main',
+          'ngAnnotate:main',
           'karma:continuous:run'
         ]
       },
@@ -506,7 +539,10 @@ module.exports = function (grunt) {
         options: {
           livereload: true
         },
-        files: ['<%= cfg.src.indexHtml %>']
+        files: [
+          '<%= cfg.src.indexHtml %>',
+          '<%= cfg.bower_reload_dependencies %>'
+        ]
       }
     }
   });
@@ -537,6 +573,7 @@ module.exports = function (grunt) {
     'systemjs',
     'ngAnnotate',
     'copy',
+    'replace',
     'useminPrepare',
     'concat',
     'cssmin',
@@ -580,4 +617,3 @@ module.exports = function (grunt) {
     });
   });
 };
-
