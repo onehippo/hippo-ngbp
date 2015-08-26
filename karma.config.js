@@ -7,23 +7,16 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '.',
 
-    // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
     frameworks: ['jasmine'],
 
     // list of files / patterns to load in the browser
     files: [
       cfg.bower_dir + 'angular/angular.js',
-      cfg.bower_dir + 'angular-mocks/angular-mocks.js',
       cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
-      cfg.src.indexjs,
-      cfg.src.jstplFile,
-      cfg.src.js,
+      cfg.bower_dir + 'angular-mocks/angular-mocks.js',
+      cfg.tmp.js,
       cfg.src.unit
-    ],
-
-    // list of files to exclude
-    exclude: [
     ],
 
     // test results reporter to use

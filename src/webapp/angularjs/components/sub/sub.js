@@ -11,6 +11,6 @@
   }
 
   angular
-    .module('sub', ['ui.router'])
+    .module('sub', [])
     .config(config);
 })();

@@ -17,25 +17,30 @@ cfg.tmp_dir = 'target/tmp/';
 cfg.src_dir = 'src/webapp/';
 cfg.dist_dir = 'target/classes/webapp/';
 cfg.apisrc_dir = cfg.src_dir + 'angularjs/components/api/';
+cfg.apitmp_dir = 'target/tmp/api/';
 cfg.apidist_dir = 'target/api/';
 cfg.images = '**/*.{png,jpg,gif,ico}';
 cfg.protractor = 'protractor.config.js';
 cfg.karma = 'karma.config.js';
 cfg.cssSourceMap = 'main.css.map';
+cfg.proxies = [];
+cfg.replacePatterns = [];
+cfg.bower_reload_dependencies = [];
 
 cfg.src = {
+  imageDir: cfg.src_dir + 'images/',
   images: cfg.src_dir + '**/*.{png,jpg,gif,ico}',
   js: cfg.src_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   unit: cfg.src_dir + '**/*.spec.js',
   e2e: cfg.src_dir + '**/*.e2e.js',
   tpl: cfg.src_dir + '**/*.html',
   styles: cfg.src_dir + '**/*.scss',
-  entryModule: cfg.src_dir + 'angularjs/' + pkg.name,
   indexHtml: cfg.src_dir + 'index.html',
-  mainStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
-  indexjs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
+  indexStyles: cfg.src_dir + 'styles/' + pkg.name + '.scss',
+  indexJs: cfg.src_dir + 'angularjs/' + pkg.name + '.js',
   jstplModule: pkg.name + '.templates',
-  jstplFile: cfg.src_dir + 'angularjs/' + pkg.name + '.tpls.js'
+  bower_fonts: [],
+  bower_images: []
 };
 
 cfg.tmp = {
@@ -44,24 +49,29 @@ cfg.tmp = {
   jsSourceMap: cfg.tmp_dir + 'js/' + cfg.jsSourceMap,
   css: cfg.tmp_dir + 'css/main.css',
   cssmin: cfg.tmp_dir + 'css/main.min.css',
-  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap
+  cssSourceMap: cfg.tmp_dir + 'css/' + cfg.cssSourceMap,
+  jstplFile: cfg.tmp_dir + 'angularjs/' + pkg.name + '.tpls.js'
 };
 
 cfg.dist = {
-  indexHtml: cfg.dist_dir + '/index.html',
-  js: cfg.dist_dir + '/js/main.min.js',
-  css: cfg.dist_dir + '/css/main.min.css'
+  indexHtml: cfg.dist_dir + 'index.html',
+  js: cfg.dist_dir + 'js/main.min.js',
+  css: cfg.dist_dir + 'css/main.min.css',
+  fonts: cfg.dist_dir + 'fonts/',
+  images: cfg.dist_dir + 'images/'
 };
 
 cfg.apisrc = {
   js: cfg.apisrc_dir + '**/!(*.spec.js|*.e2e.js)*.js',
   tpl: cfg.apisrc_dir + '**/*.html',
   styles: cfg.apisrc_dir + '**/*.scss',
-  entryModule: cfg.apisrc_dir + 'api',
-  mainStyles: cfg.apisrc_dir + 'api.scss',
-  indexjs: cfg.apisrc_dir + 'api.js',
+  indexStyles: cfg.apisrc_dir + 'api.scss',
+  indexJs: cfg.apisrc_dir + 'api.js',
   jstplModule: pkg.name + '.api.templates',
-  jstplFile: cfg.apisrc_dir + 'api.tpls.js'
+};
+
+cfg.apitmp = {
+  jstplFile: cfg.apitmp_dir + 'api.tpls.js'
 };
 
 cfg.apidist = {

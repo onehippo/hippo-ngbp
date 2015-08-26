@@ -14,15 +14,15 @@
 
   angular
     .module('hippo.ngbp', [
+      'ui.router',
       'hippo.ngbp.templates',
       'hippo.ngbp.api',
-      'ui.router',
       'sub'
     ])
     .config(config);
 
   angular.element(document).ready(function () {
-    angular.bootstrap(document.documentElement, ['hippo.ngbp'], {
+    angular.bootstrap(document.body, ['hippo.ngbp'], {
       strictDi: true
     });
   });

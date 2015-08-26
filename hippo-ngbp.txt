@@ -40,6 +40,7 @@ Folder structure:
               - [components]
               - [controllers]
               - [directives]
+                - [directive dir]
               - [filters]
               - [services]
               - api.js
@@ -48,6 +49,7 @@ Folder structure:
               - [components]
               - [controllers]
               - [directives]
+                - [directive dir]
               - [filters]
               - [services]
               - state1.js
@@ -58,12 +60,14 @@ Folder structure:
               - [components]
               - [controllers]
               - [directives]
+                - [directive dir]
               - [filters]
               - [services]
               - state2sub component folder
                 - [components]
                 - [controllers]
                 - [directives]
+                  - [directive dir]
                 - [filters]
                 - [services]
                 - state2sub.js
@@ -78,7 +82,7 @@ Folder structure:
             - some.controller.js
             - some.controller.spec.js
           - [directives]
-            - [some-directive] (folder)
+            - [directive folder]
               - some.directive.js
               - some.directive.spec.js
               - some.directive.html

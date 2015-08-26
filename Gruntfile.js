@@ -55,6 +55,7 @@ module.exports = function (grunt) {
         singleRun: true
       },
       debug: {
+        autoWatch: true,
         singleRun: false,
         browsers: ['Chrome']
       }
@@ -107,7 +108,7 @@ module.exports = function (grunt) {
           sourceMap: true,
         },
         files: {
-          '<%= cfg.tmp.css %>': '<%= cfg.src.mainStyles %>'
+          '<%= cfg.tmp.css %>': '<%= cfg.src.indexStyles %>'
         }
       },
       api: {
@@ -115,7 +116,7 @@ module.exports = function (grunt) {
           sourceMap: true,
         },
         files: {
-          '<%= cfg.apidist.css %>': '<%= cfg.apisrc.mainStyles %>'
+          '<%= cfg.apidist.css %>': '<%= cfg.apisrc.indexStyles %>'
         }
       }
     },
@@ -159,14 +160,12 @@ module.exports = function (grunt) {
      */
     imagemin: {
       main: {
-        files: [
-          {
+        files: [{
             expand: true,
-            cwd: '<%= cfg.src_dir %>',
+          cwd: '<%= cfg.src.imageDir %>',
             src: ['<%= cfg.images %>'],
-            dest: '<%= cfg.src_dir %>'
-          }
-        ]
+          dest: '<%= cfg.src.imageDir %>'
+        }]
       }
     },
 
@@ -188,7 +187,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.src.tpl %>', '!<%= cfg.src.indexHtml %>'],
-        dest: '<%= cfg.src.jstplFile %>'
+        dest: '<%= cfg.tmp.jstplFile %>'
       },
       api: {
         options: {
@@ -202,7 +201,7 @@ module.exports = function (grunt) {
           }
         },
         src: ['<%= cfg.apisrc.tpl %>'],
-        dest: '<%= cfg.apisrc.jstplFile %>'
+        dest: '<%= cfg.apitmp.jstplFile %>'
       }
     },
 
@@ -216,8 +215,8 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         src: [
-          '<%= cfg.src.indexjs %>',
-          '<%= cfg.src.jstplFile %>',
+          '<%= cfg.src.indexJs %>',
+          '<%= cfg.tmp.jstplFile %>',
           '<%= cfg.src.js %>'
         ],
         dest: '<%= cfg.tmp.js %>'
@@ -227,8 +226,8 @@ module.exports = function (grunt) {
           sourceMap: true
         },
         src: [
-          '<%= cfg.apisrc.indexjs %>',
-          '<%= cfg.apisrc.jstplFile %>',
+          '<%= cfg.apisrc.indexJs %>',
+          '<%= cfg.apitmp.jstplFile %>',
           '<%= cfg.apisrc.js %>'
         ],
         dest: '<%= cfg.apidist.js %>'
@@ -242,7 +241,8 @@ module.exports = function (grunt) {
     ngAnnotate: {
       main: {
         options: {
-          singleQuotes: true
+          singleQuotes: true,
+          sourceMap: true
         },
         src: ['<%= cfg.tmp.js %>'],
         dest: '<%= cfg.tmp.js %>'
@@ -281,19 +281,47 @@ module.exports = function (grunt) {
      * Directly copy files/folders to destinations.
      */
     copy: {
+      bower_images: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: '<%= cfg.bower_dir %>',
+          src: '<%= cfg.src.bower_images %>',
+          dest: '<%= cfg.dist.images %>'
+        }]
+      },
+      bower_fonts: {
+        files: [{
+          expand: true,
+          flatten: true,
+          cwd: '<%= cfg.bower_dir %>',
+          src: '<%= cfg.src.bower_fonts %>',
+          dest: '<%= cfg.dist.fonts %>'
+        }]
+      },
       main: {
-        files: [
-          {
+        files: [{
             expand: true,
             cwd: '<%= cfg.src_dir %>',
             src: '<%= cfg.images %>',
             dest: '<%= cfg.dist_dir %>'
+        }]
+      }
           },
-          {
+
+    /*
+     * Replaces patterns in the given files
+     */
+    replace: {
+      main: {
+        options: {
+          patterns: '<%= cfg.replacePatterns %>',
+          usePrefix: false
+        },
+        files: [{
             src: '<%= cfg.src.indexHtml %>',
             dest: '<%= cfg.dist.indexHtml %>'
-          }
-        ]
+        }]
       }
     },
 
@@ -357,16 +385,29 @@ module.exports = function (grunt) {
       options: {
         port: 9000
       },
+      proxies: '<%= cfg.proxies %>',
       dev: {
         options: {
           livereload: true,
-          base: ['<%= cfg.src_dir %>', '.']
+          base: ['<%= cfg.src_dir %>', '.'],
+          middleware: function (connect, options, middlewares) {
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+            middlewares.unshift(proxy);
+            return middlewares;
+          }
         }
       },
       dist: {
         options: {
           keepalive: true,
-          base: ['<%= cfg.dist_dir %>']
+          base: ['<%= cfg.dist_dir %>'],
+          middleware: function (connect, options, middlewares) {
+            var compression = require('compression');
+            var proxy = require('grunt-connect-proxy/lib/utils').proxyRequest;
+            middlewares.unshift(compression());
+            middlewares.unshift(proxy);
+            return middlewares;
+          }
         }
       }
     },
@@ -377,7 +418,6 @@ module.exports = function (grunt) {
     watch: {
       options: {
         spawn: false,
-        interrupt: true,
         livereloadOnError: false
       },
 
@@ -413,15 +453,17 @@ module.exports = function (grunt) {
        * run our unit tests.
        */
       jssrc: {
-        options: {livereload: true},
+        options: {
+          livereload: true
+        },
         files: [
           '<%= cfg.src.js %>'
         ],
         tasks: [
           'jshint:src',
-          'karma:continuous:run',
           'concat:main',
-          'ngAnnotate:main'
+          'ngAnnotate:main',
+          'karma:continuous:run'
         ]
       },
 
@@ -433,6 +475,9 @@ module.exports = function (grunt) {
         files: ['<%= cfg.src.unit %>'],
         tasks: [
           'jshint:unit',
+          'jshint:src',
+          'concat:main',
+          'ngAnnotate:main',
           'karma:continuous:run'
         ]
       },
@@ -477,7 +522,9 @@ module.exports = function (grunt) {
        * When our templates change, we only rewrite the template cache.
        */
       tpls: {
-        options: {livereload: true},
+        options: {
+          livereload: true
+        },
         files: [
           '<%= cfg.src.tpl %>',
           '!<%= cfg.src.indexHtml %>'
@@ -493,8 +540,13 @@ module.exports = function (grunt) {
        * Other files that should trigger a livereload
        */
       livereload: {
-        options: {livereload: true},
-        files: ['<%= cfg.src.indexHtml %>']
+        options: {
+          livereload: true
+        },
+        files: [
+          '<%= cfg.src.indexHtml %>',
+          '<%= cfg.bower_reload_dependencies %>'
+        ]
       }
     }
   });
@@ -525,8 +577,9 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate',
     'copy',
+    'replace',
     'useminPrepare',
-    'concat:generated',
+    'concat',
     'cssmin',
     'uglify',
     'filerev',
@@ -537,6 +590,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server', 'Setup environment for development', [
     'build',
+    'configureProxies:dev',
     'connect:dev',
     'karma:continuous:start',
     'watch'
@@ -544,6 +598,7 @@ module.exports = function (grunt) {
 
   grunt.registerTask('server:dist', 'View the application as on production', [
     'build:dist',
+    'configureProxies:dist',
     'connect:dist'
   ]);
 };
