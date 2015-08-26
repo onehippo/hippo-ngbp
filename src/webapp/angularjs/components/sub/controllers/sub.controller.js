@@ -1,5 +1,3 @@
-'use strict';
-
 export class SubCtrl {
   constructor () {
     "ngInject";
