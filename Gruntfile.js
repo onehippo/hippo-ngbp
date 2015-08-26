@@ -599,21 +599,29 @@ module.exports = function (grunt) {
   ]);
 
   grunt.registerMultiTask('systemjs', 'Build self executing functions using systemjs', function () {
+    var fs = require('fs');
     var Builder = require('systemjs-builder');
     var builder = new Builder();
     var done = this.async();
     var options = this.options();
 
-    builder.loadConfig(options.config).then(function () {
-      return builder.buildSFX(options.indexJs, options.outputFile, options);
-    }, function (message) {
-      grunt.log.error(message);
-      done(false);
-    }).then(function () {
-      done();
-    }, function (message) {
-      grunt.log.error(message);
-      done(false);
+    fs.open(options.indexJs, 'r', function (err, fd) {
+      // check if indexjs exists before trying to build it
+      if (err) {
+        done();
+      } else {
+        builder.loadConfig(options.config).then(function () {
+          return builder.buildSFX(options.indexJs, options.outputFile, options);
+        }, function (message) {
+          grunt.log.error(message);
+          done(false);
+        }).then(function () {
+          done();
+        }, function (message) {
+          grunt.log.error(message);
+          done(false);
+        });
+      }
     });
   });
 };
