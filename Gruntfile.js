@@ -47,10 +47,6 @@ module.exports = function (grunt) {
       options: {
         configFile: 'karma.config.js'
       },
-      continuous: {
-        singleRun: false,
-        background: true
-      },
       single: {
         singleRun: true
       },
@@ -432,7 +428,7 @@ module.exports = function (grunt) {
 
       karmaConf: {
         files: ['<%= cfg.karma %>'],
-        tasks: ['karma:continuous:run']
+        tasks: ['karma:single']
       },
 
       protractorConf: {
@@ -463,7 +459,7 @@ module.exports = function (grunt) {
           'jshint:src',
           'concat:main',
           'ngAnnotate:main',
-          'karma:continuous:run'
+          'karma:single'
         ]
       },
 
@@ -478,7 +474,7 @@ module.exports = function (grunt) {
           'jshint:src',
           'concat:main',
           'ngAnnotate:main',
-          'karma:continuous:run'
+          'karma:single'
         ]
       },
 
@@ -592,7 +588,6 @@ module.exports = function (grunt) {
     'build',
     'configureProxies:dev',
     'connect:dev',
-    'karma:continuous:start',
     'watch'
   ]);
 
