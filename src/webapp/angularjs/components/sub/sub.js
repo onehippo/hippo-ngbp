@@ -5,8 +5,7 @@
     $stateProvider.state('main.sub', {
       url: 'sub/',
       templateUrl: 'angularjs/components/sub/sub.html',
-      controller: 'SubCtrl',
-      controllerAs: 'sub'
+      controller: 'SubCtrl as sub'
     });
   }
 
