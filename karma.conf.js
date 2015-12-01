@@ -1,6 +1,9 @@
 // Karma configuration
 
-var cfg = require('./build.config.js');
+var hippoBuild = require('hippo-build');
+var pkg = require('./package.json');
+var customConfig = require('./build.config.js');
+var cfg = hippoBuild(pkg, customConfig).buildConfig;
 
 module.exports = function (config) {
   var options = {
@@ -14,9 +17,9 @@ module.exports = function (config) {
     files: [
       {pattern: cfg.srcDir + '**/*', included: false, served: true},
       {pattern: cfg.bowerDir + '**/*', included: false, served: true},
-      cfg.bower_dir + 'angular/angular.js',
-      cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
-      cfg.bower_dir + 'angular-mocks/angular-mocks.js',
+      cfg.bowerDir + 'angular/angular.js',
+      cfg.bowerDir + 'angular-ui-router/release/angular-ui-router.js',
+      cfg.bowerDir + 'angular-mocks/angular-mocks.js',
       cfg.dist.indexScript,
       cfg.src.unitTests
     ],

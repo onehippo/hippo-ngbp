@@ -1,6 +1,5 @@
-var hippoBuildTasks = require('hippo-build');
+var hippoBuild = require('hippo-build');
+var customConfig = require('./build.conf.js');
 var pkg = require('./package.json');
 
-var customConfig = {};
-
-hippoBuildTasks(pkg, customConfig);
+hippoBuild(pkg, customConfig).hippoBuildTasks();

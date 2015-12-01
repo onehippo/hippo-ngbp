@@ -3,7 +3,7 @@ import { SubCtrl } from './sub.controller.js';
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {
     url: 'sub/',
-    templateUrl: 'components/sub/sub.html',
+    templateUrl: 'sub/sub.html',
     controller: 'SubCtrl',
     controllerAs: 'sub'
   });
