@@ -3,7 +3,7 @@
 var cfg = require('./build.config.js');
 
 module.exports = function (config) {
-  config.set({
+  var options = {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '.',
 
@@ -12,12 +12,16 @@ module.exports = function (config) {
 
     // list of files / patterns to load in the browser
     files: [
+      {pattern: cfg.srcDir + '**/*', included: false, served: true},
+      {pattern: cfg.bowerDir + '**/*', included: false, served: true},
       cfg.bower_dir + 'angular/angular.js',
       cfg.bower_dir + 'angular-ui-router/release/angular-ui-router.js',
       cfg.bower_dir + 'angular-mocks/angular-mocks.js',
-      cfg.tmp.js,
-      cfg.src.unit
+      cfg.dist.indexScript,
+      cfg.src.unitTests
     ],
+
+    preprocessors: {},
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
@@ -43,6 +47,10 @@ module.exports = function (config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
-  });
+    singleRun: true
+  };
+
+  options.preprocessors[cfg.dist.indexScript] = ['sourcemap'];
+
+  config.set(options);
 };
