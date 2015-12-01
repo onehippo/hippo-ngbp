@@ -2,7 +2,7 @@ export function alertDirective ($rootScope) {
   "ngInject";
   return {
     restrict: 'E',
-    templateUrl: 'directives/alert/alert.directive.html',
+    templateUrl: 'alert/alert.directive.html',
     scope: {
       message: '='
     },
