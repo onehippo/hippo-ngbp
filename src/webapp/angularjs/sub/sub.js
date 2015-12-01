@@ -1,4 +1,4 @@
-import { SubCtrl } from './controllers/sub.controller.js';
+import { SubCtrl } from './sub.controller.js';
 
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {
@@ -9,7 +9,7 @@ function config ($stateProvider) {
   });
 }
 
-export let subModule = angular
+export const subModule = angular
   .module('sub', [])
   .config(config)
   .controller('SubCtrl', SubCtrl);

@@ -1,10 +1,9 @@
-import { templatesModule } from 'hippo.ngbp.tpls';
-import { MainService } from './services/main.service.js';
-import { MainCtrl } from './controllers/main.controller.js';
-import { alertDirective } from './directives/alert/alert.directive.js';
-import { reverseFilter } from './filters/reverse.filter.js';
-import { subModule } from './components/sub/sub.js';
-import { apiModule } from './components/api/api.js';
+import { MainService } from './main.service.js';
+import { MainCtrl } from './main.controller.js';
+import { alertDirective } from './alert.directive.js';
+import { reverseFilter } from './reverse.filter.js';
+import { subModule } from 'sub/sub.js';
+import { apiModule } from 'api/api.js';
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
@@ -17,12 +16,11 @@ function config ($stateProvider, $urlRouterProvider) {
   });
 }
 
-export let hippoNgbpModule = angular
+export const hippoNgbpModule = angular
   .module('hippo.ngbp', [
     'ui.router',
     apiModule.name,
-    subModule.name,
-    templatesModule.name
+    subModule.name
   ])
   .config(config)
   .controller('MainCtrl', MainCtrl)
@@ -31,7 +29,7 @@ export let hippoNgbpModule = angular
   .filter('reverse', reverseFilter);
 
 angular.element(document).ready(function () {
-  angular.bootstrap(document.body, ['hippo.ngbp'], {
+  angular.bootstrap(document.body, [hippoNgbpModule.name], {
     strictDi: true
   });
 });
