@@ -1,9 +1,8 @@
 // Karma configuration
 
 var hippoBuild = require('hippo-build');
-var pkg = require('./package.json');
-var customConfig = require('./build.config.js');
-var cfg = hippoBuild(pkg, customConfig).buildConfig;
+var customConfig = require('./build.conf.js');
+var cfg = hippoBuild(customConfig).buildConfig;
 
 module.exports = function (config) {
   var options = {

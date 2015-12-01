@@ -1,5 +1,5 @@
 var customConfig = {
-  karmaConf: __dirname + '/karma.conf.js'
+  projectRoot: __dirname
 };
 
 module.exports = customConfig;
