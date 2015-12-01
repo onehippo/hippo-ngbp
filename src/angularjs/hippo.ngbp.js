@@ -10,7 +10,7 @@ function config ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    templateUrl: 'angularjs/hippo.ngbp.html',
+    templateUrl: 'hippo.ngbp.html',
     controller: 'MainCtrl',
     controllerAs: 'main'
   });
