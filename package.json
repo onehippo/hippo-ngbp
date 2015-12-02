@@ -7,6 +7,6 @@
     "gulp": "./node_modules/gulp/bin/gulp.js"
   },
   "devDependencies": {
-    "hippo-build": "joerideg/hippo-build.git"
+    "hippo-build": "git+http://github.com/onehippo/hippo-build.git#v1.0.0"
   }
 }
