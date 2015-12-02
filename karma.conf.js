@@ -2,7 +2,7 @@
 
 var hippoBuild = require('hippo-build');
 var customConfig = require('./build.conf.js');
-var cfg = hippoBuild(customConfig).buildConfig;
+var cfg = hippoBuild.buildConfig(customConfig);
 
 module.exports = function (config) {
   var options = {

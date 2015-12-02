@@ -1,5 +1,3 @@
-var customConfig = {
-  projectRoot: __dirname
-};
+var customConfig = {};
 
 module.exports = customConfig;
