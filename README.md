@@ -8,41 +8,41 @@ Just change the name in the package.json, bower.json and src/* files to the name
 * [Git](http://git-scm.com/)
 
 ### Dependencies
-* [Grunt](http://gruntjs.com/) (task automation)
 * [Bower](http://bower.io/) (front-end package manager)
+* [Gulp](http://gulpjs.com/) (task automation)
+
+### Gulp4 / Gulp3
+The Hippo Build gulp uses gulp4, which is currently not released yet. You can install gulp4 globally via
+the command listed below. If you need to have gulp3 installed globally we have set up the npm script 'gulp' so
+you can run the build tasks with the following command:
+  $ npm run gulp [some task]
 
 ### Installation
-#### Install Grunt CLI and Bower globally
-    $ npm install -g grunt-cli bower
+#### Install Gulp CLI and Bower globally
+  $ npm install -g gulpjs/gulp-cli#4.0
+  $ npm install -g bower
 
 #### Install project dependencies
 Run the commands below in the project root directory.
 
-    $ npm install
-    $ bower install
+  $ npm install
+  $ bower install
 
 ## Useful commands
-### Run unit tests
-    $ grunt karma:single
+### List all gulp tasks available
+  $ gulp --tasks
 
-### Run end-to-end tests on a running application
-    $ grunt protractor
+### Run unit tests
+  $ gulp unitTests
 
 ### Build application for development
-    $ grunt build
+  $ gulp build
 
 ### Setup development server
-    $ grunt server
+  $ gulp server
 
 ### Build optimized application for production
-    $ grunt build:dist
+  $ gulp buildDist
 
 ### Setup production server
-    $ grunt server:dist
-
-### Install maven module in to local repository
-    $ mvn clean install
-
-
-## Explanation of structure
-See hippo-ngbp.txt in the root.
+  $ gulp serverDist
