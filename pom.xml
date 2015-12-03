@@ -43,14 +43,14 @@
             </configuration>
           </execution>
           <execution>
-            <id>grunt-build</id>
+            <id>gulp-build</id>
             <phase>process-resources</phase>
             <goals>
               <goal>exec</goal>
             </goals>
             <configuration>
-              <executable>grunt</executable>
-              <commandlineArgs>build:dist --no-color</commandlineArgs>
+              <executable>gulp</executable>
+              <commandlineArgs>buildDist --no-color</commandlineArgs>
             </configuration>
           </execution>
         </executions>
