@@ -1,5 +1,4 @@
 bower_components
 node_modules
-jspm_packages
 target
-*.tpls.js
+dist
