@@ -10,14 +10,14 @@ function config ($stateProvider, $urlRouterProvider) {
 
   $stateProvider.state('main', {
     url: '/',
-    templateUrl: 'hippo.ngbp.html',
+    templateUrl: 'hippo-ngbp.html',
     controller: 'MainCtrl',
     controllerAs: 'main'
   });
 }
 
 export const hippoNgbpModule = angular
-  .module('hippo.ngbp', [
+  .module('hippo-ngbp', [
     'ui.router',
     apiModule.name,
     subModule.name
