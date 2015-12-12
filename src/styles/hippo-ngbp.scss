@@ -1,5 +1,7 @@
 @import 'sub';
 
-body {
-  background: transparent;
+$red: #f00;
+
+.alert-link {
+  color: $red;
 }

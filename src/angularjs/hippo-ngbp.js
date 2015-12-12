@@ -19,6 +19,7 @@ function config ($stateProvider, $urlRouterProvider) {
 export const hippoNgbpModule = angular
   .module('hippo-ngbp', [
     'ui.router',
+    'hippo-ngbp-templates',
     apiModule.name,
     subModule.name
   ])
@@ -27,9 +28,3 @@ export const hippoNgbpModule = angular
   .service('MainService', MainService)
   .directive('alert', alertDirective)
   .filter('reverse', reverseFilter);
-
-angular.element(document).ready(function () {
-  angular.bootstrap(document.body, [hippoNgbpModule.name], {
-    strictDi: true
-  });
-});

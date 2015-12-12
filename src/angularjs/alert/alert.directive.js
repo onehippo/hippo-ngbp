@@ -6,6 +6,8 @@ export function alertDirective ($rootScope) {
     scope: {
       message: '='
     },
-    link: function () {}
+    link: function (scope) {
+      scope.message += ' Alert!'
+    }
   };
 }
