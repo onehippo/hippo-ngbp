@@ -6,10 +6,9 @@ module.exports = function (config) {
   var options = {};
 
   options.basePath = '.';
-  options.frameworks = ['systemjs', 'jasmine'];
+  options.frameworks = ['systemjs', 'jasmine', 'es6-shim'];
   options.files = [
-    'src/angularjs/*.spec.js',
-    'src/angularjs/**/*.spec.js'
+    cfg.src.unitTests
   ];
   options.systemjs = {
     config: {
