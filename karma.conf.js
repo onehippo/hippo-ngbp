@@ -26,8 +26,6 @@ module.exports = function(config) {
     }]
   };
 
-  options.logLevel = 'DEBUG';
-
   options.preprocessors[cfg.src.templates] = ['ng-html2js'];
   options.ngHtml2JsPreprocessor = {
     stripPrefix: 'src/angularjs/',
