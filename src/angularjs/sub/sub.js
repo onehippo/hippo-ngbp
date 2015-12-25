@@ -1,4 +1,4 @@
-import { SubCtrl } from './sub.controller.js';
+import { SubCtrl } from './sub.controller';
 
 function config ($stateProvider) {
   $stateProvider.state('main.sub', {

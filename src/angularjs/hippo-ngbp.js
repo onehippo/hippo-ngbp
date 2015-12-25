@@ -1,9 +1,9 @@
-import { MainService } from './main.service.js';
-import { MainCtrl } from './main.controller.js';
-import { alertDirective } from './alert/alert.directive.js';
-import { reverseFilter } from './reverse.filter.js';
-import { subModule } from './sub/sub.js';
-import { apiModule } from './api/api.js';
+import { MainService } from './main.service';
+import { MainCtrl } from './main.controller';
+import { alertDirective } from './alert/alert.directive';
+import { reverseFilter } from './reverse.filter';
+import { subModule } from './sub/sub';
+import { apiModule } from './api/api';
 
 function config ($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
