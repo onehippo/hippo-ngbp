@@ -13,17 +13,17 @@ module.exports = function(config) {
 
   options.preprocessors[cfg.src.scripts] = ['coverage'];
   options.coverageReporter = {
+    instrumenters: {
+      isparta: require('isparta')
+    },
+    instrumenter: {
+      '**/*.js': 'isparta'
+    },
     reporters: [{
       type: 'html'
     }, {
       type: 'text-summary'
     }]
-  };
-  options.coverageReporter.instrumenters = {
-    isparta: require('isparta')
-  };
-  options.coverageReporter.instrumenter = {
-    '**/*.js': 'isparta'
   };
 
   options.preprocessors[cfg.src.templates] = ['ng-html2js'];
