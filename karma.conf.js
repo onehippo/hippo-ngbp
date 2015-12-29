@@ -13,17 +13,17 @@ module.exports = function(config) {
 
   options.preprocessors[cfg.src.scripts] = ['coverage'];
   options.coverageReporter = {
-    instrumenters: {
-      isparta: require('isparta')
-    },
-    instrumenter: {
-      '**/*.js': 'isparta'
-    },
     reporters: [{
       type: 'html'
     }, {
       type: 'text-summary'
     }]
+  };
+  options.coverageReporter.instrumenters = {
+    isparta: require('isparta')
+  };
+  options.coverageReporter.instrumenter = {
+    '**/*.js': 'isparta'
   };
 
   options.preprocessors[cfg.src.templates] = ['ng-html2js'];
@@ -51,11 +51,11 @@ module.exports = function(config) {
       }
     },
     includeFiles: [
-      cfg.bowerDir + '/angular/angular.js',
-      cfg.bowerDir + '/angular-animate/angular-animate.js',
-      cfg.bowerDir + '/angular-aria/angular-aria.js',
-      cfg.bowerDir + '/angular-material/angular-material.js',
-      cfg.bowerDir + '/angular-ui-router/release/angular-ui-router.js',
+      cfg.bowerDir + 'angular/angular.js',
+      cfg.bowerDir + 'angular-animate/angular-animate.js',
+      cfg.bowerDir + 'angular-aria/angular-aria.js',
+      cfg.bowerDir + 'angular-material/angular-material.js',
+      cfg.bowerDir + 'angular-ui-router/release/angular-ui-router.js',
       cfg.bowerDir + 'angular-mocks/angular-mocks.js'
     ]
   };
