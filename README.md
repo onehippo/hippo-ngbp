@@ -19,7 +19,7 @@ you can run the build tasks with the following command:
 
 ### Installation
 #### Install Gulp CLI and Bower globally
-  $ npm install -g gulpjs/gulp-cli#4.0
+  $ npm install -g gulpjs/gulp-cli
   $ npm install -g bower
 
 #### Install project dependencies
@@ -39,10 +39,10 @@ Run the commands below in the project root directory.
   $ gulp build
 
 ### Setup development server
-  $ gulp server
+  $ gulp serve
 
 ### Build optimized application for production
   $ gulp buildDist
 
 ### Setup production server
-  $ gulp serverDist
+  $ gulp serveDist
