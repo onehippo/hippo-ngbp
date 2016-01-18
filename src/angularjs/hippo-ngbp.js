@@ -5,14 +5,14 @@ import { reverseFilter } from './reverse.filter';
 import { subModule } from './sub/sub';
 import { apiModule } from './api/api';
 
-function config ($stateProvider, $urlRouterProvider) {
+function config($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('main', {
     url: '/',
     templateUrl: 'hippo-ngbp.html',
     controller: 'MainCtrl',
-    controllerAs: 'main'
+    controllerAs: 'main',
   });
 }
 
@@ -22,7 +22,7 @@ angular
     'ui.router',
     'hippo-ngbp-templates',
     apiModule.name,
-    subModule.name
+    subModule.name,
   ])
   .config(config)
   .controller('MainCtrl', MainCtrl)

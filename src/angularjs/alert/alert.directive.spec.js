@@ -1,22 +1,21 @@
-describe('alertDirective', function() {
-  var alertDirective;
+describe('alertDirective', function () {
   var scope;
 
-  beforeEach(function() {
+  beforeEach(function () {
     module('hippo-ngbp');
 
-    inject(function($compile, $rootScope) {
+    inject(function ($compile, $rootScope) {
       var element = angular.element('<alert message="someMessage"></alert>');
       scope = $rootScope.$new();
 
       scope.someMessage = 'Hello World';
 
-      alertDirective = $compile(element)(scope);
+      $compile(element)(scope);
       scope.$digest();
     });
   });
 
-  it('should add Alert! to the message', function() {
+  it('should add Alert! to the message', function () {
     expect(scope.someMessage).toEqual('Hello World Alert!');
   });
 });

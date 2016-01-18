@@ -1,5 +1,5 @@
 export class MainService {
-  constructor () {
+  constructor() {
     this.message = 'Awesome Mainservice message';
   }
 }

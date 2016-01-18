@@ -1,11 +1,11 @@
 import { SubCtrl } from './sub.controller';
 
-function config ($stateProvider) {
+function config($stateProvider) {
   $stateProvider.state('main.sub', {
     url: 'sub/',
     templateUrl: 'sub/sub.html',
     controller: 'SubCtrl',
-    controllerAs: 'sub'
+    controllerAs: 'sub',
   });
 }
 
