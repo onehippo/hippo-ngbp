@@ -1,3 +1,3 @@
-var customConfig = {};
+const customConfig = {};
 
 module.exports = customConfig;

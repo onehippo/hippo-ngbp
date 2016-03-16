@@ -1,5 +1,5 @@
-var hippoBuild = require('hippo-build');
-var customConfig = require('./build.conf.js');
-var gulp = require('gulp');
+const hippoBuild = require('hippo-build');
+const customConfig = require('./build.conf.js');
+const gulp = require('gulp');
 
 hippoBuild.buildTasks(customConfig, gulp);
