@@ -1,10 +1,9 @@
 export function reverseFilter() {
   return function filter(input) {
-    var i;
-    var result = '';
+    let result = '';
     input = input || '';
 
-    for (i = 0; i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
       result = input.charAt(i) + result;
     }
 
