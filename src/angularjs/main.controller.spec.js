@@ -1,12 +1,12 @@
-describe('MainCtrl', function () {
-  var MainCtrl;
-  var $rootScope;
-  var $controller;
+describe('MainCtrl', () => {
+  let MainCtrl;
+  let $rootScope;
+  let $controller;
 
-  beforeEach(function () {
+  beforeEach(() => {
     module('hippo-ngbp');
 
-    inject(function (_$rootScope_, _$controller_) {
+    inject((_$rootScope_, _$controller_) => {
       $rootScope = _$rootScope_;
       $controller = _$controller_;
     });
@@ -16,7 +16,8 @@ describe('MainCtrl', function () {
     });
   });
 
-  it('should pass this test', function () {
+  it('should pass this test', () => {
     expect(MainCtrl.message).toEqual('Awesome Mainservice message');
   });
 });
+

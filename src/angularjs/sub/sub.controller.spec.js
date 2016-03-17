@@ -1,12 +1,12 @@
-describe('SubCtrl', function () {
-  var SubCtrl;
-  var $rootScope;
-  var $controller;
+describe('SubCtrl', () => {
+  let SubCtrl;
+  let $rootScope;
+  let $controller;
 
-  beforeEach(function () {
+  beforeEach(() => {
     module('hippo-ngbp');
 
-    inject(function (_$rootScope_, _$controller_) {
+    inject((_$rootScope_, _$controller_) => {
       $rootScope = _$rootScope_;
       $controller = _$controller_;
     });
@@ -16,7 +16,7 @@ describe('SubCtrl', function () {
     });
   });
 
-  it('should pass this test', function () {
+  it('should pass this test', () => {
     expect(SubCtrl.message).toEqual('Awesome sub module');
   });
 });

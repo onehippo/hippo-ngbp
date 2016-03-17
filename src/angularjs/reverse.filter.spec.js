@@ -1,19 +1,19 @@
-describe('reverseFilter', function () {
-  var reverseFilter;
+describe('reverseFilter', () => {
+  let reverseFilter;
 
-  beforeEach(function () {
+  beforeEach(() => {
     module('hippo-ngbp');
 
-    inject(function (_reverseFilter_) {
+    inject((_reverseFilter_) => {
       reverseFilter = _reverseFilter_;
     });
   });
 
-  it('should revert the given string', function () {
+  it('should revert the given string', () => {
     expect(reverseFilter('test')).toEqual('tset');
   });
 
-  it('should not error on empty input', function () {
+  it('should not error on empty input', () => {
     expect(reverseFilter()).toEqual('');
   });
 });
