@@ -20,7 +20,7 @@ angular
   .module('hippo-ngbp', [
     'ngMaterial',
     'ui.router',
-    'hippo-ngbp-templates',
+    'templates',
     apiModule.name,
     subModule.name,
   ])
