@@ -1,1 +1,1 @@
-import './angularjs/hippo-ngbp';
+export { hippoNgbp } from './angularjs/hippo-ngbp';

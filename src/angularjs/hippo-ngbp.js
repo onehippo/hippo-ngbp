@@ -16,7 +16,7 @@ function config($stateProvider, $urlRouterProvider) {
   });
 }
 
-angular
+export const hippoNgbp = angular
   .module('hippo-ngbp', [
     'ngMaterial',
     'ui.router',
