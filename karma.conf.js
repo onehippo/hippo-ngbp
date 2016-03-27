@@ -5,6 +5,7 @@ const cfg = hippoBuild.buildConfig(customConfig);
 module.exports = function karmaConfig(config) {
   const options = cfg.karma;
 
+  // include dependencies listed in the index.html here
   options.systemjs.includeFiles = [
     `${cfg.npmDir}/angular/angular.js`,
     `${cfg.npmDir}/angular-animate/angular-animate.js`,
@@ -12,13 +13,7 @@ module.exports = function karmaConfig(config) {
     `${cfg.npmDir}/angular-material/angular-material.js`,
     `${cfg.npmDir}/angular-ui-router/release/angular-ui-router.js`,
     `${cfg.npmDir}/angular-mocks/angular-mocks.js`,
-  ];
-
-  options.files = [
-    cfg.src.templates,
-    cfg.src.scripts,
-    cfg.src.unitTests,
-  ];
+  ].concat(options.systemjs.includeFiles || []);
 
   config.set(options);
 };
