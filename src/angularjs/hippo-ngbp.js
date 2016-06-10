@@ -4,6 +4,10 @@ import { alertDirective } from './alert/alert.directive';
 import { reverseFilter } from './reverse.filter';
 import { subModule } from './sub/sub';
 import { apiModule } from './api/api';
+import angular from 'angular';
+import ngMaterial from 'angular-material';
+
+require.context("./", true, /^\.\/.*\.html/);
 
 function config($stateProvider, $urlRouterProvider) {
   $urlRouterProvider.otherwise('/');
