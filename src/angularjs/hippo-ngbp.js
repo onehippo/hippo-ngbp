@@ -4,17 +4,22 @@ import { alertDirective } from './alert/alert.directive';
 import { reverseFilter } from './reverse.filter';
 import { subModule } from './sub/sub';
 import { apiModule } from './api/api';
+
 import angular from 'angular';
+import ngAnimate from 'angular-animate';
+import ngAria from 'angular-aria';
+import uiRouter from 'angular-ui-router';
 import ngMaterial from 'angular-material';
 
-require.context("./", true, /^\.\/.*\.html/);
+import template from './hippo-ngbp.html';
 
 function config($stateProvider, $urlRouterProvider) {
+  'ngInject';
   $urlRouterProvider.otherwise('/');
 
   $stateProvider.state('main', {
     url: '/',
-    templateUrl: 'hippo-ngbp.html',
+    template,
     controller: 'MainCtrl',
     controllerAs: 'main',
   });
@@ -22,9 +27,10 @@ function config($stateProvider, $urlRouterProvider) {
 
 export const hippoNgbp = angular
   .module('hippo-ngbp', [
-    'ngMaterial',
-    'ui.router',
-    'templates',
+    ngAnimate,
+    ngAria,
+    uiRouter,
+    ngMaterial,
     apiModule.name,
     subModule.name,
   ])

@@ -1,8 +1,9 @@
+'use strict';
+
 var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 
 module.exports = {
     entry: {
@@ -10,7 +11,7 @@ module.exports = {
         vendor: ['angular', 'angular-animate', 'angular-aria', 'angular-ui-router', 'angular-material']
     },
     output: {
-        path: path.resolve(__dirname, 'build'),
+        path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js',
         chunkFilename: '[id].bundle.js',
         publicPath: '/'
@@ -25,17 +26,18 @@ module.exports = {
             },
             {
                 test: /\.js$/,
-                loader: 'babel?{"presets":["es2015"]}',
+                loaders: ['ng-annotate', 'nginject?deprecate', 'babel?{"presets":["es2015"]}'],
                 exclude: /(node_modules)/
             },
             {
                 test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
                 loader: 'file'
             },
-            /*{ 
-              test: /\.(html)$/,
-              loader: "file?name=[path][name].[ext]&context=./src/angularjs"
-            }*/
+            {
+              test: /\.html$/,
+              loader: 'raw',
+              exclude: /(index.html)/
+            }
         ]
     },
     postcss: function() {
@@ -43,19 +45,7 @@ module.exports = {
             autoprefixer({browsers: ['last 5 versions']})
         ];
     },
-    resolve: {
-        root: [
-            //path.resolve(__dirname),
-            //path.resolve(__dirname, 'src/'),
-            //path.resolve(__dirname, 'src/angularjs/')
-        ]
-    },
     plugins: [
-        //new CopyWebpackPlugin([{ 
-        //  context: 'src/angularjs', 
-        //  from: '**/*.html',
-        //  to: 'build' 
-        //}]),
         new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity),
         new HtmlWebpackPlugin({
             pushState: true,

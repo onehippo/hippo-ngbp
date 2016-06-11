@@ -1,9 +1,12 @@
+import angular from 'angular';
 import { SubCtrl } from './sub.controller';
+import template from './sub.html';
 
 function config($stateProvider) {
+  'ngInject';
   $stateProvider.state('main.sub', {
     url: 'sub/',
-    templateUrl: 'sub/sub.html',
+    template,
     controller: 'SubCtrl',
     controllerAs: 'sub',
   });

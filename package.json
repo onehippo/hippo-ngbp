@@ -6,9 +6,9 @@
   "scripts": {
     "test": "karma start",
     "test-watch": "karma start --auto-watch --no-single-run",
-    "dev": "rimraf build; webpack --bail --progress --profile --config webpack.config.dev.js",
-    "release": "rimraf build; webpack --config webpack.config.prod.js",
-    "server": "webpack-dev-server --content-base build/ --config webpack.config.dev.js --history-api-fallback --hot --inline --port 9090"
+    "dev": "rimraf dist; webpack --bail --progress --profile --config webpack.config.dev.js",
+    "release": "rimraf dist; webpack --config webpack.config.prod.js",
+    "server": "webpack-dev-server --content-base dist/ --config webpack.config.dev.js --history-api-fallback --hot --inline --port 9090"
   },
   "dependencies": {
     "angular": "1.5.1",
@@ -24,7 +24,6 @@
     "babel-core": "^6.2.1",
     "babel-loader": "^6.2.0",
     "babel-preset-es2015": "^6.1.18",
-    "copy-webpack-plugin": "^1.1.1",
     "css-loader": "^0.23.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "file-loader": "^0.8.4",
@@ -38,6 +37,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "0.0.26",
     "karma-webpack": "^1.7.0",
+    "nginject-loader": "^2.1.0",
     "node-libs-browser": "^1.0.0",
     "null-loader": "^0.1.1",
     "phantomjs-prebuilt": "^2.1.4",
