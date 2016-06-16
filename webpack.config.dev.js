@@ -4,22 +4,17 @@ var path = require('path');
 var webpack = require('webpack');
 var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
   entry: {
     index: './src/index.js',
     vendor: ['angular', 'angular-animate', 'angular-aria', 'angular-ui-router', 'angular-material']
   },
-  output: {
-    path: path.resolve(__dirname, 'dist'),
-    filename: '[name].bundle.js',
-    chunkFilename: '[id].bundle.js',
-    publicPath: '/'
-  },
   debug: true,
-  devtool: 'source-map',
+  devtool: 'cheap-module-eval-source-map',
   devServer: {
-    stats: 'minimal'
+    /*stats: 'minimal'*/
   },
   module: {
     preLoaders: [
@@ -31,8 +26,8 @@ module.exports = {
     ],
     loaders: [
       {
-        test: /\.css$/,
-        loader: 'style/useable!css!postcss!'
+        test: /\.scss$/,
+        loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap&includePaths[]=' + path.resolve(__dirname, './src')]
       },
       {
         test: /\.js$/,
@@ -50,11 +45,17 @@ module.exports = {
       }
     ]
   },
-  postcss: function () {
-    return [
-      autoprefixer({ browsers: ['last 5 versions'] })
-    ];
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: '[name].bundle.js',
+    chunkFilename: '[id].bundle.js',
+    publicPath: '/'
   },
+  postcss: [
+      autoprefixer({
+        browsers: ['last 5 versions'] 
+      })
+  ],
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity),
     new HtmlWebpackPlugin({
@@ -65,5 +66,9 @@ module.exports = {
       //favicon: 'img/favicon.ico',
       hash: false
     })
-  ]
+  ],
+  resolve: {
+    extensions: ['', '.js', '.scss'],
+    root: [path.resolve(__dirname, 'src')]
+  }
 };
