@@ -63,7 +63,7 @@ module.exports = {
       filename: 'index.html',
       inject: 'body',
       template: 'src/index.html',
-      //favicon: 'img/favicon.ico',
+      favicon: 'src/images/favicon.ico',
       hash: false
     })
   ],
