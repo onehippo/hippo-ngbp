@@ -1,60 +1,59 @@
-'use strict';
 
-var path = require('path');
-var webpack = require('webpack');
-var autoprefixer = require('autoprefixer');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
+const autoprefixer = require('autoprefixer');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+const srcDir = path.resolve(__dirname, 'src');
+const distDir = path.resolve(__dirname, 'dist');
 
 module.exports = {
   entry: {
     index: './src/index.js',
-    vendor: ['angular', 'angular-animate', 'angular-aria', 'angular-ui-router', 'angular-material']
+    vendor: ['angular', 'angular-animate', 'angular-aria', 'angular-ui-router', 'angular-material'],
   },
   debug: true,
   devtool: 'cheap-module-eval-source-map',
-  devServer: {
-    /*stats: 'minimal'*/
-  },
+  devServer: {},
   module: {
     preLoaders: [
-      { 
-        test: /\.js?$/, 
-        loader: 'eslint', 
-        exclude: /node_modules/ 
-      }
+      {
+        test: /\.js?$/,
+        loader: 'eslint',
+        exclude: /node_modules/,
+      },
     ],
     loaders: [
       {
         test: /\.scss$/,
-        loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', 'sass?sourceMap&includePaths[]=' + path.resolve(__dirname, './src')]
+        loaders: ['style', 'css?sourceMap', 'postcss?sourceMap', `sass?sourceMap&includePaths[]=${srcDir}`],
       },
       {
         test: /\.js$/,
         loaders: ['ng-annotate', 'nginject?deprecate', 'babel?{"presets":["es2015"]}'],
-        exclude: /(node_modules)/
+        exclude: /(node_modules)/,
       },
       {
         test: /\.(eot|svg|ttf|woff|woff2|png)\w*/,
-        loader: 'file'
+        loader: 'file',
       },
       {
         test: /\.html$/,
         loader: 'raw',
-        exclude: /(index.html)/
-      }
-    ]
+        exclude: /(index.html)/,
+      },
+    ],
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: distDir,
     filename: '[name].bundle.js',
     chunkFilename: '[id].bundle.js',
-    publicPath: '/'
+    publicPath: '/',
   },
   postcss: [
-      autoprefixer({
-        browsers: ['last 5 versions'] 
-      })
+    autoprefixer({
+      browsers: ['last 5 versions'],
+    }),
   ],
   plugins: [
     new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity),
@@ -64,11 +63,11 @@ module.exports = {
       inject: 'body',
       template: 'src/index.html',
       favicon: 'src/images/favicon.ico',
-      hash: false
-    })
+      hash: false,
+    }),
   ],
   resolve: {
     extensions: ['', '.js', '.scss'],
-    root: [path.resolve(__dirname, 'src')]
-  }
+    root: [srcDir],
+  },
 };
