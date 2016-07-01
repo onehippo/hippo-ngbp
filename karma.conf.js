@@ -1,19 +1,52 @@
-const hippoBuild = require('hippo-build');
-const customConfig = require('./build.conf.js');
-const cfg = hippoBuild.buildConfig(customConfig);
-
+// Reference: http://karma-runner.github.io/0.12/config/configuration-file.html
 module.exports = function karmaConfig(config) {
-  const options = cfg.karma;
+  config.set({
+    frameworks: [
+      // Reference: https://github.com/karma-runner/karma-jasmine
+      // Set framework to jasmine
+      'jasmine',
+    ],
 
-  // include dependencies listed in the index.html here
-  options.systemjs.includeFiles = [
-    `${cfg.npmDir}/angular/angular.js`,
-    `${cfg.npmDir}/angular-animate/angular-animate.js`,
-    `${cfg.npmDir}/angular-aria/angular-aria.js`,
-    `${cfg.npmDir}/angular-material/angular-material.js`,
-    `${cfg.npmDir}/angular-ui-router/release/angular-ui-router.js`,
-    `${cfg.npmDir}/angular-mocks/angular-mocks.js`,
-  ].concat(options.systemjs.includeFiles || []);
+    reporters: [
+      // Reference: https://github.com/mlex/karma-spec-reporter
+      // Set reporter to print detailed results to console
+      'progress',
 
-  config.set(options);
+      // Reference: https://github.com/karma-runner/karma-coverage
+      // Output code coverage files
+      'coverage',
+    ],
+
+    files: [
+      // Grab all files in the app folder that contain .spec.
+      'src/index.tests.js'
+    ],
+    preprocessors: {
+      // Convert files with webpack and load sourcemaps
+      'src/index.tests.js': ['webpack', 'sourcemap']
+    },
+
+    browsers: [
+      // Run tests using PhantomJS
+      'Chrome',
+    ],
+
+    singleRun: true,
+
+    // Configure code coverage reporter
+    coverageReporter: {
+      dir: 'coverage/',
+      reporters: [
+        { type: 'text-summary' },
+        { type: 'html' },
+      ],
+    },
+
+    webpack: require('./webpack.config.test'),
+
+    // Hide webpack build information from output
+    webpackMiddleware: {
+      noInfo: 'errors-only',
+    },
+  });
 };
