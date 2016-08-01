@@ -8,7 +8,7 @@
   },
   "devDependencies": {
     "angular-mocks": "1.5.1",
-    "hippo-build": "git+http://github.com/onehippo/hippo-build.git"
+    "frontend-build": "git+http://github.com/onehippo/frontend-build.git"
   },
   "dependencies": {
     "angular": "1.5.1",
