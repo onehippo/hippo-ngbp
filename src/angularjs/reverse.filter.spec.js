@@ -2,7 +2,7 @@ describe('reverseFilter', () => {
   let reverseFilter;
 
   beforeEach(() => {
-    module('hippo-ngbp');
+    angular.mock.module('hippo-ngbp');
 
     inject((_reverseFilter_) => {
       reverseFilter = _reverseFilter_;

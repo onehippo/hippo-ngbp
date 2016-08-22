@@ -2,7 +2,7 @@ describe('alertDirective', () => {
   let scope;
 
   beforeEach(() => {
-    module('hippo-ngbp');
+    angular.mock.module('hippo-ngbp');
 
     inject(($compile, $rootScope) => {
       const element = angular.element('<alert message="someMessage"></alert>');

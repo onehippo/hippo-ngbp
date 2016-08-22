@@ -4,7 +4,7 @@ describe('SubCtrl', () => {
   let $controller;
 
   beforeEach(() => {
-    module('hippo-ngbp');
+    angular.mock.module('hippo-ngbp');
 
     inject((_$rootScope_, _$controller_) => {
       $rootScope = _$rootScope_;
