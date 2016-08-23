@@ -15,6 +15,11 @@ module.exports = {
   debug: true,
   devtool: 'cheap-module-eval-source-map',
   devServer: {},
+
+  babel = {
+    presets: ['es2015']
+  },
+
   module: {
     preLoaders: [
       {
@@ -30,7 +35,7 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        loaders: ['ng-annotate', 'nginject?deprecate', 'babel?{"presets":["es2015"]}'],
+        loaders: ['ng-annotate', 'nginject?deprecate', 'babel'],
         exclude: /(node_modules)/,
       },
       {

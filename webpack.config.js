@@ -24,6 +24,10 @@ const sassLoaders = [
  */
 module.exports = {
 
+  babel = {
+    presets: ['es2015']
+  },
+
   /**
    * Entry file of the app
    * Reference: http://webpack.github.io/docs/configuration.html#entry
@@ -76,7 +80,7 @@ module.exports = {
       // Transpile .js files using babel-loader to compile ES6 and ES7 into ES5 code.
       // Uses ng-annotate and nginject to handle anguler DI
       test: /\.js$/,
-      loaders: ['ng-annotate', 'nginject?deprecate', 'babel?{"presets":["es2015"]}'],
+      loaders: ['ng-annotate', 'nginject?deprecate', 'babel'],
       exclude: /node_modules/,
     }, {
       // sass loader

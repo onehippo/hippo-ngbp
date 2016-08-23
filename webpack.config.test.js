@@ -1,19 +1,21 @@
 'use strict';
 
-function createConfig() {
-  const config = {};
-
+module.exports = {
    // Karma will set these up
-  config.entry = {};
-  config.output = {};
+  entry: {},
+  output: {},
 
-  config.devtool = 'inline-source-map';
-  config.plugins = [];
+  devtool: 'inline-source-map',
+  plugins: [],
 
-  config.module = {
+  babel: {
+    presets: ['es2015']
+  },
+
+  module: {
     preLoaders: [{
       // ISPARTA LOADER
-      // Reference: https://github.com/ColCh/isparta-instrumenter-loader
+      // Reference: https://github.com/deepsweet/isparta-loader
       // Instrument JS files with Isparta for subsequent code coverage reporting
       // Skips node_modules and files that end with .spec.js
       test: /\.js$/,
@@ -21,22 +23,17 @@ function createConfig() {
         /node_modules/,
         /\.spec\.js$/,
       ],
-      loader: 'isparta-instrumenter',
-      query: {
-        babel: {
-          presets: ['es2015']
-        }
-      }
+      loader: 'isparta'
     }],
     loaders: [{
       // js spec loader - skips nginject/ng-annotate since it messes up the sourcemap
       test: /\.spec\.js$/,
-      loaders: ['babel?{"presets":["es2015"]}'],
+      loaders: ['babel'],
       exclude: /(node_modules)/,
     }, {
       // js loader
       test: /\.js$/,
-      loaders: ['ng-annotate', 'nginject?deprecate', 'babel?{"presets":["es2015"]}'],
+      loaders: ['ng-annotate', 'nginject?deprecate', 'babel'],
       exclude: [/(node_modules)/, /\.spec\.js$/] 
     }, {
         // sass loader
@@ -47,9 +44,5 @@ function createConfig() {
       test: /\.html$/,
       loader: 'raw',
     }],
-  };
-
-  return config;
-}
-
-module.exports = createConfig();
+  }
+};
