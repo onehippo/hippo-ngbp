@@ -8,41 +8,34 @@ Just change the name in the package.json, bower.json and src/* files to the name
 * [Git](http://git-scm.com/)
 
 ### Dependencies
-* [Bower](http://bower.io/) (front-end package manager)
-* [Gulp](http://gulpjs.com/) (task automation)
-
-### Gulp4 / Gulp3
-The Hippo Build gulp uses gulp4, which is currently not released yet. You can install gulp4 globally via
-the command listed below. If you need to have gulp3 installed globally we have set up the npm script 'gulp' so
-you can run the build tasks with the following command:
-  $ npm run gulp [some task]
+* [Webpack](http://webpack.github.io) (module bundler)
+* [webpack-server](https://webpack.github.io/docs/webpack-dev-server.html) (webpack development server)
+* [Karma](https://karma-runner.github.io) (test runner for javascript)
+* [rimraf](https://github.com/isaacs/rimraf) (`rm -rf` util for nodejs)
 
 ### Installation
-#### Install Gulp CLI and Bower globally
-  $ npm install -g gulpjs/gulp-cli
-  $ npm install -g bower
+#### Install webpack, webpack-server, karma and rimraf globally
+  $ npm install -g webpack  
+  $ npm install -g webpack-server  
+  $ npm install -g karma-cli  
+  $ npm install -g rimraf  
 
 #### Install project dependencies
 Run the commands below in the project root directory.
-
   $ npm install
-  $ bower install
 
 ## Useful commands
-### List all gulp tasks available
-  $ gulp --tasks
+### Run unit tests
+  $ npm run test
 
 ### Run unit tests
-  $ gulp unitTests
+  $ npm run test-watch
 
 ### Build application for development
-  $ gulp build
+  $ npm run dev
 
 ### Setup development server
-  $ gulp serve
+  $ npm run server
 
 ### Build optimized application for production
-  $ gulp buildDist
-
-### Setup production server
-  $ gulp serveDist
+  $ npm run release
