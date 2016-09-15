@@ -16,10 +16,6 @@ module.exports = {
   devtool: 'cheap-module-eval-source-map',
   devServer: {},
 
-  babel = {
-    presets: ['es2015']
-  },
-
   module: {
     preLoaders: [
       {
@@ -61,7 +57,7 @@ module.exports = {
     }),
   ],
   plugins: [
-    new webpack.optimize.CommonsChunkPlugin('vendor', 'vendor.bundle.js', Infinity),
+    new webpack.optimize.CommonsChunkPlugin({ name: 'vendor',filename: 'vendor.bundle.js' }),
     new HtmlWebpackPlugin({
       pushState: true,
       filename: 'index.html',
