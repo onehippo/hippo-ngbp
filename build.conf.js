@@ -1,3 +1,1 @@
-const customConfig = {};
-
-module.exports = customConfig;
+module.exports = {};

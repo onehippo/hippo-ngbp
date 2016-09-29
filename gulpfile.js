@@ -1,5 +1,4 @@
-const hippoBuild = require('hippo-build');
-const customConfig = require('./build.conf.js');
 const gulp = require('gulp');
-
-hippoBuild.buildTasks(customConfig, gulp);
+const HubRegistry = require('gulp-hub');
+const hub = new HubRegistry(['node_modules/frontend-build/gulpfile.js']);
+gulp.registry(hub);
