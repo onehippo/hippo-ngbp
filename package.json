@@ -1,7 +1,7 @@
 {
   "name": "hippo-ngbp",
-  "author": "Joeri de Gooijer",
   "private": true,
+  "license": "Apache-2.0",
   "description": "Boilerplate for Hippo B.V. angular projects",
   "scripts": {
     "gulp": "gulp",
