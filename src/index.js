@@ -1,4 +1,4 @@
-require('./vendor.scss');
-require('./index.scss');
+import './vendor.scss';
+import './index.scss';
 
 export { hippoNgbp } from './angularjs/hippo-ngbp';
