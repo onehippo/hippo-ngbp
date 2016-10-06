@@ -1,12 +1,7 @@
-export function reverseFilter() {
+export default function reverseFilter() {
   return function filter(input) {
-    let result = '';
     input = input || '';
-
-    for (let i = 0; i < input.length; i++) {
-      result = input.charAt(i) + result;
-    }
-
-    return result;
+    // Based on http://exploringjs.com/es6/ch_strings.html#_reversing-strings-with-non-bmp-code-points
+    return [...input].reverse().join('');
   };
 }
