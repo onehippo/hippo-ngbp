@@ -1,11 +1,4 @@
 {
   "root": true,
-  "extends": "./node_modules/frontend-build/.eslintrc",
-  "rules": {
-    "import/no-extraneous-dependencies": ["error",
-      {
-        "devDependencies": ["**/*.spec.js"]
-      }
-    ]
-  }
+  "extends": "./node_modules/frontend-build/.eslintrc"
 }
