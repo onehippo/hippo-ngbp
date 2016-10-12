@@ -1,41 +1,59 @@
-# Hippo Angular Boilerplate
-Just change the name in the package.json, bower.json and src/* files to the name of your application.
+# Prerequisites
+* [Chrome](http://google.chrome.com)
+* [gulp-cli](https://github.com/gulpjs/gulp-cli) (optional)
 
-## Development environment setup
-### Prerequisites
-* [NodeJS](http://nodejs.org/) (NodeJS)
-* [Node Package Manager](https://npmjs.org/) (NPM, comes installed with NodeJS)
-* [Git](http://git-scm.com/)
+The Hippo Build uses [Gulp.js](https://gulpjs.com) for frontend task automation.
+Installing the gulp-cli globally is optional. You can install the gulp-cli
+globally via `npm install -g gulp-cli` and use the gulp cli directly, initiate
+gulp tasks via `npm run` or simply stick with the predefined `npm start` and
+`npm test` described below.
 
-### Dependencies
-* [Webpack](http://webpack.github.io) (module bundler)
-* [webpack-server](https://webpack.github.io/docs/webpack-dev-server.html) (webpack development server)
-* [Karma](https://karma-runner.github.io) (test runner for javascript)
-* [rimraf](https://github.com/isaacs/rimraf) (`rm -rf` util for nodejs)
-
-### Installation
-#### Install webpack, webpack-server, karma and rimraf globally
-  $ npm install -g webpack  
-  $ npm install -g webpack-server  
-  $ npm install -g karma-cli  
-  $ npm install -g rimraf  
-
-#### Install project dependencies
+# Installation
+### Install project dependencies
 Run the commands below in the project root directory.
-  $ npm install
 
-## Useful commands
-### Run unit tests
-  $ npm run test
+    $ npm install
 
-### Run unit tests
-  $ npm run test-watch
+# Useful commands
+## When starting gulp tasks using cli
+List all gulp tasks available
 
-### Build application for development
-  $ npm run dev
+    $ gulp --tasks
 
-### Setup development server
-  $ npm run server
+Serve and watch files for development
 
-### Build optimized application for production
-  $ npm run release
+    $ gulp serve
+
+Run unit tests and watch for changes to rerun (Chrome needs to be installed)
+
+    $ gulp test:auto
+
+Run unit tests once (Chrome needs to be installed)
+
+    $ gulp test
+
+Build optimized application for production
+
+    $ gulp build
+
+
+## When starting gulp tasks through npm
+If you do not install the gulp-cli you can run the following with npm
+
+    $ npm run gulp [some defined gulp task]
+
+List all gulp tasks available
+
+    $ npm run gulp -- --tasks
+
+Serve and watch files for development
+
+    $ npm start
+
+Run unit tests and watch for changes to rerun (Chrome needs to be installed)
+
+    $ npm run test:auto
+
+Run unit tests once (Chrome needs to be installed)
+
+    $ npm test
