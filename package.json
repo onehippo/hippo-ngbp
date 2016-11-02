@@ -6,9 +6,13 @@
   "scripts": {
     "gulp": "gulp",
     "build": "gulp build",
-    "start": "gulp serve",
+    "buildDev": "gulp buildDev",
+    "buildProfile": "gulp buildProfile",
+    "clean": "gulp clean",
+    "start": "gulp start",
+    "startDist": "gulp startDist",
     "test": "gulp test",
-    "test:auto": "gulp test:auto"
+    "testOnce": "gulp testOnce"
   },
   "dependencies": {
     "angular": "1.5.6",
