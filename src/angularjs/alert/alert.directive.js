@@ -5,7 +5,7 @@ function link(scope) {
   scope.message += ' Alert!';
 }
 
-export default function alertDirective() {
+function alertDirective() {
   'ngInject';
 
   return {
@@ -17,3 +17,5 @@ export default function alertDirective() {
     link,
   };
 }
+
+export default alertDirective;

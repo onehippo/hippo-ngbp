@@ -1,4 +1,4 @@
-export default class MainService {
+class MainService {
   constructor() {
     this.message = 'Awesome Mainservice message';
   }
@@ -7,3 +7,5 @@ export default class MainService {
     return this.message;
   }
 }
+
+export default MainService;
