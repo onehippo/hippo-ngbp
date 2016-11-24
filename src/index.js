@@ -1,4 +1,3 @@
 import './vendor.scss';
 import './index.scss';
-
-export { hippoNgbp as default } from './angularjs/hippo-ngbp.module';
+import './angularjs/hippo-ngbp.module';
