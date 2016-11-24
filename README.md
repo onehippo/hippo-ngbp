@@ -2,7 +2,7 @@
 * [Chrome](http://google.chrome.com)
 * [gulp-cli](https://github.com/gulpjs/gulp-cli) (optional)
 
-The Hippo Build uses [Gulp.js](https://gulpjs.com) for frontend task automation.
+The Frontend Build uses [Gulp.js](https://gulpjs.com) for frontend task automation.
 Installing the gulp-cli globally is optional. You can install the gulp-cli
 globally via `npm install -g gulp-cli` and use the gulp cli directly, initiate
 gulp tasks via `npm run` or simply stick with the predefined `npm start` and
