@@ -13,7 +13,9 @@ function config($stateProvider) {
   });
 }
 
-export default angular
+const subModule = angular
   .module('sub', [])
   .config(config)
   .controller('SubCtrl', SubCtrl);
+
+export default subModule.name;

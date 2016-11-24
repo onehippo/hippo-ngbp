@@ -25,16 +25,18 @@ function config($stateProvider, $urlRouterProvider) {
   });
 }
 
-export default angular
+const hippoNgbpModule = angular
   .module('hippo-ngbp', [
     ngAnimate,
     ngAria,
     uiRouter,
     ngMaterial,
-    subModule.name,
+    subModule,
   ])
   .config(config)
   .controller('MainCtrl', MainCtrl)
   .service('MainService', MainService)
   .directive('alert', alertDirective)
   .filter('reverse', reverseFilter);
+
+export default hippoNgbpModule.name;
