@@ -9,7 +9,6 @@ import MainCtrl from './main.controller';
 import alertDirective from './alert/alert.directive';
 import reverseFilter from './reverse.filter';
 import subModule from './sub/sub';
-import apiModule from './api/api';
 
 import template from './hippo-ngbp.html';
 
@@ -32,7 +31,6 @@ export default angular
     ngAria,
     uiRouter,
     ngMaterial,
-    apiModule.name,
     subModule.name,
   ])
   .config(config)
