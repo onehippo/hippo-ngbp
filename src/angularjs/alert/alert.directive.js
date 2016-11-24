@@ -1,3 +1,4 @@
+import './alert.scss';
 import template from './alert.directive.html';
 
 function link(scope) {
