@@ -8,7 +8,7 @@ import MainService from './main.service';
 import MainCtrl from './main.controller';
 import alertDirective from './alert/alert.directive';
 import reverseFilter from './reverse.filter';
-import subModule from './sub/sub';
+import subModule from './sub/sub.module';
 
 import template from './hippo-ngbp.html';
 
