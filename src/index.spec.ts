@@ -1,7 +1,7 @@
 // Angularjs testing
 import 'angular';
 import 'angular-mocks';
-import './hippo-ngbp.module';
+import './app/angularjs/hippo-ngbp.module';
 
 // Angular testing
 import 'core-js/es6';
