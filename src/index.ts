@@ -1,4 +1,3 @@
-import './polyfills';
 import { bootstrap } from 'angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
