@@ -1,7 +1,7 @@
 // Angularjs testing
 import 'angular';
 import 'angular-mocks';
-import './app/angularjs/hippo-ngbp.module';
+import './app/hippo-ngbp.module';
 
 // Angular testing
 import './polyfills';
