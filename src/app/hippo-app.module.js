@@ -1,4 +1,5 @@
 import hippoApp from './hippo-app.component';
+import hippoToolbar from './toolbar/toolbar.component';
 
 angular
   .module('hippo-app', [
@@ -6,5 +7,6 @@ angular
     'ngAnimate',
     'ngMaterial',
   ])
-  .component('hippoApp', hippoApp);
+  .component('hippoApp', hippoApp)
+  .component('hippoToolbar', hippoToolbar);
 
