@@ -1,4 +1,6 @@
-import './polyfills';
+import './vendor';
+
+import 'zone.js/dist/zone';
 import 'zone.js/dist/long-stack-trace-zone';
 import 'zone.js/dist/proxy';
 import 'zone.js/dist/sync-test';
@@ -6,10 +8,8 @@ import 'zone.js/dist/jasmine-patch';
 import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
-// Angularjs testing
-import './vendor';
 import 'angular-mocks';
-import './app/hippo-ngbp.module';
+import './app/hippo-app.module';
 
 import { getTestBed } from '@angular/core/testing';
 import {

@@ -1,4 +1,5 @@
-import { bootstrap } from 'angular';
+import './vendor';
+
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app/app.module';
