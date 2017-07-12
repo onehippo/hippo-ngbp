@@ -9,7 +9,7 @@ import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
 import 'angular-mocks';
-import './app/hippo-app.module';
+import './app/app.module';
 
 import { getTestBed } from '@angular/core/testing';
 import {

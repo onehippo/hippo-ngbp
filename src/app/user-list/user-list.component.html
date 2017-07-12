@@ -1,0 +1,14 @@
+<mat-list>
+  <ng-container *ngFor="let user of users">
+    <mat-list-item>
+      <h4 mat-line>{{ user.name }}</h4>
+      <p mat-line>{{ user.description }}</p>
+
+      <button mat-button>
+        Click
+      </button>
+      <hippo-list-button></hippo-list-button>
+    </mat-list-item>
+    <mat-divider></mat-divider>
+  </ng-container>
+</mat-list>
