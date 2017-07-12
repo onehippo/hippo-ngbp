@@ -1,21 +1,15 @@
 describe('Angular 1 Hello world component', () => {
   let $ctrl;
   let $componentController;
-  let MessageService;
 
   beforeEach(() => {
     angular.mock.module('hippo-ngbp');
 
-    inject((_$componentController_, _MessageService_) => {
-      MessageService = _MessageService_;
+    inject((_$componentController_) => {
       $componentController = _$componentController_;
     });
 
-    $ctrl = $componentController('hippoHelloWorld', {
-      MessageService,
-    }, {
-
-    });
+    $ctrl = $componentController('hippoHelloWorld');
   });
 
   it('should initialize', () => {

@@ -7,7 +7,7 @@ import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
 // Angularjs testing
-import 'angular';
+import './vendor';
 import 'angular-mocks';
 import './app/hippo-ngbp.module';
 
