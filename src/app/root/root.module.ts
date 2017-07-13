@@ -9,6 +9,7 @@ import hippoListButton from './list-button/list-button.component';
 import downgradesModule from '../migration/downgrades.module';
 
 import { usersModule, UsersModule } from './users/users.module';
+import { ToolbarService } from './toolbar/toolbar.service';
 
 export const rootModule = module(
   'app.root',
@@ -26,6 +27,9 @@ export const rootModule = module(
   imports: [
     CommonModule,
     UsersModule,
+  ],
+  providers: [
+    ToolbarService,
   ],
 })
 export class RootModule { }
