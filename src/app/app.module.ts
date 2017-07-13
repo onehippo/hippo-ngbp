@@ -1,37 +1,34 @@
-import './hippo-app.module';
-
+import { module } from 'angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpgradeModule  } from '@angular/upgrade/static';
 
-import { MaterialModule } from './material/material.module';
-import { UpgradesModule } from './upgrades/upgrades.module';
+import { rootModule, RootModule } from './root/root.module';
+import { sharedModule, SharedModule } from './shared/shared.module';
 
-import { UserListComponent } from './user-list/user-list.component';
-import { UserListService } from './user-list/user-list.service';
+module('app', [
+  'ngAria',
+  'ngAnimate',
+  'ngMaterial',
+  rootModule,
+  sharedModule,
+]);
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     UpgradeModule,
-    UpgradesModule,
-    MaterialModule,
+    SharedModule,
+    RootModule,
   ],
-  providers: [
-    UserListService,
-  ],
-  declarations: [
-    UserListComponent,
-  ],
-  entryComponents: [UserListComponent],
 })
 export class AppModule {
   constructor(private upgrade: UpgradeModule) {}
 
   ngDoBootstrap() {
-    this.upgrade.bootstrap(document.body, ['hippo-app'], { strictDi: true });
+    this.upgrade.bootstrap(document.body, ['app'], { strictDi: true });
   }
 }
 

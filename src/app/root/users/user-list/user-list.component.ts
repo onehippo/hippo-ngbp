@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserListService } from './user-list.service';
+import { UserListService } from '../user-list.service';
 
 @Component({
   selector: 'hippo-user-list',

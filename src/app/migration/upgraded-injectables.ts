@@ -1,4 +1,4 @@
-import UserService from '../user/user.service';
+import UserService from '../root/users/user.service';
 
 function userServiceFactory(i: any) {
   return i.get('UserService');
