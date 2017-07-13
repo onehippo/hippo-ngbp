@@ -6,19 +6,24 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpgradeModule  } from '@angular/upgrade/static';
 
 import { MaterialModule } from './material/material.module';
+import { UpgradesModule } from './upgrades/upgrades.module';
+
 import { UserListComponent } from './user-list/user-list.component';
-import { ListButtonComponent } from './list-button/list-button.upgrade';
+import { UserListService } from './user-list/user-list.service';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     UpgradeModule,
+    UpgradesModule,
     MaterialModule,
+  ],
+  providers: [
+    UserListService,
   ],
   declarations: [
     UserListComponent,
-    ListButtonComponent,
   ],
   entryComponents: [UserListComponent],
 })

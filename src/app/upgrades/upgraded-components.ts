@@ -9,3 +9,4 @@ export class ListButtonComponent extends UpgradeComponent {
     super('hippoListButton', elementRef, injector);
   }
 }
+

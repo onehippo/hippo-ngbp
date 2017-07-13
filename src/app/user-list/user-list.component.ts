@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserListService } from './user-list.service';
 
 @Component({
   selector: 'hippo-user-list',
@@ -7,20 +8,9 @@ import { Component, OnInit } from '@angular/core';
 export class UserListComponent implements OnInit {
   users: object[];
 
+  constructor(private userList: UserListService) {}
+
   ngOnInit() {
-    this.users = [
-      {
-        name: 'Joeri',
-        description: 'Awesome web engineer',
-      },
-      {
-        name: 'Stijn',
-        description: 'Awesome python programmer',
-      },
-      {
-        name: 'Ger',
-        description: 'Awesome web developer',
-      },
-    ];
+    this.users = this.userList.users;
   }
 }
