@@ -3,7 +3,7 @@ describe('ListButton component', () => {
   let $componentController;
 
   beforeEach(() => {
-    angular.mock.module('hippo-app');
+    angular.mock.module('app');
 
     inject((_$componentController_) => {
       $componentController = _$componentController_;

@@ -3,7 +3,7 @@ describe('Hippo app component', () => {
   let $componentController;
 
   beforeEach(() => {
-    angular.mock.module('hippo-app');
+    angular.mock.module('app');
 
     inject((_$componentController_) => {
       $componentController = _$componentController_;
@@ -14,6 +14,6 @@ describe('Hippo app component', () => {
 
   it('should initialize', () => {
     $ctrl.$onInit();
-    expect($ctrl.appName).toBe('hippo-app');
+    expect($ctrl.appName).toBe('app');
   });
 });
