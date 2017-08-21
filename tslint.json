@@ -1,3 +1,6 @@
 {
-  "extends": "./node_modules/frontend-build/tslint.json"
+  "rulesDirectory": [
+    "./node_modules/codelyzer"
+  ],
+  "extends": "frontend-build/tslint.json"
 }
