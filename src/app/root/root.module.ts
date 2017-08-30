@@ -6,7 +6,7 @@ import hippoRoot from './root.component';
 import hippoToolbar from './toolbar/toolbar.component';
 import hippoListButton from './list-button/list-button.component';
 
-import downgradesModule from '../migration/downgrades.module';
+import downgradesModule from '../migration/downgrades.ng1-module';
 
 import { usersModule, UsersModule } from './users/users.module';
 import { ToolbarService } from './toolbar/toolbar.service';
