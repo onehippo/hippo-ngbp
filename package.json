@@ -38,11 +38,12 @@
   },
   "devDependencies": {
     "@angular/cli": "1.2.0",
+    "@bloomreach/frontend-build": "latest",
     "@types/jasmine": "2.5.53",
     "@types/node": "8.0.9",
     "@types/webpack-env": "1.13.0",
     "angular-mocks": "1.6.5",
-    "@bloomreach/frontend-build": "latest",
+    "codelyzer": "3.1.2",
     "gulp": "gulpjs/gulp#38246c3f8b6dbb8d4ef657183e92d90c8299e22f",
     "gulp-hub": "frankwallis/gulp-hub#292f8ab005165c3267accb01a51f31719970d443"
   }

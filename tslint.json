@@ -2,5 +2,5 @@
   "rulesDirectory": [
     "./node_modules/codelyzer"
   ],
-  "extends": "frontend-build/tslint.json"
+  "extends": "./node_modules/@bloomreach/frontend-build/tslint.json"
 }
