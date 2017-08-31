@@ -4,6 +4,7 @@ import {
   MdListModule,
   MdButtonModule,
 } from '@angular/material';
+import './material.scss';
 
 @NgModule({
   exports: [

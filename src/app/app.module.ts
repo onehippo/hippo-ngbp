@@ -1,34 +1,33 @@
-import { module } from 'angular';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UpgradeModule  } from '@angular/upgrade/static';
 
-import { rootModule, RootModule } from './root/root.module';
-import { sharedModule, SharedModule } from './shared/shared.module';
+import ng1AppModule from './app.ng1-module.js';
 
-module('app', [
-  'ngAria',
-  'ngAnimate',
-  'ngMaterial',
-  rootModule,
-  sharedModule,
-]);
+import { MaterialModule } from './material/material.module';
+import { RootModule } from './root/root.module';
+
+import { userServiceProvider } from './ng1-upgraded-providers';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     UpgradeModule,
-    SharedModule,
+    MaterialModule,
     RootModule,
   ],
+  providers: [
+    userServiceProvider
+  ]
 })
 export class AppModule {
   constructor(private upgrade: UpgradeModule) {}
 
+
   ngDoBootstrap() {
-    this.upgrade.bootstrap(document.body, ['app'], { strictDi: true });
+    this.upgrade.bootstrap(document.body, [ng1AppModule], { strictDi: true });
   }
 }
 
