@@ -14,7 +14,7 @@ describe('ListButton component', () => {
 
   it('should initialize', () => {
     $ctrl.$onInit();
-    expect($ctrl.message).toBe('Click me!');
+    expect($ctrl.message).toBe('AngularJS');
   });
 });
 

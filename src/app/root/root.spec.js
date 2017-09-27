@@ -9,7 +9,7 @@ describe('Hippo app component', () => {
       $componentController = _$componentController_;
     });
 
-    $ctrl = $componentController('hippoApp');
+    $ctrl = $componentController('hippoRoot');
   });
 
   it('should initialize', () => {

@@ -8,8 +8,8 @@ import 'zone.js/dist/jasmine-patch';
 import 'zone.js/dist/async-test';
 import 'zone.js/dist/fake-async-test';
 
+import './app/app.ng1-module.js';
 import 'angular-mocks';
-import './app/app.module';
 
 import { getTestBed } from '@angular/core/testing';
 import {
