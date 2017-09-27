@@ -5,17 +5,12 @@ export default class UserService {
     this.ApiService = ApiService;
 
     this.possibleUserNames = [
-      'Anthony',
-      'Arttyy',
-      'Calsio',
-      'Cliford',
-      'Duane',
-      'Emile',
-      'Emma',
-      'Francis',
-      'Ingmar',
+      'Ariel',
+      'Arthur',
       'Joeri',
-      'Lydia',
+      'Mathijs',
+      'Michiel',
+      'Ran',
     ];
   }
 

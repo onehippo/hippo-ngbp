@@ -1,6 +1,6 @@
 export default class ListButtonController {
   $onInit() {
-    this.message = 'Click me!';
+    this.message = 'AngularJS';
   }
 
   showAlert() {

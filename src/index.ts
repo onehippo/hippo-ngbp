@@ -1,4 +1,5 @@
 import './vendor';
+import './index.scss';
 
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

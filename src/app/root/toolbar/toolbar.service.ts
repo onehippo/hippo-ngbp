@@ -5,6 +5,6 @@ export class ToolbarService {
   toolbarMessage: string;
 
   constructor() {
-    this.toolbarMessage = 'Hello World';
+    this.toolbarMessage = 'Hello Hybrid Application!';
   }
 }
