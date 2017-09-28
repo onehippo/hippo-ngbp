@@ -11,6 +11,7 @@ export default module('app',
     'ngAria',
     'ngAnimate',
     'ngMaterial',
+    'ngMessages',
     downgradesModule,
     rootModule,
   ])
