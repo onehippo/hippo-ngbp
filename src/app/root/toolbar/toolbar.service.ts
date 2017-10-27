@@ -5,6 +5,6 @@ export class ToolbarService {
   toolbarMessage: string;
 
   constructor() {
-    this.toolbarMessage = 'Hello Hybrid Application!';
+    this.toolbarMessage = 'Hello Angular4-only Application!';
   }
 }

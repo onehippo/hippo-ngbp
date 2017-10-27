@@ -1,8 +1,12 @@
-export default class UserService {
-  constructor(ApiService) {
-    'ngInject';
+import { Injectable } from '@angular/core';
+import { ApiService } from '../../shared/services/api.service';
 
-    this.ApiService = ApiService;
+@Injectable()
+export class UserService {
+
+  possibleUserNames: Array<string>;
+
+  constructor(private apiService: ApiService) {
 
     this.possibleUserNames = [
       'Ariel',
@@ -16,7 +20,7 @@ export default class UserService {
 
   generateUser() {
     const userName = this.getRandomUserName();
-    return this.ApiService.getUser(userName);
+    return this.apiService.getUser(userName);
   }
 
   getRandomUserName() {
@@ -25,3 +29,4 @@ export default class UserService {
     return this.possibleUserNames.splice(randomIndex, 1)[0];
   }
 }
+

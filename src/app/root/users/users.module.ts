@@ -3,21 +3,23 @@ import { CommonModule } from '@angular/common';
 
 import { UserListService } from './user-list.service';
 import { UserListComponent } from './user-list/user-list.component';
+import { UserService } from './user.service';
 
 import { MaterialModule } from '../../material/material.module';
-import { ListButtonComponent } from '../../ng1-upgraded-components';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   providers: [
     UserListService,
+    UserService,
   ],
   declarations: [
     UserListComponent,
-    ListButtonComponent,
   ],
   imports: [
     CommonModule,
     MaterialModule,
+    SharedModule
   ],
   exports: [
     UserListComponent,
