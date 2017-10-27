@@ -1,21 +1,37 @@
-/*
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { RootComponent } from './root.component';
+import { ToolbarComponent } from './toolbar/toolbar.component';
+import { UsersModule } from './users/users.module';
+import { MaterialModule } from '../material/material.module';
+import { ToolbarService } from './toolbar/toolbar.service';
+
 describe('Hippo app component', () => {
-  let $ctrl;
-  let $componentController;
+
+  let component: RootComponent;
+  let fixture: ComponentFixture<RootComponent>
 
   beforeEach(() => {
-    angular.mock.module('app');
-
-    inject((_$componentController_) => {
-      $componentController = _$componentController_;
+    TestBed.configureTestingModule({
+      imports: [
+        MaterialModule,
+        UsersModule
+      ],
+      declarations: [
+        RootComponent,
+        ToolbarComponent
+      ],
+      providers: [
+        ToolbarService,
+      ]
     });
 
-    $ctrl = $componentController('hippoRoot');
+    fixture = TestBed.createComponent(RootComponent);
+    component = fixture.componentInstance;
   });
 
   it('should initialize', () => {
-    $ctrl.$onInit();
-    expect($ctrl.appName).toBe('app');
+    component.ngOnInit();
+    expect(component.appName).toBe('app');
   });
 });
-*/

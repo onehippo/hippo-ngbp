@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'hippo-root',
   templateUrl: './root.component.html',
 })
-export class RootComponent {
+export class RootComponent implements OnInit {
 
-  private appName;
+  appName;
 
-  $onInit() {
+  ngOnInit(): void {
     this.appName = 'app';
   }
 }
