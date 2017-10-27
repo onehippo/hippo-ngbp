@@ -34,7 +34,7 @@
   },
   "devDependencies": {
     "@angular/cli": "1.4.3",
-    "@bloomreach/frontend-build": "file:/home/mathijs/projects/hippo/community/frontend-build",
+    "@bloomreach/frontend-build": "latest",
     "@types/jasmine": "2.6.0",
     "@types/node": "8.0.31",
     "@types/webpack-env": "1.13.1",
