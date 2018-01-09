@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import {
   NoConflictStyleCompatibilityMode,
-  MdListModule,
-  MdButtonModule,
+  MatListModule,
+  MatButtonModule,
 } from '@angular/material';
 import './material.scss';
 
 @NgModule({
   exports: [
     NoConflictStyleCompatibilityMode,
-    MdListModule,
-    MdButtonModule,
+    MatListModule,
+    MatButtonModule,
   ]
 })
 export class MaterialModule { }
